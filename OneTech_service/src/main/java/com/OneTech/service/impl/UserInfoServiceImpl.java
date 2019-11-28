@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.OneTech.service.service.UserInfoService;
+
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
     @Autowired
     UserInfoMapper userInfoMapper;
     @Value("${localUrl}")
-    public String localUrl;
+    public String url;
 
     @Override
     public List<UserInfoBean> searchFriend(JSONObject requestJson) throws Exception {
@@ -42,43 +43,25 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
-        String url;
         try {
-            if(BooleanUtils.isNotEmpty(localUrl)){
-                url = localUrl;
-            }
-            else {
-                /**
-                 * 获取classes路径
-                 */
-                url = this.getClass().getResource("/").toString();
-            }
             String savePath = "img/" + requestJson.getString("wechatId").hashCode() + ".png";
             //微信号hash值作为照片名字
             String path = url + savePath;
-            if (path.startsWith("file:")) {
-                path = path.substring(5, path.length());
-            }
             File df;
-            if ((url + "img/").startsWith("file:")) {
-                df = new File((url + "img/").substring(5, (url + "img/").length()));
-            } else {
-                df = new File(url + "img/");
-            }
+            df = new File(url + "img/");
             if (!df.exists()) df.mkdir();
-
             System.out.println(requestJson.getString("imgPath"));
-			/**
-			 * //删除之前图片
-			 */
-			String imagePath = userInfoBean.getImgPath();
+            /**
+             * //删除之前图片
+             */
+            String imagePath = userInfoBean.getImgPath();
             if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img")) {
-                File f = new File((url + imagePath).substring(5, (url + imagePath).length()));
+                File f = new File(url + imagePath);
                 if (f.exists()) f.delete();
             }
-			/**
-			 * 上传图片
-			 */
+            /**
+             * 上传图片
+             */
             UploadUtils.generateImage(requestJson.getString("imgPath"), path);
 
             /**

@@ -11,13 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 配置网页图片映射
  */
 @Configuration
-@Profile(value="prod")
-public class prodWebResourceConfig implements WebMvcConfigurer {
+public class WebResourceConfig implements WebMvcConfigurer {
     @Value("${localUrl}")
     public String url;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations(url+"img/");
-        registry.addResourceHandler("/video/**").addResourceLocations(url+"video/");
+        registry.addResourceHandler("/img/**").addResourceLocations("file://"+url+"img/");
+        registry.addResourceHandler("/video/**").addResourceLocations("file://"+url+"video/");
     }
 }

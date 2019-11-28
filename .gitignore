@@ -12,7 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+resources/
 ### IntelliJ IDEA ###
 OneTech_web/.idea
 *.iws

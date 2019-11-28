@@ -27,7 +27,8 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
     @Autowired
     ResourceService resourceService;
     @Value("${localUrl}")
-    public String localUrl;
+    public String url;
+
     @Override
     public void publish(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
@@ -38,7 +39,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         momentsBean.setMomentsId(userInfoBean.getMomentsId());
         momentsBean.setText(requestJson.getString("text"));
         momentsBean.setCreateTime(new Date());
-        if(BooleanUtils.isNotEmpty(requestJson.getString("pictureMoments"))){
+        if (BooleanUtils.isNotEmpty(requestJson.getString("pictureMoments"))) {
             String pictureMoments[] = requestJson.getString("pictureMoments").split(",");
             String pictureId = UUIDUtils.getRandom32();
             momentsBean.setpictureId(pictureId);
@@ -46,37 +47,22 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
             /**
              * 创建文件夹
              */
-            String url;
-            if(BooleanUtils.isNotEmpty(localUrl)){
-                url = localUrl;
-            }
-            else {
-                url = this.getClass().getResource("/").toString();
-            }
-            String backage = "img/"+String.valueOf(requestJson.getString("wechatId").hashCode());
+            String backage = "img/" + String.valueOf(requestJson.getString("wechatId").hashCode());
             //微信号hash值作为照片名字
-            String path = url + backage;
-            if (path.startsWith("file:")) {
-                path = path.substring(5, path.length());
-            }
             File df;
-            if ((url +backage+"/").startsWith("file:")) {
-                df = new File((url +backage+"/").substring(5, (url +backage+"/").length()));
-            } else {
-                df = new File(url +backage+"/");
-            }
+            df = new File(url + backage + "/");
             if (!df.exists()) df.mkdir();
-             /**
+            /**
              * 创建文件夹
              */
             if (!df.exists()) df.mkdir();
-            for(String picture : pictureMoments){
+            for (String picture : pictureMoments) {
                 ResourceBean resourceBean = new ResourceBean();
-                String savaPath = backage+"/"+UUIDUtils.getRandom32()+".png";
+                String savaPath = backage + "/" + UUIDUtils.getRandom32() + ".png";
                 /**
                  * 上传图片
                  */
-                UploadUtils.generateImage(picture,(url+savaPath).substring(5, (url+savaPath).length()));
+                UploadUtils.generateImage(picture, url + savaPath);
                 /**
                  * 上传图片
                  */
