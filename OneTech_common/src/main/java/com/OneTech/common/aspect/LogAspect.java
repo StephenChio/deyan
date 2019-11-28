@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -52,7 +53,7 @@ public class LogAspect {
     		if (null != attributes) {
     			HttpServletRequest request = attributes.getRequest();
     			 //从request中获取http请求的url/请求的方法类型／响应该http请求的类方法／IP地址／请求中的参数
-				if(joinPoint.getArgs().length<=200){
+				if(JSONObject.parseObject(transformArgs(joinPoint.getArgs())).getString("imgPath").length()<200){//imgPath参数过长不输出
 					logger.info("service层请求日志,线程日志id={}\n url={}\n method={}\n ip={}\n class_method={}\n args={}，当前长度为{}，允许输出的参数数据长度为200",
 							logId,request.getRequestURI(), request.getMethod(),
 							HttpServletUtils.getIp(request),
