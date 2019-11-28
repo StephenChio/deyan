@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OneTech.model.mapper.UserInfoMapper">
+    <select id="searchFriend" resultType="com.OneTech.model.model.UserInfoBean">
+        select * from user_info u
+        where (u.WECHAT_ID = #{searchContext} or u.PHONE = #{searchContext}) and u.WECHAT_ID!= #{wechatId}
+    </select>
+    <select id="getFriendList" resultType="com.OneTech.model.model.UserInfoBean">
+       SELECT * FROM user_info u WHERE
+	u.WECHAT_ID IN ( SELECT F_WECHAT_ID FROM address_list WHERE WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+	OR u.WECHAT_ID IN ( SELECT WECHAT_ID FROM address_list WHERE F_WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+    </select>
+    <select id="getNewFriend" resultType="com.OneTech.common.vo.NewFriendVO">
+        select u.WECHAT_ID,u.USER_NAME,u.IMG_PATH,a.VERIFICATION_MSG
+        from address_list a left join user_info u on a.WECHAT_ID = u.WECHAT_ID
+        where a.F_WECHAT_ID = #{wechatId} and a.ACCPET_STATUS = '待接受'
+    </select>
+    <select id="getMomentsFriendList" resultType="com.OneTech.common.vo.MomentsVO">
+SELECT u.WECHAT_ID,u.USER_NAME,u.IMG_PATH,m.TEXT,m.VIDEO_PATH,m.PICTURE_ID,m.CREATE_TIME
+FROM user_info u left join moments m on u.MOMENTS_ID = m.MOMENTS_ID
+WHERE
+	u.WECHAT_ID IN ( SELECT F_WECHAT_ID FROM address_list WHERE WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+	OR u.WECHAT_ID IN ( SELECT WECHAT_ID FROM address_list WHERE F_WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+	or u.WECHAT_ID = #{wechatId} order by m.CREATE_TIME DESC
+    </select>
+</mapper>

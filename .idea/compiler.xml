@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="OneTech_common" />
+        <module name="OneTech_device" />
+        <module name="OneTech_model" />
+        <module name="OneTech_service" />
+        <module name="OneTech_web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="OneTech" target="1.8" />
+      <module name="OneTech_common" target="1.8" />
+      <module name="OneTech_device" target="1.8" />
+      <module name="OneTech_model" target="1.8" />
+      <module name="OneTech_service" target="1.8" />
+      <module name="OneTech_web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="OneTech_common" options="-parameters" />
+      <module name="OneTech_device" options="-parameters" />
+      <module name="OneTech_model" options="-parameters" />
+      <module name="OneTech_service" options="-parameters" />
+      <module name="OneTech_web" options="-parameters" />
+    </option>
+  </component>
+</project>

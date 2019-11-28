@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1T9NY7k6yCjzJ8sdW4nkDDtdK5q" />
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
+      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/redisConfig" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.OneTech.web.controller" />
+      <recent name="com.OneTech.service.impl" />
+      <recent name="com.OneTech.service.service" />
+      <recent name="com.OneTech.common.config.configuration" />
+      <recent name="com.OneTech.web" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
+    </key>
+  </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="biscuits">
+            <list>
+              <Biscuit>
+                <option name="date" value="-1" />
+                <option name="domain" value="127.0.0.1" />
+                <option name="name" value="JSESSIONID" />
+                <option name="path" value="/" />
+                <option name="value" value="9362738634C217DDF25F6A2CB397DAC4" />
+              </Biscuit>
+            </list>
+          </option>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://127.0.0.1:8234/getAccountInfo" />
+          <option name="urlPath" value="" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://127.0.0.1:8234/getAccountInfo" />
+          <option name="urlPath" value="" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.WebAppApplication (1)">
+    <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.OneTech.web.test.Solution" />
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.OneTech.web.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.OneTech.web.test.Test" />
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.OneTech.web.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebAppApplication (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.OneTech.web.WebAppApplication" />
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.OneTech.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebAppApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.onetech.web.WebAppApplication" />
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.onetech.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="OneTech_web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.onetech.web.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebAppApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.OneTech.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.OneTech.web.WebAppApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.WebAppApplication (1)" />
+        <item itemvalue="Application.Solution" />
+        <item itemvalue="Spring Boot.WebAppApplication (1)" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.WebAppApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpringGeneralSettings">
+    <option name="allowAutoConfigurationMode" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="" />
+      <created>1572868395264</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572868395264</updated>
+      <workItem from="1572868398536" duration="14946000" />
+      <workItem from="1572926610660" duration="12776000" />
+      <workItem from="1573010078912" duration="7888000" />
+      <workItem from="1573103569101" duration="4726000" />
+      <workItem from="1573126936040" duration="3318000" />
+      <workItem from="1573130290956" duration="9192000" />
+      <workItem from="1573217561736" duration="4759000" />
+      <workItem from="1573313530049" duration="1226000" />
+      <workItem from="1573378097065" duration="11633000" />
+      <workItem from="1573542184122" duration="4000" />
+      <workItem from="1573809822150" duration="6094000" />
+      <workItem from="1573828522490" duration="1333000" />
+      <workItem from="1573830678804" duration="1849000" />
+      <workItem from="1574236104618" duration="3761000" />
+      <workItem from="1574418417559" duration="3757000" />
+      <workItem from="1574430869478" duration="11594000" />
+      <workItem from="1574746330914" duration="5720000" />
+      <workItem from="1574757309632" duration="593000" />
+      <workItem from="1574838550000" duration="1060000" />
+      <workItem from="1574852100847" duration="3669000" />
+      <workItem from="1574913498759" duration="12393000" />
+      <workItem from="1574939718941" duration="1074000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
