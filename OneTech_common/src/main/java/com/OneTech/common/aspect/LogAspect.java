@@ -82,17 +82,13 @@ public class LogAspect {
         }
         if (joinPoint.length > 200) {
             List<Object> list = Arrays.asList(joinPoint);
-            for(Object object:list){
-            	if(object.toString().length()>=200){
-            		return null;
-				}
-			}
             result = JSONObject.toJSONString(list.subList(0, 200));
             if (result.getBytes().length > 1000) {
                 return null;
             }
         } else {
             result = JSONObject.toJSONString(joinPoint);
+            if(result.length()>1000)return null;
         }
         return result;
     }

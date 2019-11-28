@@ -51,7 +51,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             File df;
             df = new File(url + "img/");
             if (!df.exists()) df.mkdir();
-            System.out.println(requestJson.getString("imgPath"));
+//            System.out.println(requestJson.getString("imgPath"));
             /**
              * //删除之前图片
              */
