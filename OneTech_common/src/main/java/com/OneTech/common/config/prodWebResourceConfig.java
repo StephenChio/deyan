@@ -1,6 +1,8 @@
 package com.OneTech.common.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -9,10 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 配置网页图片映射
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+@Profile(value="prod")
+public class prodWebResourceConfig implements WebMvcConfigurer {
+    @Value("${localUrl}")
+    public String url;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        java.net.URL url = this.getClass().getResource("/");
         registry.addResourceHandler("/img/**").addResourceLocations(url+"img/");
         registry.addResourceHandler("/video/**").addResourceLocations(url+"video/");
     }

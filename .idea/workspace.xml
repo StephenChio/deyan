@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="" />
+    <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/devWebResourceConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-dev.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/prodWebResourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application.properties" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,16 +42,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1T9NY7k6yCjzJ8sdW4nkDDtdK5q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -49,22 +65,22 @@
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
-      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/redisConfig" />
-      <recent name="$PROJECT_DIR$/OneTech_device/src/main" />
-      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java" />
-      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.OneTech.common.config" />
       <recent name="com.OneTech.web.controller" />
       <recent name="com.OneTech.service.impl" />
       <recent name="com.OneTech.service.service" />
       <recent name="com.OneTech.common.config.configuration" />
-      <recent name="com.OneTech.web" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
+      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
+      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/redisConfig" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -227,11 +243,22 @@
       <workItem from="1574838550000" duration="1060000" />
       <workItem from="1574852100847" duration="3669000" />
       <workItem from="1574913498759" duration="12393000" />
-      <workItem from="1574939718941" duration="1074000" />
+      <workItem from="1574939718941" duration="2852000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

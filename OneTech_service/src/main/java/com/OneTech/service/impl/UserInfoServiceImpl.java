@@ -7,6 +7,7 @@ import com.OneTech.model.mapper.UserInfoMapper;
 import com.OneTech.model.model.UserInfoBean;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.OneTech.service.service.UserInfoService;
 import java.io.File;
@@ -17,6 +18,8 @@ import java.util.List;
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implements UserInfoService {
     @Autowired
     UserInfoMapper userInfoMapper;
+    @Value("${localUrl}")
+    public String localUrl;
 
     @Override
     public List<UserInfoBean> searchFriend(JSONObject requestJson) throws Exception {
@@ -39,13 +42,17 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
+        String url;
         try {
-            /**
-             * 获取classes路径
-             */
-            java.net.URL url = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-            System.out.println("url"+url);
-//            java.net.URL url = this.getClass().getResource("/");
+            if(BooleanUtils.isNotEmpty(localUrl)){
+                url = localUrl;
+            }
+            else {
+                /**
+                 * 获取classes路径
+                 */
+                url = this.getClass().getResource("/").toString();
+            }
             String savePath = "img/" + requestJson.getString("wechatId").hashCode() + ".png";
             //微信号hash值作为照片名字
             String path = url + savePath;
@@ -60,7 +67,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             }
             if (!df.exists()) df.mkdir();
 
-//            System.out.println(requestJson.getString("imgPath"));
+            System.out.println(requestJson.getString("imgPath"));
 			/**
 			 * //删除之前图片
 			 */

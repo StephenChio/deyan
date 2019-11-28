@@ -12,6 +12,7 @@ import com.OneTech.service.service.ResourceService;
 import com.OneTech.service.service.UserInfoService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -25,6 +26,8 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
     UserInfoService userInfoService;
     @Autowired
     ResourceService resourceService;
+    @Value("${localUrl}")
+    public String localUrl;
     @Override
     public void publish(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
@@ -43,7 +46,13 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
             /**
              * 创建文件夹
              */
-            java.net.URL url = this.getClass().getResource("/");
+            String url;
+            if(BooleanUtils.isNotEmpty(localUrl)){
+                url = localUrl;
+            }
+            else {
+                url = this.getClass().getResource("/").toString();
+            }
             String backage = "img/"+String.valueOf(requestJson.getString("wechatId").hashCode());
             //微信号hash值作为照片名字
             String path = url + backage;
