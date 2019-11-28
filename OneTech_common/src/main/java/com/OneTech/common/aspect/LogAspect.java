@@ -52,11 +52,12 @@ public class LogAspect {
     		if (null != attributes) {
     			HttpServletRequest request = attributes.getRequest();
     			 //从request中获取http请求的url/请求的方法类型／响应该http请求的类方法／IP地址／请求中的参数
-
-		        logger.info("service层请求日志,线程日志id={}\n url={}\n method={}\n ip={}\n class_method={}\n args={}，当前长度为{}，允许输出的参数数据长度为200", 
-		        		logId,request.getRequestURI(), request.getMethod(),
-		        		HttpServletUtils.getIp(request),
-		        		joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),transformArgs(joinPoint.getArgs()),joinPoint.getArgs().length);
+				if(joinPoint.getArgs().length<=200){
+					logger.info("service层请求日志,线程日志id={}\n url={}\n method={}\n ip={}\n class_method={}\n args={}，当前长度为{}，允许输出的参数数据长度为200",
+							logId,request.getRequestURI(), request.getMethod(),
+							HttpServletUtils.getIp(request),
+							joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),transformArgs(joinPoint.getArgs()),joinPoint.getArgs().length);
+				}
     		} else {
 	        	logger.warn("request 为 null!, 请检查是否接收设备数据， 如不是则service 服务有问题");
 	        }
