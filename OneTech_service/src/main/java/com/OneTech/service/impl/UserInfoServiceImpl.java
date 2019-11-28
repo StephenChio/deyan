@@ -2,6 +2,7 @@ package com.OneTech.service.impl;
 
 import com.OneTech.common.service.impl.BaseServiceImpl;
 import com.OneTech.common.util.BooleanUtils;
+import com.OneTech.common.util.UUIDUtils;
 import com.OneTech.common.util.UploadUtils;
 import com.OneTech.model.mapper.UserInfoMapper;
 import com.OneTech.model.model.UserInfoBean;
@@ -44,7 +45,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
         try {
-            String savePath = "img/" + requestJson.getString("wechatId").hashCode() + ".png";
+            String savePath = "img/" + UUIDUtils.getRandom32() + ".png";
             //微信号hash值作为照片名字
             String path = url + savePath;
             File df;
