@@ -9,4 +9,5 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 	List<UserInfoBean> searchFriend(JSONObject requestJson) throws Exception;
 	UserInfoBean updateName (JSONObject requestJson) throws Exception;
 	UserInfoBean updatePicture(JSONObject requestJson) throws Exception;
+	UserInfoBean updateBackgroundImg(JSONObject requestJson) throws Exception;
 }

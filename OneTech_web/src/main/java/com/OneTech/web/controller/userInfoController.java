@@ -64,4 +64,19 @@ public class userInfoController extends CommonController {
         }
         return statusBean;
     }
+    @PostMapping("updateBackgroundImg")
+    public  StatusBean<?> updateBackgroundImg(){
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            UserInfoBean userInfoBean = userInfoService.updateBackgroundImg(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("设置成功");
+            statusBean.setData(userInfoBean);
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!"+e);
+        }
+        return statusBean;
+    }
 }

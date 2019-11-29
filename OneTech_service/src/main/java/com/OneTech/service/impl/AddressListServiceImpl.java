@@ -87,4 +87,9 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
     public List<MomentsVO> getMomentsFriendList(JSONObject requestJson) throws Exception {
         return userInfoMapper.getMomentsFriendList(requestJson);
     }
+
+    @Override
+    public List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception {
+        return userInfoMapper.getMomentsByWechatId(requestJson);
+    }
 }

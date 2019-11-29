@@ -9,8 +9,17 @@ public class MomentsVO {
     private String text;
     private String videoPath;
     private String pictureId;
+    private String backgroundImg;
     private List<String> pictureImgPath;
     private String createTime;
+
+    public String getBackgroundImg() {
+        return backgroundImg;
+    }
+
+    public void setBackgroundImg(String backgroundImg) {
+        this.backgroundImg = backgroundImg;
+    }
 
     public String getWechatId() {
         return wechatId;

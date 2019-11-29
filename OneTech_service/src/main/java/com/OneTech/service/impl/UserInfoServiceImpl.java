@@ -40,6 +40,45 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
     }
 
     @Override
+    public UserInfoBean updateBackgroundImg(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        try {
+            String savePath = "img/" + UUIDUtils.getRandom32() + ".png";
+            String path = url + savePath;
+            File df;
+            df = new File(url + "img/");
+            if (!df.exists()) df.mkdir();
+//            System.out.println(requestJson.getString("imgPath"));
+            /**
+             * //删除之前图片
+             */
+            String backgroundImg = userInfoBean.getBackgroundImg();
+            if (!BooleanUtils.isEmpty(backgroundImg) && backgroundImg.startsWith("img")) {
+                File f = new File(url + backgroundImg);
+                if (f.exists()) f.delete();
+            }
+            /**
+             * 上传图片
+             */
+            UploadUtils.generateImage(requestJson.getString("backgroundImg"), path);
+
+            /**
+             * 更新数据库
+             */
+            userInfoBean.setBackgroundImg(savePath);
+            userInfoBean.setUpdateTime(new Date());
+            this.saveOrUpdate(userInfoBean);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userInfoBean;
+
+    }
+
+    @Override
     public UserInfoBean updatePicture(JSONObject requestJson) throws Exception {
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));

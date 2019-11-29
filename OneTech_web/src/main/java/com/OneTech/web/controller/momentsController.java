@@ -73,4 +73,26 @@ public class momentsController extends CommonController {
         }
         return statusBean;
     }
+    @PostMapping("getMomentsByWechatId")
+    public StatusBean<?> getMomentsByWechatId(){
+        StatusBean<List<MomentsVO>> statusBean = new StatusBean<>();
+        try {
+            List<MomentsVO> momentsVOs = addressListService.getMomentsByWechatId(getRequestJson());
+            for(MomentsVO mV :momentsVOs){
+                if(mV.getPictureId()!=null){
+                    List<String> pictureImgPath = new ArrayList<>();
+                    pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
+                    mV.setPictureImgPath(pictureImgPath);
+                }
+            }
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("查询成功");
+            statusBean.setData(momentsVOs);
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("查询异常!"+e);
+        }
+        return statusBean;
+    }
 }

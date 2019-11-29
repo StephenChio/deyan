@@ -11,6 +11,7 @@ public class UserInfoBean {
     private String passWord;
     private String momentsId;
     private String imgPath;
+    private String backgroundImg;
     private String wechatId;
     private String phone;
     private String QrCode;
@@ -113,5 +114,13 @@ public class UserInfoBean {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getBackgroundImg() {
+        return backgroundImg;
+    }
+
+    public void setBackgroundImg(String backgroundImg) {
+        this.backgroundImg = backgroundImg;
     }
 }

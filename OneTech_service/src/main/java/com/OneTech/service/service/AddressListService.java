@@ -16,4 +16,5 @@ public interface AddressListService extends IBaseService<AddressListBean> {
     List<UserInfoBean> getFriendList(JSONObject requestJson) throws Exception;
     void deleteFriend(JSONObject requestJson) throws Exception;
     List<MomentsVO> getMomentsFriendList(JSONObject requestJson) throws Exception;
+    List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception;
 }

@@ -19,4 +19,5 @@ public interface UserInfoMapper extends IBaseMapper<UserInfoBean> {
     List<UserInfoBean> getFriendList(JSONObject requestJson) throws Exception;
     List<NewFriendVO> getNewFriend(JSONObject requestJson) throws Exception;
     List<MomentsVO> getMomentsFriendList(JSONObject requestJson) throws Exception;
+    List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception;
 }

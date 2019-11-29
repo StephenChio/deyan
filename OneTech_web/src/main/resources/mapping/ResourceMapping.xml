@@ -6,4 +6,9 @@
     <select id="getPictureImgPath" resultType="String">
         select IMG_PATH from resource where PICTURE_ID = #{PICTURE_ID}
     </select>
+    <select id="get4MomentsImgByWechatId" resultType="String">
+SELECT r.IMG_PATH FROM resource r
+LEFT JOIN moments m ON r.PICTURE_ID = m.PICTURE_ID LEFT join user_info u ON u.MOMENTS_ID = m.MOMENTS_ID
+where u.WECHAT_ID =  #{wechatId} order by r.CREATE_TIME DESC LIMIT 4
+    </select>
 </mapper>
