@@ -36,7 +36,7 @@ public class mainController extends CommonController {
                 userInfo.setWechatId(UUIDUtils.getRandom32());
                 userInfo.setMomentsId(UUIDUtils.getRandom32());
                 userInfo.setImgPath("img/head.png");
-                userInfo.setImgPath("background.png");
+                userInfo.setBackgroundImg("img/background.png");
                 userInfo.setCreateTime(new Date());
                 userInfoService.save(userInfo);
                 userInfoBean = userInfo;
