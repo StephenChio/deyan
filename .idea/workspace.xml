@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/util/redis/StringRedisTemplateUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/mainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/mainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/handler/SpringWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/handler/SpringWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/interceptor/SpringWebSocketHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/interceptor/SpringWebSocketHandlerInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,8 +63,12 @@
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
+      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/util" />
+      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
+      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/redisConfig" />
+      <recent name="$PROJECT_DIR$/OneTech_device/src/main" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.OneTech.common.config" />
@@ -67,12 +77,8 @@
       <recent name="com.OneTech.service.service" />
       <recent name="com.OneTech.common.config.configuration" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/config" />
-      <recent name="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping" />
-      <recent name="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/config/redisConfig" />
-      <recent name="$PROJECT_DIR$/OneTech_device/src/main" />
-      <recent name="$PROJECT_DIR$/OneTech_device/src/main/java" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -235,7 +241,8 @@
       <workItem from="1574838550000" duration="1060000" />
       <workItem from="1574852100847" duration="3669000" />
       <workItem from="1574913498759" duration="12393000" />
-      <workItem from="1574939718941" duration="18664000" />
+      <workItem from="1574939718941" duration="22496000" />
+      <workItem from="1575103051313" duration="10048000" />
     </task>
     <servers />
   </component>
@@ -247,10 +254,17 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/OneTech$WebAppApplication__1_.ic" NAME="WebAppApplication (1) Coverage Results" MODIFIED="1575111683145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.OneTech.web.*</FILTER>
+    </SUITE>
   </component>
 </project>
