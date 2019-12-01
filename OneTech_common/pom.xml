@@ -10,9 +10,6 @@
     </parent>
     <artifactId>OneTech_common</artifactId>
     <packaging>jar</packaging>
-
-
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -41,16 +38,15 @@
             <!--             	</exclusion> -->
             <!--             </exclusions> -->
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <!-- 			<scope>provided</scope> -->
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-amqp</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-amqp</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -110,18 +106,18 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-redis</artifactId>-->
-<!--            <version>1.4.7.RELEASE</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-redis</artifactId>-->
+        <!--            <version>1.4.7.RELEASE</version>-->
+        <!--        </dependency>-->
 
-<!--        &lt;!&ndash; spring session begin &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-data-redis</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; spring session end &ndash;&gt;-->
+        <!--        &lt;!&ndash; spring session begin &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.session</groupId>-->
+        <!--            <artifactId>spring-session-data-redis</artifactId>-->
+        <!--        </dependency>-->
+        <!--        &lt;!&ndash; spring session end &ndash;&gt;-->
 
         <!-- zookeeper start -->
         <dependency>
@@ -288,5 +284,30 @@
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!--        <dependency>-->
+<!--            <groupId>com.google.gson</groupId>-->
+<!--            <artifactId>com.google.gson</artifactId>-->
+<!--            <version>2.2.4</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/src/main/resources/lib/gson-2.2.4.jar</systemPath>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.json.simple</groupId>-->
+<!--            <artifactId>org.json.simple</artifactId>-->
+<!--            <version>1.1.1</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/src/main/resources/lib/json-simple-1.1.1.jar</systemPath>-->
+<!--        </dependency>-->
     </dependencies>
 </project>
