@@ -1,4 +1,6 @@
 package com.OneTech.web.test;
+import com.OneTech.common.util.pingyinUtils.FirstLetterUtil;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,12 +35,7 @@ public class Solution {
                 }
             }
     public static void main(String arg[]){
-        Solution solution = new Solution();
-        int input[] =  new int[]{3,5,1,4,2};
-        for(int i=1;i<=12;i++) {
-            System.out.println(solution.rabbit(i));
-        }
-
+        System.out.println(FirstLetterUtil.getFirstLetter("齋藤飛鳥"));
     }
 
 }

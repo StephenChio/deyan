@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/util/pingyinUtils/FirstLetterUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/addressListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/addressListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -197,10 +197,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.WebAppApplication (1)" />
+        <item itemvalue="Application.Solution" />
         <item itemvalue="Application.Test (2)" />
         <item itemvalue="Application.WebAppApplication (1)" />
         <item itemvalue="Application.Test (1)" />
-        <item itemvalue="Application.Solution" />
       </list>
     </recent_temporary>
   </component>
@@ -243,7 +243,7 @@
       <workItem from="1575131245247" duration="1207000" />
       <workItem from="1575173993933" duration="12389000" />
       <workItem from="1575208428068" duration="606000" />
-      <workItem from="1575214907554" duration="2525000" />
+      <workItem from="1575214907554" duration="8286000" />
     </task>
     <servers />
   </component>
