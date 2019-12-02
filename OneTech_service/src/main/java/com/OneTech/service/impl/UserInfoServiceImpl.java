@@ -9,6 +9,7 @@ import com.OneTech.model.model.UserInfoBean;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import com.OneTech.service.service.UserInfoService;
 
@@ -20,6 +21,8 @@ import java.util.List;
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implements UserInfoService {
     @Autowired
     UserInfoMapper userInfoMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
     @Value("${localUrl}")
     public String url;
 
@@ -117,4 +120,22 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         return userInfoBean;
     }
 
+    @Override
+    public boolean changePhoneNum(JSONObject requestJson) throws Exception {
+        String phone = requestJson.getString("phone");
+        if(BooleanUtils.isEmpty(redisTemplate.opsForValue().get(phone))){
+            return false;
+        }
+        if(redisTemplate.opsForValue().get(phone).toString().equals(requestJson.getString("verifiCode"))) {
+            UserInfoBean userInfoBean = new UserInfoBean();
+            userInfoBean.setWechatId(requestJson.getString("wechatId"));
+            userInfoBean = this.selectOne(userInfoBean);
+            userInfoBean.setPhone(phone);
+            userInfoBean.setUpdateTime(new Date());
+            this.saveOrUpdate(userInfoBean);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

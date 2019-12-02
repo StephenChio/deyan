@@ -79,4 +79,22 @@ public class userInfoController extends CommonController {
         }
         return statusBean;
     }
+    @PostMapping("changePhoneNum")
+    public  StatusBean<?> changePhoneNum(){
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            if(userInfoService.changePhoneNum(getRequestJson())) {
+                statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+                statusBean.setRespMsg("设置成功");
+            }else{
+                statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                statusBean.setRespMsg("验证码错误或过期,请重新发送验证码");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!"+e);
+        }
+        return statusBean;
+    }
 }
