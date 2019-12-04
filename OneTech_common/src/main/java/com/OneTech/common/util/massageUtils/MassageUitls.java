@@ -32,7 +32,7 @@ public class MassageUitls {
     String ipAddress2 = null;
     String ipAddress3 = null;
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,String> redisTemplate;
     public Boolean sendMassageToSingle(JSONObject requestJson){
         ConfigManager.setIpInfo(masterIpAddress, ipAddress1, ipAddress2, ipAddress3);
         //密码是否加密   true：密码加密;false：密码不加密
@@ -64,7 +64,7 @@ public class MassageUitls {
             message.setApikey(apiKey);
             // 设置内容
             Random r = new Random();
-            int code = r.nextInt(899999)+100000;
+            String code = String.valueOf(r.nextInt(899999)+100000);
             redisTemplate.opsForValue().set(requestJson.getString("phone"),code,60,TimeUnit.SECONDS);
             message.setContent("您的验证码是"+code+"，在1分钟内有效。如非本人操作请忽略本短信。");
             // 设置扩展号

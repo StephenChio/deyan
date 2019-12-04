@@ -3,7 +3,7 @@ package com.OneTech.web.controller;
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.pingyinUtils.FirstLetterUtil;
+import com.OneTech.common.util.pingyinUtils.CharacterUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import com.OneTech.model.model.UserInfoBean;
@@ -42,7 +42,7 @@ public class addressListController extends CommonController {
             statusBean.setRespMsg("发送成功");
             String user = "tab2" + getRequestJson().getString("fWechatId");
             TextMessage textMessage = new TextMessage("新的好友申请");
-            springWebSocketHandler.sendMessageToUser(user, textMessage);
+            springWebSocketHandler.sendMessageToUser(user, textMessage,true);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
@@ -90,9 +90,12 @@ public class addressListController extends CommonController {
             JSONObject jsonObject = new JSONObject();
             for (UserInfoBean userInfoBean : userInfoBeans) {
                 JSONArray jsonArray = new JSONArray();
-                String firstLetter = FirstLetterUtil.getFirstLetter(userInfoBean.getUserName().substring(0, 1));
+                String firstLetter = CharacterUtil.convertHanzi2Pinyin(userInfoBean.getUserName().substring(0, 1),false);
                 if(!firstLetter.matches("^[A-Za-z]+$")){//不是字母
                     firstLetter = "#";
+                }
+                else{//是字母
+                    firstLetter = firstLetter.toUpperCase();//转大写
                 }
                 if (BooleanUtils.isNotEmpty(jsonObject.get(firstLetter))) {
                     jsonArray = jsonObject.getJSONArray(firstLetter);

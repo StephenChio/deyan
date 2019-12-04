@@ -295,19 +295,19 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/pinyin4j-2.5.0.jar</systemPath>
+        </dependency>
         <!--        <dependency>-->
-<!--            <groupId>com.google.gson</groupId>-->
-<!--            <artifactId>com.google.gson</artifactId>-->
-<!--            <version>2.2.4</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/src/main/resources/lib/gson-2.2.4.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.json.simple</groupId>-->
-<!--            <artifactId>org.json.simple</artifactId>-->
-<!--            <version>1.1.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/src/main/resources/lib/json-simple-1.1.1.jar</systemPath>-->
-<!--        </dependency>-->
+        <!--            <groupId>org.json.simple</groupId>-->
+        <!--            <artifactId>org.json.simple</artifactId>-->
+        <!--            <version>1.1.1</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>${project.basedir}/src/main/resources/lib/json-simple-1.1.1.jar</systemPath>-->
+        <!--        </dependency>-->
     </dependencies>
 </project>

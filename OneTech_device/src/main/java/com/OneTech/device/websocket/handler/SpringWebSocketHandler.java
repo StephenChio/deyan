@@ -3,10 +3,12 @@ package com.OneTech.device.websocket.handler;
 
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.util.BooleanUtils;
+import com.OneTech.common.util.massageUtils.massage.Message;
 import com.OneTech.device.websocket.interceptor.SpringWebSocketHandlerInterceptor;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -28,6 +30,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class SpringWebSocketHandler extends TextWebSocketHandler {
     public static final Map<String, WebSocketSession> users = new HashMap<>();
 
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
+
     public SpringWebSocketHandler() {
         // TODO Auto-generated constructor stub
     }
@@ -44,14 +49,37 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         for (Map.Entry<String, WebSocketSession> entry : users.entrySet()) {
             System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
         }
-//        String username= (String) session.getAttributes().get("WEBSOCKET_USERNAME");
-//        TextMessage returnMessage = new TextMessage("收到消息");
-//        this.sendMessageToUser(username,returnMessage);
-        //这块会实现自己业务，比如，当用户登录后，会把离线消息推送给用户
-        //TextMessage returnMessage = new TextMessage("你将收到的离线");
-        //session.sendMessage(returnMessage);
+        this.handleOutLineMessage(session);//处理该账号的离线消息
     }
 
+    /**
+     * 处理离线消息
+     * @param session
+     */
+    public void handleOutLineMessage(WebSocketSession session){
+        /**
+         * 该账号是否有未收到消息
+         */
+        String userName = session.getAttributes().get("WS_NAME").toString();
+        if(BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))){
+            try {
+                String payload[] = redisTemplate.opsForValue().get(userName).split("#--#");
+                for(String load:payload) {
+                    TextMessage message = new TextMessage(load);
+                    if(load.startsWith("{\"to\":")){//处理聊天消息
+                        this.handleTextMessage(session,message);
+                    }
+                    else {//处理其他消息
+                        this.sendMessageToUser(userName, message,true);
+                    }
+                    System.out.println("发送离线消息成功"+load);
+                }
+                redisTemplate.delete(userName);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * 关闭连接时触发
      */
@@ -80,16 +108,26 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         for (String t : to) {
             if (t.equals("chatPage")) {
                 System.out.println("发送给" + t + jsonObject.getString("fWechatId") + jsonObject.getString("wechatId"));
-                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId") + jsonObject.getString("wechatId"), message);
+                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId") + jsonObject.getString("wechatId"), message,false);
             } else {
                 System.out.println("发送给" + t + jsonObject.getString("fWechatId"));
-                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId"), message);
+                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId"), message,false);
             }
         }
-        if (!isSuccess) {
-            TextMessage returnMessage;
-            returnMessage = new TextMessage(SystemConstants.RESPONSE_FAIL);
-            this.sendMessageToUser(to[1] + jsonObject.getString("wechatId"), returnMessage);
+        if (!isSuccess) {//保存聊天消息
+            String userName = "tab1" + jsonObject.getString("fWechatId");
+            String userId = SpringWebSocketHandlerInterceptor.usersIdMap.get(userName);
+            if(userId==null){
+                if(BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))){//之前有消息
+                    String payload = redisTemplate.opsForValue().get(userName)+"#--#"+message.getPayload();
+                    redisTemplate.opsForValue().set(userName,payload);
+                }
+                else{//之前没有消息
+                    redisTemplate.opsForValue().set(userName,message.getPayload());
+                }
+                System.out.println("对方不在线，消息已经保存");
+            }
+
         }
     }
 
@@ -108,15 +146,23 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 给某个用户发送消息
-     *
+     * boolean isSave 此条消息是否主动保存或者自定义保存
      * @param userName
      * @param message
      */
-    public boolean sendMessageToUser(String userName, TextMessage message) {
+    public boolean sendMessageToUser(String userName, TextMessage message,boolean isSave) {
         String userId = SpringWebSocketHandlerInterceptor.usersIdMap.get(userName);
-        if(userId==null){
-            System.out.println("对方不在线，消息已经保存");
-            return false;
+        if(isSave) {
+            if (userId == null) {
+                if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {//之前有消息
+                    String payload = redisTemplate.opsForValue().get(userName) + "#--#" + message.getPayload();
+                    redisTemplate.opsForValue().set(userName, payload);
+                } else {//之前没有消息
+                    redisTemplate.opsForValue().set(userName, message.getPayload());
+                }
+                System.out.println("对方不在线，消息已经保存");
+                return false;
+            }
         }
         WebSocketSession webSocketSession = users.get(userId);
         if(webSocketSession!=null) {
@@ -127,7 +173,6 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
                 e.printStackTrace();
             }
         }
-        System.out.println("对方不在线，消息已经保存");
         return false;
     }
 

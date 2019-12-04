@@ -1,17 +1,54 @@
 package com.OneTech.common.vo;
 
-import java.util.List;
+import net.sf.json.JSONArray;
 
+import java.util.List;
 public class MomentsVO {
     private String wechatId;
     private String imgPath;
     private String userName;
     private String text;
+    private String id;
     private String videoPath;
     private String pictureId;
     private String backgroundImg;
+    private List<?> commentsBeans;
+    private List<?> likeName;
+    private List<?> commentsContent;
     private List<String> pictureImgPath;
     private String createTime;
+
+    public List<?> getLikeName() {
+        return likeName;
+    }
+
+    public void setLikeName(List<?> likeName) {
+        this.likeName = likeName;
+    }
+
+    public List<?> getCommentsContent() {
+        return commentsContent;
+    }
+
+    public void setCommentsContent(List<?> commentsContent) {
+        this.commentsContent = commentsContent;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<?> getCommentsBeans() {
+        return commentsBeans;
+    }
+
+    public void setCommentsBeans(List<?> commentsBeans) {
+        this.commentsBeans = commentsBeans;
+    }
 
     public String getBackgroundImg() {
         return backgroundImg;

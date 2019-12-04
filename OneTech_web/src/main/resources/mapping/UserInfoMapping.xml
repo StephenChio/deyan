@@ -18,7 +18,7 @@
         where a.F_WECHAT_ID = #{wechatId} and a.ACCPET_STATUS = '待接受'
     </select>
     <select id="getMomentsFriendList" resultType="com.OneTech.common.vo.MomentsVO">
-SELECT u.WECHAT_ID,u.USER_NAME,u.IMG_PATH,u.BACKGROUND_IMG,m.TEXT,m.VIDEO_PATH,m.PICTURE_ID,m.CREATE_TIME
+SELECT u.WECHAT_ID,u.USER_NAME,u.IMG_PATH,u.BACKGROUND_IMG,m.ID,m.TEXT,m.VIDEO_PATH,m.PICTURE_ID,m.CREATE_TIME
 FROM user_info u left join moments m on u.MOMENTS_ID = m.MOMENTS_ID
 WHERE
 	u.WECHAT_ID IN ( SELECT F_WECHAT_ID FROM address_list WHERE WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )

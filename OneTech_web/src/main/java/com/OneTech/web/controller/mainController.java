@@ -20,7 +20,7 @@ public class mainController extends CommonController {
     @Autowired
     UserInfoService userInfoService;
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,String> redisTemplate;
     @Autowired
     MassageUitls massageUitls;
     /**

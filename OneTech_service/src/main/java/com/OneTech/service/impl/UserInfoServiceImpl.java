@@ -22,7 +22,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
     @Autowired
     UserInfoMapper userInfoMapper;
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,String> redisTemplate;
     @Value("${localUrl}")
     public String url;
 

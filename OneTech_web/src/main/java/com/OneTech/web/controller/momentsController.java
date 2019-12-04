@@ -1,15 +1,13 @@
 package com.OneTech.web.controller;
-
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.controller.CommonController;
+import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.vo.MomentsVO;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import com.OneTech.model.model.UserInfoBean;
-import com.OneTech.service.service.AddressListService;
-import com.OneTech.service.service.MomentsService;
-import com.OneTech.service.service.ResourceService;
-import com.OneTech.service.service.UserInfoService;
+import com.OneTech.service.service.*;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +28,8 @@ public class momentsController extends CommonController {
     ResourceService resourceService;
     @Autowired
     SpringWebSocketHandler springWebSocketHandler;
+    @Autowired
+    CommentsService commentsService;
     @PostMapping("publish")
     public StatusBean<?> publish(){
         StatusBean<?> statusBean = new StatusBean<>();
@@ -39,7 +39,7 @@ public class momentsController extends CommonController {
             for(UserInfoBean userInfoBean : userInfoBeans){
                 String user = "tab3"+userInfoBean.getWechatId();
                 TextMessage textMessage = new TextMessage("朋友圈消息");
-                springWebSocketHandler.sendMessageToUser(user,textMessage);
+                springWebSocketHandler.sendMessageToUser(user,textMessage,true);
             }
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("发表成功");
@@ -62,6 +62,20 @@ public class momentsController extends CommonController {
                     pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
                     mV.setPictureImgPath(pictureImgPath);
                 }
+                /**
+                 *  //点赞内容
+                 */
+                JSONObject jsonObject = getRequestJson();
+                jsonObject.put("momentId",mV.getId());
+                List<UserInfoBean> LikeList = commentsService.selectLike(jsonObject);
+                if(BooleanUtils.isNotEmpty(LikeList)) {
+                    mV.setLikeName(LikeList);
+                }
+//                List<CommentsBean> CommentsList = commentsService.selectComments(jsonObject);
+                /**
+                 * //评论内容
+                 */
+
             }
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("查询成功");
