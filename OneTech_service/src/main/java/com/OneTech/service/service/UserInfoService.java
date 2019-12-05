@@ -11,4 +11,5 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 	UserInfoBean updatePicture(JSONObject requestJson) throws Exception;
 	UserInfoBean updateBackgroundImg(JSONObject requestJson) throws Exception;
 	boolean changePhoneNum(JSONObject requestJson) throws Exception;
+	boolean updatePassword(JSONObject requestJson) throws Exception;
 }

@@ -138,4 +138,20 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             return false;
         }
     }
+
+    @Override
+    public boolean updatePassword(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        if(requestJson.getString("oldPwd").equals(userInfoBean.getPassWord())){
+            userInfoBean.setPassWord(requestJson.getString("newPwd"));
+            userInfoBean.setUpdateTime(new Date());
+            this.saveOrUpdate(userInfoBean);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

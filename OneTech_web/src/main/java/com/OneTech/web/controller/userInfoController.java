@@ -97,4 +97,24 @@ public class userInfoController extends CommonController {
         }
         return statusBean;
     }
+
+    @PostMapping("updatePassword")
+    public  StatusBean<?> updatePassword(){
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            if(!userInfoService.updatePassword(getRequestJson())){
+                statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                statusBean.setRespMsg("旧密码错误!");
+            }
+            else{
+                statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+                statusBean.setRespMsg("设置成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!"+e);
+        }
+        return statusBean;
+    }
 }
