@@ -1,20 +1,27 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.OneTech.common.constants.AddressListAccpetStatus;
+import com.OneTech.common.util.pingyinUtils.CharacterUtil;
 import com.OneTech.common.service.impl.BaseServiceImpl;
-import com.OneTech.common.util.UUIDUtils;
-import com.OneTech.common.vo.MomentsVO;
+import com.OneTech.service.service.AddressListService;
+import com.OneTech.service.service.CommentsService;
+import com.OneTech.service.service.ResourceService;
+import com.OneTech.service.service.UserInfoService;
+import org.springframework.web.socket.TextMessage;
 import com.OneTech.model.mapper.AddressListMapper;
 import com.OneTech.model.mapper.UserInfoMapper;
 import com.OneTech.model.model.AddressListBean;
-import com.OneTech.model.model.UserInfoBean;
-import com.OneTech.service.service.AddressListService;
-import com.OneTech.service.service.UserInfoService;
-import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.OneTech.common.util.BooleanUtils;
+import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.vo.NewFriendVO;
-
+import com.OneTech.common.util.UUIDUtils;
+import com.OneTech.common.vo.MomentsVO;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,27 +33,57 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
     UserInfoService userInfoService;
     @Autowired
     UserInfoMapper userInfoMapper;
+    @Autowired
+    ResourceService resourceService;
+    @Autowired
+    CommentsService commentsService;
+    @Autowired
+    SpringWebSocketHandler springWebSocketHandler;
+
+    /**
+     * 发送验证信息
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean sendVerification(JSONObject requestJson) throws Exception {
         AddressListBean addressListBean = new AddressListBean();
         addressListBean.setWechatId(requestJson.getString("wechatId"));
         addressListBean.setFWechatId(requestJson.getString("fWechatId"));
         addressListBean.setAccpetStatus(AddressListAccpetStatus.WAIT);
-        if(this.selectOne(addressListBean)!=null){
+        if (this.selectOne(addressListBean) != null) {
             return false;
         }
         addressListBean.setId(UUIDUtils.getRandom32());
         addressListBean.setVerificationMsg(requestJson.getString("verificationMsg"));
         addressListBean.setCreateTime(new Date());
         this.save(addressListBean);
+        /**
+         * 发送添加好友信息
+         */
+        String user = "tab2" + requestJson.getString("fWechatId");
+        TextMessage textMessage = new TextMessage("新的好友申请");
+        springWebSocketHandler.sendMessageToUser(user, textMessage, true);
         return true;
     }
 
+    /**
+     * 获得新好友列表
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<NewFriendVO> getNewFriend(JSONObject requestJson) throws Exception {
         return userInfoMapper.getNewFriend(requestJson);
     }
 
+    /**
+     * 确认添加好友
+     * @param requestJson
+     * @throws Exception
+     */
     @Override
     public void addConfirm(JSONObject requestJson) throws Exception {
         AddressListBean addressListBean = new AddressListBean();
@@ -59,12 +96,49 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         this.saveOrUpdate(addressListBean);
     }
 
+    /**
+     * 获得好友列表
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<UserInfoBean> getFriendList(JSONObject requestJson) throws Exception {
-        List<UserInfoBean> returnUserInfoBeans = userInfoMapper.getFriendList(requestJson);
-        return returnUserInfoBeans;
+        return userInfoMapper.getFriendList(requestJson);
     }
 
+    /**
+     * 获得根据配音首字母排序的好友列表
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public JSONObject getFriendListByPY(JSONObject requestJson) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+        List<UserInfoBean> userInfoBeans = userInfoMapper.getFriendList(requestJson);
+        for (UserInfoBean userInfoBean : userInfoBeans) {
+            JSONArray jsonArray = new JSONArray();
+            String firstLetter = CharacterUtil.convertHanzi2Pinyin(userInfoBean.getUserName().substring(0, 1), false);
+            if (!firstLetter.matches("^[A-Za-z]+$")) {//不是字母
+                firstLetter = "#";
+            } else {//是字母
+                firstLetter = firstLetter.toUpperCase();//转大写
+            }
+            if (BooleanUtils.isNotEmpty(jsonObject.get(firstLetter))) {
+                jsonArray = jsonObject.getJSONArray(firstLetter);
+            }
+            jsonArray.add(userInfoBean);
+            jsonObject.put(firstLetter, jsonArray);
+        }
+        return jsonObject;
+    }
+
+    /**
+     * 删除好友
+     * @param requestJson
+     * @throws Exception
+     */
     @Override
     public void deleteFriend(JSONObject requestJson) throws Exception {
         AddressListBean addressListBean = new AddressListBean();
@@ -73,7 +147,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         addressListBean.setAccpetStatus(AddressListAccpetStatus.ACCPETED);
         AddressListBean addressList;
         addressList = this.selectOne(addressListBean);
-        if(addressList==null){
+        if (addressList == null) {
             addressListBean.setWechatId(requestJson.getString("wechatId"));
             addressListBean.setFWechatId(requestJson.getString("fWechatId"));
             addressList = this.selectOne(addressListBean);
@@ -83,13 +157,55 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         this.saveOrUpdate(addressList);
     }
 
+    /**
+     * 获得朋友圈朋友内容列表
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<MomentsVO> getMomentsFriendList(JSONObject requestJson) throws Exception {
-        return userInfoMapper.getMomentsFriendList(requestJson);
+        List<MomentsVO> momentsVOs = userInfoMapper.getMomentsFriendList(requestJson);
+        for (MomentsVO mV : momentsVOs) {
+            if (mV.getPictureId() != null) {
+                List<String> pictureImgPath = new ArrayList<>();
+                pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
+                mV.setPictureImgPath(pictureImgPath);
+            }
+            /**
+             *  获取点赞内容
+             */
+            JSONObject jsonObject = requestJson;
+            jsonObject.put("momentId", mV.getId());
+            List<UserInfoBean> LikeList = commentsService.selectLike(jsonObject);
+            if (BooleanUtils.isNotEmpty(LikeList)) {
+                mV.setLikeName(LikeList);
+            }
+//                List<CommentsBean> CommentsList = commentsService.selectComments(jsonObject);
+            /**
+             * 获取评论内容
+             */
+
+        }
+        return momentsVOs;
     }
 
+    /**
+     * 根据微信号获取该用户朋友圈内容
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception {
-        return userInfoMapper.getMomentsByWechatId(requestJson);
+        List<MomentsVO> momentsVOs = userInfoMapper.getMomentsByWechatId(requestJson);
+        for (MomentsVO mV : momentsVOs) {
+            if (mV.getPictureId() != null) {
+                List<String> pictureImgPath = new ArrayList<>();
+                pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
+                mV.setPictureImgPath(pictureImgPath);
+            }
+        }
+        return momentsVOs;
     }
 }

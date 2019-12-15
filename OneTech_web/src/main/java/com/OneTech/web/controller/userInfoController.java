@@ -17,103 +17,104 @@ import java.util.List;
 public class userInfoController extends CommonController {
     @Autowired
     UserInfoService userInfoService;
+
     @PostMapping("searchFriend")
-    public StatusBean<?> searchFriend(){
+    public StatusBean<?> searchFriend() {
         StatusBean<List<UserInfoBean>> statusBean = new StatusBean<>();
         try {
             List<UserInfoBean> userinfos = userInfoService.searchFriend(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("搜索成功");
-            if(userinfos!=null) {
+            if (userinfos != null) {
                 statusBean.setData(userinfos);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("搜索异常!"+e);
+            statusBean.setRespMsg("搜索异常!" + e);
         }
         return statusBean;
     }
+
     @PostMapping("updateName")
-    public StatusBean<?> updateName(){
+    public StatusBean<?> updateName() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
         try {
-            UserInfoBean userInfoBean= userInfoService.updateName(getRequestJson());
+            statusBean.setData(userInfoService.updateName(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("设置成功");
-            statusBean.setData(userInfoBean);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!"+e);
+            statusBean.setRespMsg("设置异常!" + e);
         }
         return statusBean;
     }
+
     @PostMapping("updatePicture")
-    public StatusBean<?> updatePicture(){
+    public StatusBean<?> updatePicture() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
         try {
-            UserInfoBean userInfoBean = userInfoService.updatePicture(getRequestJson());
+            statusBean.setData(userInfoService.updatePicture(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("设置成功");
-            statusBean.setData(userInfoBean);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!"+e);
+            statusBean.setRespMsg("设置异常!" + e);
         }
         return statusBean;
     }
+
     @PostMapping("updateBackgroundImg")
-    public  StatusBean<?> updateBackgroundImg(){
+    public StatusBean<?> updateBackgroundImg() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
         try {
-            UserInfoBean userInfoBean = userInfoService.updateBackgroundImg(getRequestJson());
+            statusBean.setData(userInfoService.updateBackgroundImg(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("设置成功");
-            statusBean.setData(userInfoBean);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!"+e);
+            statusBean.setRespMsg("设置异常!" + e);
         }
         return statusBean;
     }
+
     @PostMapping("changePhoneNum")
-    public  StatusBean<?> changePhoneNum(){
+    public StatusBean<?> changePhoneNum() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
         try {
-            if(userInfoService.changePhoneNum(getRequestJson())) {
+            if (userInfoService.changePhoneNum(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("设置成功");
-            }else{
+            } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg("验证码错误或过期,请重新发送验证码");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!"+e);
+            statusBean.setRespMsg("设置异常!" + e);
         }
         return statusBean;
     }
 
     @PostMapping("updatePassword")
-    public  StatusBean<?> updatePassword(){
+    public StatusBean<?> updatePassword() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
         try {
-            if(!userInfoService.updatePassword(getRequestJson())){
+            if (!userInfoService.updatePassword(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg("旧密码错误!");
-            }
-            else{
+            } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("设置成功");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!"+e);
+            statusBean.setRespMsg("设置异常!" + e);
         }
         return statusBean;
     }

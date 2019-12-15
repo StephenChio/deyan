@@ -1,29 +1,26 @@
 package com.OneTech.device.websocket.interceptor;
 
-
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.WebSocketSession;
+import com.OneTech.common.constants.SystemConstants;
+import org.springframework.web.socket.TextMessage;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
-import com.OneTech.common.constants.SystemConstants;
-import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
-
 /**
  * WebSocket拦截器
  * @author qww
- *
  */
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
-    public static final Map<String,String> usersIdMap = new HashMap<>();//这个会出现性能问题，最好用Map来存储，key用userid
+    public static final Map<String, String> usersIdMap = new HashMap<>();//这个会出现性能问题，最好用Map来存储，key用userid
+
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> map) throws Exception {
@@ -40,7 +37,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 //                if (userName==null) {
 //                    userName="default-system";
 //                }
-                dealWithConnectioned(session,userName);
+                dealWithConnectioned(session, userName);
                 map.put("WS_NAME", userName);
             }
         }
@@ -50,17 +47,17 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-            Exception ex) {
+                               Exception ex) {
         // TODO Auto-generated method stub
         super.afterHandshake(request, response, wsHandler, ex);
     }
+
     /**
      * 处理多设备登陆
-     *
      */
-    public static boolean dealWithConnectioned(HttpSession session,String userName) {
+    public static boolean dealWithConnectioned(HttpSession session, String userName) {
         Boolean isConnectioned = false;
-        if(usersIdMap.containsKey(userName)){//该账号已经登陆
+        if (usersIdMap.containsKey(userName)) {//该账号已经登陆
             Map<String, WebSocketSession> users = SpringWebSocketHandler.users;
             String userId = usersIdMap.get(userName);
             if (null != users) {

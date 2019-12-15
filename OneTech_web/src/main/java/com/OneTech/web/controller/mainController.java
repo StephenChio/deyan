@@ -1,18 +1,17 @@
 package com.OneTech.web.controller;
 
-import com.OneTech.common.constants.SystemConstants;
-import com.OneTech.common.controller.CommonController;
-import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.UUIDUtils;
-import com.OneTech.common.util.massageUtils.MassageUitls;
-import com.OneTech.common.vo.StatusBean;
-import com.OneTech.model.model.UserInfoBean;
-import com.OneTech.service.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
-import java.util.Date;
-
+import com.OneTech.common.util.massageUtils.MassageUitls;
+import com.OneTech.common.controller.CommonController;
+import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.service.service.UserInfoService;
+import com.OneTech.common.util.BooleanUtils;
+import com.OneTech.model.model.UserInfoBean;
+import com.OneTech.common.vo.StatusBean;
 
 @RestController
 @RequestMapping(value = "/")
@@ -20,20 +19,20 @@ public class mainController extends CommonController {
     @Autowired
     UserInfoService userInfoService;
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
     @Autowired
     MassageUitls massageUitls;
+
     /**
      * 获取验证码
      */
     @PostMapping("getVerifiCode")
     public StatusBean<?> getVerifiCode() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
-        if(massageUitls.sendMassageToSingle(getRequestJson())){
+        if (massageUitls.sendMassageToSingle(getRequestJson())) {
             statusBean.setRespMsg("发送成功");
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-        }
-        else{
+        } else {
             statusBean.setRespMsg("发送失败");
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
@@ -53,7 +52,7 @@ public class mainController extends CommonController {
         try {
             String phone = getRequestJson().getString("phone");
             String loginType = getRequestJson().getString("loginType");
-            if("password".equals(loginType)){
+            if ("password".equals(loginType)) {
                 String password = getRequestJson().getString("password");
                 userInfo.setPhone(phone);
                 userInfo.setPassWord(password);
@@ -62,7 +61,7 @@ public class mainController extends CommonController {
                     statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                     statusBean.setRespMsg("密码不正确");
                     return statusBean;
-                }else{
+                } else {
                     statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                     statusBean.setRespMsg("登陆成功!");
                     statusBean.setData(userInfoBean);
@@ -70,30 +69,21 @@ public class mainController extends CommonController {
                 }
             }
             String verifiCode = getRequestJson().getString("verifiCode");
-            if(BooleanUtils.isEmpty(redisTemplate.opsForValue().get(phone))){
+            if (BooleanUtils.isEmpty(redisTemplate.opsForValue().get(phone))) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg("请重新发送验证码");
                 return statusBean;
             }
-            if(redisTemplate.opsForValue().get(phone).toString().equals(verifiCode)) {
+            if (redisTemplate.opsForValue().get(phone).toString().equals(verifiCode)) {
                 userInfo.setPhone(phone);
                 userInfoBean = userInfoService.selectOne(userInfo);
                 if (userInfoBean == null) {
-                    userInfo.setId(UUIDUtils.getRandom32());
-                    userInfo.setUserName("新用户");
-                    userInfo.setWechatId(UUIDUtils.getRandom32());
-                    userInfo.setMomentsId(UUIDUtils.getRandom32());
-                    userInfo.setImgPath("img/head.png");
-                    userInfo.setBackgroundImg("img/background.png");
-                    userInfo.setCreateTime(new Date());
-                    userInfoService.save(userInfo);
-                    userInfoBean = userInfo;
+                    userInfoBean = userInfoService.initUser(userInfoBean);
                 }
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("登陆成功!");
                 statusBean.setData(userInfoBean);
-            }
-            else{
+            } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg("验证码不正确");
             }

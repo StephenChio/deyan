@@ -88,7 +88,7 @@ public class LogAspect {
             }
         } else {
             result = JSONObject.toJSONString(joinPoint);
-            if(result.length()>1000)return null;
+            if (result.length() > 1000) return null;
         }
         return result;
     }
@@ -100,7 +100,6 @@ public class LogAspect {
         Long endTime = new Date().getTime();
         logger.info("线程日志id={},耗时={}毫秒,响应data={}", logInfo.getLogId(), (endTime - startTime) / 1000, JSONObject.toJSON(object));
     }
-
 
     class LogInfo {
 
@@ -128,7 +127,5 @@ public class LogAspect {
             this.logId = logId;
             this.time = time;
         }
-
-
     }
 }

@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface ResourceMapper extends IBaseMapper<ResourceBean> {
     List<String> getPictureImgPath(@Param("PICTURE_ID") String prictureId);
+
     List<String> get4MomentsImgByWechatId(JSONObject jsonObject);
 }

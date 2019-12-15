@@ -1,24 +1,26 @@
 package com.OneTech.service.impl;
 
-import com.OneTech.common.service.impl.BaseServiceImpl;
-import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.UUIDUtils;
-import com.OneTech.common.util.UploadUtils;
-import com.OneTech.model.model.MomentsBean;
-import com.OneTech.model.model.ResourceBean;
-import com.OneTech.model.model.UserInfoBean;
-import com.OneTech.service.service.MomentsService;
-import com.OneTech.service.service.ResourceService;
-import com.OneTech.service.service.UserInfoService;
-import com.alibaba.fastjson.JSONObject;
+import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import com.OneTech.common.service.impl.BaseServiceImpl;
+import com.OneTech.service.service.AddressListService;
+import com.OneTech.service.service.ResourceService;
+import com.OneTech.service.service.UserInfoService;
+import com.OneTech.service.service.MomentsService;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
+import com.OneTech.model.model.ResourceBean;
+import com.OneTech.model.model.UserInfoBean;
+import com.OneTech.common.util.BooleanUtils;
+import com.OneTech.common.util.UploadUtils;
+import com.OneTech.model.model.MomentsBean;
+import com.OneTech.common.util.UUIDUtils;
+import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.File;
 
 @Service("MomentsServiceImpl")
 public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements MomentsService {
@@ -26,9 +28,18 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
     UserInfoService userInfoService;
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    AddressListService addressListService;
+    @Autowired
+    SpringWebSocketHandler springWebSocketHandler;
     @Value("${localUrl}")
     public String url;
 
+    /**
+     * 发布朋友圈
+     * @param requestJson
+     * @throws Exception
+     */
     @Override
     public void publish(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
@@ -75,7 +86,14 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
             resourceService.batchInsert(resourceBeans);
         }
         this.save(momentsBean);
-
+        /**
+         * 群发朋友圈发布消息
+         */
+        List<UserInfoBean> userInfoBeans = addressListService.getFriendList(requestJson);
+        for (UserInfoBean userInfo : userInfoBeans) {
+            String user = "tab3" + userInfo.getWechatId();
+            TextMessage textMessage = new TextMessage("朋友圈消息");
+            springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+        }
     }
-
 }

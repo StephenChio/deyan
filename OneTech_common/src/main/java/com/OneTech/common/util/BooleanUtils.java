@@ -30,7 +30,7 @@ public class BooleanUtils {
 		}
 		if (obj instanceof Collection) {
 			Collection<?> coll = (Collection<?>) obj;
-			System.out.println("coll");
+//			System.out.println("coll");
 			return coll.size() == 0;
 		}
 		if (obj instanceof Map) {

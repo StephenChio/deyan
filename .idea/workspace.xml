@@ -2,12 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Cube.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/ListNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/aspect/LogAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/aspect/LogAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/util/BooleanUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/util/BooleanUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/config/SpringWebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/config/SpringWebSocketConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/handler/SpringWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/handler/SpringWebSocketHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/interceptor/SpringWebSocketHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_device/src/main/java/com/OneTech/device/websocket/interceptor/SpringWebSocketHandlerInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/ResourceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/ResourceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/UserInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/UserInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/AddressListBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/AddressListBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/CommentsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/CommentsBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/MomentsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/MomentsBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/ResourceBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/ResourceBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/UserInfoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/UserInfoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/AddressListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/AddressListServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/CommentsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/CommentsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/ResourceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/ResourceServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/AddressListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/AddressListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/CommentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/CommentsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/MomentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/MomentsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/ResourceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/ResourceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/addressListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/addressListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/commentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/commentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/mainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/mainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/momentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/momentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/resourceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/resourceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -124,13 +152,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WebAppApplication (1)">
+  <component name="RunManager" selected="Application.Solution">
     <configuration name="CharacterUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.OneTech.common.util.pingyinUtils.CharacterUtil" />
       <module name="OneTech_common" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.OneTech.common.util.pingyinUtils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cube" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.OneTech.web.test.Cube" />
+      <module name="OneTech_web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.OneTech.web.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -164,19 +205,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebAppApplication (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.OneTech.web.WebAppApplication" />
-      <module name="OneTech_web" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.OneTech.web.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="OneTech_web" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.onetech.web.DemoApplication" />
@@ -200,10 +228,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.WebAppApplication (1)" />
-        <item itemvalue="Application.CharacterUtil" />
         <item itemvalue="Application.Solution" />
+        <item itemvalue="Application.Cube" />
+        <item itemvalue="Application.CharacterUtil" />
         <item itemvalue="Application.Test (2)" />
-        <item itemvalue="Application.WebAppApplication (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -249,7 +277,16 @@
       <workItem from="1575214907554" duration="10420000" />
       <workItem from="1575292759723" duration="995000" />
       <workItem from="1575351072056" duration="14586000" />
-      <workItem from="1575518321153" duration="4948000" />
+      <workItem from="1575518321153" duration="5021000" />
+      <workItem from="1575625000218" duration="4031000" />
+      <workItem from="1575970293084" duration="1759000" />
+      <workItem from="1575972125091" duration="1742000" />
+      <workItem from="1575973933169" duration="873000" />
+      <workItem from="1575980054293" duration="12442000" />
+      <workItem from="1576051098329" duration="16116000" />
+      <workItem from="1576157431544" duration="28677000" />
+      <workItem from="1576299003928" duration="947000" />
+      <workItem from="1576406335322" duration="109000" />
     </task>
     <servers />
   </component>
@@ -269,9 +306,38 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java</url>
+          <line>537</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java</url>
+          <line>499</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/test/Solution.java</url>
+          <line>511</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="pushAqueue" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OneTech$WebAppApplication__1_.ic" NAME="WebAppApplication (1) Coverage Results" MODIFIED="1575111683145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.OneTech.web.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/OneTech$Solution.ic" NAME="Solution Coverage Results" MODIFIED="1576220417961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.OneTech.web.test.*</FILTER>
     </SUITE>
   </component>
 </project>

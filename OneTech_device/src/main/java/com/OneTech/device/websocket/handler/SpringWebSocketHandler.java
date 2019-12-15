@@ -1,25 +1,19 @@
 package com.OneTech.device.websocket.handler;
 
-
-import com.OneTech.common.constants.SystemConstants;
-import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.massageUtils.massage.Message;
 import com.OneTech.device.websocket.interceptor.SpringWebSocketHandlerInterceptor;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.springframework.stereotype.Component;
+import com.OneTech.common.util.BooleanUtils;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * handler
@@ -98,6 +92,9 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * js调用websocket.send时候，会调用该方法
+     * @param session
+     * @param message
+     * @throws Exception
      */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -127,6 +124,12 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         }
     }
 
+    /**
+     * 连接出现异常时触发
+     * @param session
+     * @param exception
+     * @throws Exception
+     */
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         if (session.isOpen()) {
             session.close();
@@ -139,11 +142,9 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         return false;
     }
 
-
     /**
      * 给某个用户发送消息
      * boolean isSave 此条消息是否主动保存或者自定义保存
-     *
      * @param userName
      * @param message
      */
@@ -175,7 +176,6 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 给所有在线用户发送消息
-     *
      * @param message
      */
     public void sendMessageToUsers(TextMessage message) {

@@ -5,5 +5,5 @@ import com.OneTech.model.model.MomentsBean;
 import com.alibaba.fastjson.JSONObject;
 
 public interface MomentsService extends IBaseService<MomentsBean> {
-    void publish(JSONObject requestJson)throws Exception;
+    void publish(JSONObject requestJson) throws Exception;
 }

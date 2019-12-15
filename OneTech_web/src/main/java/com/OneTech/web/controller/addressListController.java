@@ -1,22 +1,17 @@
 package com.OneTech.web.controller;
 
-import com.OneTech.common.constants.SystemConstants;
-import com.OneTech.common.controller.CommonController;
-import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.pingyinUtils.CharacterUtil;
-import com.OneTech.common.vo.StatusBean;
-import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
-import com.OneTech.model.model.UserInfoBean;
-import com.OneTech.service.service.AddressListService;
-import com.OneTech.service.service.UserInfoService;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.TextMessage;
+import com.OneTech.common.controller.CommonController;
+import com.OneTech.service.service.AddressListService;
+import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.service.service.UserInfoService;
+import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.vo.NewFriendVO;
+import com.OneTech.common.vo.StatusBean;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -24,11 +19,10 @@ import java.util.List;
 @RequestMapping("addressList")
 public class addressListController extends CommonController {
     @Autowired
-    SpringWebSocketHandler springWebSocketHandler;
-    @Autowired
     AddressListService addressListService;
     @Autowired
     UserInfoService userInfoService;
+
     @PostMapping(value = "sendVerification")
     public StatusBean<?> sendVerification() {
         StatusBean<?> statusBean = new StatusBean<>();
@@ -40,9 +34,6 @@ public class addressListController extends CommonController {
             }
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("发送成功");
-            String user = "tab2" + getRequestJson().getString("fWechatId");
-            TextMessage textMessage = new TextMessage("新的好友申请");
-            springWebSocketHandler.sendMessageToUser(user, textMessage,true);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
@@ -55,10 +46,9 @@ public class addressListController extends CommonController {
     public StatusBean<?> getNewFriend() {
         StatusBean<List<NewFriendVO>> statusBean = new StatusBean<>();
         try {
-            List<NewFriendVO> newFriendVOBeans = addressListService.getNewFriend(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("查询成功");
-            statusBean.setData(newFriendVOBeans);
+            statusBean.setData(addressListService.getNewFriend(getRequestJson()));
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
@@ -86,26 +76,9 @@ public class addressListController extends CommonController {
     public StatusBean<?> getFriendList() {
         StatusBean<JSONObject> statusBean = new StatusBean<>();
         try {
-            List<UserInfoBean> userInfoBeans = addressListService.getFriendList(getRequestJson());
-            JSONObject jsonObject = new JSONObject();
-            for (UserInfoBean userInfoBean : userInfoBeans) {
-                JSONArray jsonArray = new JSONArray();
-                String firstLetter = CharacterUtil.convertHanzi2Pinyin(userInfoBean.getUserName().substring(0, 1),false);
-                if(!firstLetter.matches("^[A-Za-z]+$")){//不是字母
-                    firstLetter = "#";
-                }
-                else{//是字母
-                    firstLetter = firstLetter.toUpperCase();//转大写
-                }
-                if (BooleanUtils.isNotEmpty(jsonObject.get(firstLetter))) {
-                    jsonArray = jsonObject.getJSONArray(firstLetter);
-                }
-                jsonArray.add(userInfoBean);
-                jsonObject.put(firstLetter, jsonArray);
-            }
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("查询成功");
-            statusBean.setData(jsonObject);
+            statusBean.setData(addressListService.getFriendListByPY(getRequestJson()));
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);

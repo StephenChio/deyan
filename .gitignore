@@ -26,6 +26,6 @@ OneTech_web/.idea
 /nbdist/
 /.nb-gradle/
 build/
-
+*test*
 ### VS Code ###
 .vscode/

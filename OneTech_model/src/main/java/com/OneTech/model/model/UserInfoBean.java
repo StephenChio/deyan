@@ -3,6 +3,7 @@ package com.OneTech.model.model;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+
 @Table(name = "user_info")
 public class UserInfoBean {
     @Id
