@@ -78,7 +78,7 @@ public class mainController extends CommonController {
                 userInfo.setPhone(phone);
                 userInfoBean = userInfoService.selectOne(userInfo);
                 if (userInfoBean == null) {
-                    userInfoBean = userInfoService.initUser(userInfoBean);
+                    userInfoBean = userInfoService.initUser(phone);
                 }
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("登陆成功!");

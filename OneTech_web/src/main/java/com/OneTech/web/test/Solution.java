@@ -442,7 +442,6 @@ public class Solution {
     }
 
     /**
-     *
      * @param pRoot
      * @return
      */
@@ -483,33 +482,131 @@ public class Solution {
     }
 
 
-    public static ArrayList<Integer> printMatrix(int [][] matrix) {
+    public static ArrayList<Integer> printMatrix(int[][] matrix) {
         int[][] array = new int[matrix.length][matrix[0].length];
-        for(int i = 0 ;i<matrix.length;i++){
-            for(int j =0 ;j< matrix[0].length;j++){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
                 array[i][j] = 0;
             }
         }
         ArrayList<Integer> list = new ArrayList<>();
-        return startPrint(matrix,0,0,array,list);
+        return startPrint(matrix, 0, 0, array, list);
 
     }
-    public static ArrayList<Integer> startPrint(int [][] matrix,int rows,int cols,int[][] array,ArrayList<Integer> list){
-        array[rows][cols]=1;
+
+    public static ArrayList<Integer> startPrint(int[][] matrix, int rows, int cols, int[][] array, ArrayList<Integer> list) {
+        array[rows][cols] = 1;
         list.add(matrix[rows][cols]);
-        if(cols<matrix[0].length-1 && array[rows][cols+1]!=1){//右边
-            return startPrint(matrix,rows,cols+1,array,list);
-        }
-        else if(rows<matrix.length-1 && array[rows+1][cols]!=1){//下边
-            return startPrint(matrix,rows+1,cols,array,list);
-        }
-        else if(cols-1>=0 && array[rows][cols-1]!=1){//左边
-            return startPrint(matrix,rows,cols-1,array,list);
-        }
-        else if(rows-1>=0 && array[rows-1][cols]!=1){//上边
-            return startPrint(matrix,rows-1,cols,array,list);
+        if (cols < matrix[0].length - 1 && array[rows][cols + 1] != 1) {//右边
+            return startPrint(matrix, rows, cols + 1, array, list);
+        } else if (rows < matrix.length - 1 && array[rows + 1][cols] != 1) {//下边
+            return startPrint(matrix, rows + 1, cols, array, list);
+        } else if (cols - 1 >= 0 && array[rows][cols - 1] != 1) {//左边
+            return startPrint(matrix, rows, cols - 1, array, list);
+        } else if (rows - 1 >= 0 && array[rows - 1][cols] != 1) {//上边
+            return startPrint(matrix, rows - 1, cols, array, list);
         }
         return list;
+    }
+
+
+    public static ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
+        if (root == null)
+            return arr;
+        ArrayList<Integer> a1 = new ArrayList<Integer>();
+        int sum = 0;
+        searchPath(root, target, arr, a1, sum);
+        return arr;
+    }
+
+    public static void searchPath(TreeNode root, int target, ArrayList<ArrayList<Integer>> ArrayList, ArrayList<Integer> list, int sum) {
+        if (root == null)
+            return;
+        sum += root.val;
+
+        if (root.left == null && root.right == null) {
+            if (sum == target) {
+                list.add(root.val);
+                ArrayList.add(new ArrayList<Integer>(list));
+                list.remove(list.size() - 1);
+
+            }
+            return;
+
+        }
+
+        list.add(root.val);
+        searchPath(root.left, target, ArrayList, list, sum);
+        searchPath(root.right, target, ArrayList, list, sum);
+        list.remove(list.size() - 1);
+
+    }
+
+    public int run(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left != null && root.right == null) return 1 + run(root.left);
+        if (root.left == null && root.right != null) return 1 + run(root.right);
+        return Math.min(run(root.left), run(root.right)) + 1;
+    }
+
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack();
+        for (String str : tokens) {
+            if (str.equals("+")) stack.add(stack.pop() + stack.pop());
+            else if (str.equals("-")) stack.add(stack.pop() - stack.pop());
+            else if (str.equals("*")) stack.add(stack.pop() * stack.pop());
+            else if (str.equals("/")) stack.add(stack.pop() / stack.pop());
+            else {
+                stack.add(Integer.valueOf(str));
+            }
+        }
+        return stack.pop();
+    }
+
+
+    public static int maxPoints(Point[] points) {
+        if (points.length <= 2) return points.length;
+        int num = 0;
+        for (int i = 0; i < points.length-1; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                num = Math.max(num, findPoint(points, i, j));
+            }
+        }
+        return num+2;
+    }
+
+    public static int findPoint(Point[] points, int point1, int point2) {
+        int num = 0;
+        for (int i = 0; i < points.length; i++) {
+                if (i != point1 && i != point2) {
+                    if (judge(points[point1], points[i], points[point2]))
+                        num = num + 1;
+                }
+            }
+        return num;
+    }
+
+    public static boolean judge(Point point1, Point point2, Point point3) {
+        double A = distance(point1,point2);
+        double B = distance(point2,point3);
+        double C = distance(point1,point3);
+        double p=0.5*(A+B+C);
+        if (p*(p-A)*(p-B)*(p-C)>0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public static double distance(Point point1, Point point2) {
+        int x1 = point1.x - point2.x;
+        int y1 = point1.y - point2.y;
+        return Math.sqrt(x1 * x1 + y1 * y1);
+    }
+
+
+    public ListNode sortList(ListNode head) {
+        return new ListNode(1);
     }
 
 
@@ -535,6 +632,20 @@ public class Solution {
         char[] chars = {'S', 'L', 'H', 'E', 'C', 'C', 'E', 'I', 'D', 'E', 'J', 'F', 'G', 'G', 'F', 'I', 'E'};
         String str = "zabbbbbac";
         int[][] matrix = {{1}};
-        System.out.println(Solution.printMatrix(matrix));
+        Point point1 = new Point(84, 250);
+        Point point2 = new Point(0, 0);
+        Point point3 = new Point(1, 0);
+        Point[] points = new Point[9];
+        points[0] = point1;
+        points[1] = point2;
+        points[2] = point3;
+        points[3] = new Point(0,-70);
+        points[4] = new Point(0,-70);
+        points[5] = new Point(1,-1);
+        points[6] = new Point(21,10);
+        points[7] = new Point(42,90);
+        points[8] = new Point(-42,-230);
+
+        System.out.println(Solution.maxPoints(points));
     }
 }

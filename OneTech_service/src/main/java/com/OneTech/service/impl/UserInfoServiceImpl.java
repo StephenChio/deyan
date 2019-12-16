@@ -175,6 +175,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
+        if("init".equals(requestJson.getString("type"))){
+            userInfoBean.setPassWord(requestJson.getString("newPwd"));
+            userInfoBean.setUpdateTime(new Date());
+            this.saveOrUpdate(userInfoBean);
+            return true;
+        }
         if (requestJson.getString("oldPwd").equals(userInfoBean.getPassWord())) {
             userInfoBean.setPassWord(requestJson.getString("newPwd"));
             userInfoBean.setUpdateTime(new Date());
@@ -187,14 +193,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 初始化新用户
-     * @param userInfoBean
+     * @param phone
      * @return
      * @throws Exception
      */
     @Override
-    public UserInfoBean initUser(UserInfoBean userInfoBean) throws Exception {
+    public UserInfoBean initUser(String phone) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setId(UUIDUtils.getRandom32());
         userInfoBean.setUserName("新用户");
+        userInfoBean.setPhone(phone);
         userInfoBean.setWechatId(UUIDUtils.getRandom32());
         userInfoBean.setMomentsId(UUIDUtils.getRandom32());
         userInfoBean.setImgPath("img/head.png");

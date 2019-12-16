@@ -1,5 +1,6 @@
 package com.OneTech.device.websocket.interceptor;
 
+import com.OneTech.common.constants.WebSocketConstants;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -29,7 +30,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
         if (request instanceof ServletServerHttpRequest) {
 
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-            String userName = servletRequest.getServletRequest().getParameter("WS_NAME");
+            String userName = servletRequest.getServletRequest().getParameter(WebSocketConstants.ATTRIBUTES_NAME);
             HttpSession session = servletRequest.getServletRequest().getSession(true);
             if (session != null) {
                 //使用userName区分WebSocketHandler，以便定向发送消息
@@ -38,7 +39,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 //                    userName="default-system";
 //                }
                 dealWithConnectioned(session, userName);
-                map.put("WS_NAME", userName);
+                map.put(WebSocketConstants.ATTRIBUTES_NAME, userName);
             }
         }
         return super.beforeHandshake(request, response, wsHandler, map);
@@ -58,11 +59,11 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     public static boolean dealWithConnectioned(HttpSession session, String userName) {
         Boolean isConnectioned = false;
         if (usersIdMap.containsKey(userName)) {//该账号已经登陆
-            Map<String, WebSocketSession> users = SpringWebSocketHandler.users;
+            Map<String, WebSocketSession> users = SpringWebSocketHandler.usersConnect;
             String userId = usersIdMap.get(userName);
             if (null != users) {
                 if (users.containsKey(userId)) {
-                    System.out.println("该账号已经登陆");
+                    System.out.println(WebSocketConstants.HAS_LOADING);
                     // 如果已经登录过，则推送"已登录过的提示"到客户端;
                     // 客户端接受信息，请求退出系统的接口;
                     // 清除session中保存的用户信息;

@@ -1,5 +1,6 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.OneTech.common.service.impl.BaseServiceImpl;
 import com.OneTech.common.constants.CommentConstants;
@@ -10,6 +11,8 @@ import com.OneTech.model.model.CommentsBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.socket.TextMessage;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +20,8 @@ import java.util.List;
 public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implements CommentsService {
     @Autowired
     CommentsMapper commentsMapper;
-
+    @Autowired
+    SpringWebSocketHandler springWebSocketHandler;
     /**
      * 点赞
      * @param requestJson
@@ -32,6 +36,9 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
         commentsBean.setType(CommentConstants.LIKE);
         commentsBean.setCreateTime(new Date());
         this.save(commentsBean);
+        String user = "tab3" + requestJson.getString("fWechatId");
+        TextMessage textMessage = new TextMessage("点赞消息");
+        springWebSocketHandler.sendMessageToUser(user, textMessage, true);
     }
 
     /**

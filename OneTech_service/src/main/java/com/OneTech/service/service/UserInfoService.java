@@ -19,5 +19,5 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 
     boolean updatePassword(JSONObject requestJson) throws Exception;
 
-    UserInfoBean initUser(UserInfoBean userInfoBean) throws Exception;
+    UserInfoBean initUser(String phone) throws Exception;
 }
