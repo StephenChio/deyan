@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,9 +47,9 @@ public class mainController extends CommonController {
      */
     @PostMapping(value = "login")
     public StatusBean<?> login() {
-        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        StatusBean<LoginVO> statusBean = new StatusBean<>();
         UserInfoBean userInfo = new UserInfoBean();
-        UserInfoBean userInfoBean;
+        LoginVO loginVO = new LoginVO();
         try {
             String phone = getRequestJson().getString("phone");
             String loginType = getRequestJson().getString("loginType");
@@ -56,15 +57,29 @@ public class mainController extends CommonController {
                 String password = getRequestJson().getString("password");
                 userInfo.setPhone(phone);
                 userInfo.setPassWord(password);
-                userInfoBean = userInfoService.selectOne(userInfo);
-                if (userInfoBean == null) {
+                userInfo = userInfoService.selectOne(userInfo);
+                if (userInfo == null) {
                     statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                     statusBean.setRespMsg("密码不正确");
                     return statusBean;
                 } else {
+                    /**
+                     * 构造登陆返回对象
+                     */
+                    loginVO.setWechatId(userInfo.getWechatId());
+                    loginVO.setBackgroundImg(userInfo.getBackgroundImg());
+                    loginVO.setImgPath(userInfo.getImgPath());
+                    loginVO.setPhone(userInfo.getPhone());
+                    loginVO.setUserName(userInfo.getUserName());
+                    if(BooleanUtils.isEmpty(userInfo.getPassWord())){
+                        loginVO.setHasPassword(false);
+                    }
+                    else{
+                        loginVO.setHasPassword(true);
+                    }
                     statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                     statusBean.setRespMsg("登陆成功!");
-                    statusBean.setData(userInfoBean);
+                    statusBean.setData(loginVO);
                     return statusBean;
                 }
             }
@@ -76,13 +91,29 @@ public class mainController extends CommonController {
             }
             if (redisTemplate.opsForValue().get(phone).toString().equals(verifiCode)) {
                 userInfo.setPhone(phone);
-                userInfoBean = userInfoService.selectOne(userInfo);
-                if (userInfoBean == null) {
-                    userInfoBean = userInfoService.initUser(phone);
+                userInfo = userInfoService.selectOne(userInfo);
+                if (userInfo == null) {
+                    loginVO = userInfoService.initUser(phone);
+                }
+                else {
+                    /**
+                     * 构造登陆返回对象
+                     */
+                    loginVO.setWechatId(userInfo.getWechatId());
+                    loginVO.setBackgroundImg(userInfo.getBackgroundImg());
+                    loginVO.setImgPath(userInfo.getImgPath());
+                    loginVO.setPhone(userInfo.getPhone());
+                    loginVO.setUserName(userInfo.getUserName());
+                    if(BooleanUtils.isEmpty(userInfo.getPassWord())){
+                        loginVO.setHasPassword(false);
+                    }
+                    else{
+                        loginVO.setHasPassword(true);
+                    }
                 }
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("登陆成功!");
-                statusBean.setData(userInfoBean);
+                statusBean.setData(loginVO);
             } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg("验证码不正确");
@@ -91,6 +122,33 @@ public class mainController extends CommonController {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("登陆失败!" + e);
+        }
+        return statusBean;
+    }
+
+    /**
+     * 查询手机是否被使用
+     *
+     * @return
+     */
+    @PostMapping("checkPhoneUsed")
+    public StatusBean<?> checkPhoneUsed() {
+        StatusBean<?> statusBean = new StatusBean<>();
+        try {
+            UserInfoBean userInfoBean = new UserInfoBean();
+            userInfoBean.setPhone(getRequestJson().getString("phone"));
+            userInfoBean = userInfoService.selectOne(userInfoBean);
+            if (userInfoBean == null) {
+                statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+                statusBean.setRespMsg("该手机未被使用");
+            } else {
+                statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                statusBean.setRespMsg("该手机已被使用");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("查询!" + e);
         }
         return statusBean;
     }

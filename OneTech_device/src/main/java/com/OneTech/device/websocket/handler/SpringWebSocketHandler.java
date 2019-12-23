@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.OneTech.common.util.BooleanUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,25 +37,16 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 当连接为新用户连接时添加新用户
+     *
      * @param userName
      * @return
      */
-    public boolean addOnlineUsers(String userName){
-        if(userName.startsWith(WebSocketConstants.WEBSOCKET_TAB)){
-            userName = userName.substring(4,36);
-        }
-        else{
-            userName = userName.substring(8,40);
-        }
+    public boolean addOnlineUsers(String userName) {
+        userName = userName.split("and")[1];
         for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
-            String connectName = (String)entry.getValue().getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME);
-            if(connectName.startsWith(WebSocketConstants.WEBSOCKET_TAB)){
-                connectName = connectName.substring(4,36);
-            }
-            else{
-                connectName = connectName.substring(8,40);
-            }
-            if(connectName.equals(userName)){
+            String connectName = (String) entry.getValue().getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME);
+            connectName = connectName.split("and")[1];
+            if (connectName.equals(userName)) {
                 return false;
             }
         }
@@ -64,25 +56,16 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 当该用户连接全部断开时删除用户
+     *
      * @param userName
      * @return
      */
-    public boolean removeOnlineUsers(String userName){
-        if(userName.startsWith(WebSocketConstants.WEBSOCKET_TAB)){
-            userName = userName.substring(4,36);
-        }
-        else{
-            userName = userName.substring(8,40);
-        }
+    public boolean removeOnlineUsers(String userName) {
+        userName = userName.split("and")[1];
         for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
-            String connectName = (String)entry.getValue().getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME);
-            if(connectName.startsWith(WebSocketConstants.WEBSOCKET_TAB)){
-                connectName = connectName.substring(4,36);
-            }
-            else{
-                connectName = connectName.substring(8,40);
-            }
-            if(connectName.equals(userName)){
+            String connectName = (String) entry.getValue().getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME);
+            connectName = connectName.split("and")[1];
+            if (connectName.equals(userName)) {
                 return false;
             }
         }
@@ -101,9 +84,9 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         usersConnect.put(session.getId(), session);
         System.out.println("用户当前数量:" + OnlineUsers.size());
         System.out.println("connect to the websocket success......当前数量:" + usersConnect.size());
-        for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-        }
+//        for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
+//        }
         this.handleOutLineMessage(session);//处理该账号的离线消息
     }
 
@@ -145,16 +128,18 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 //        System.out.println("用户" + username + "已退出！");
 //        SpringWebSocketHandlerInterceptor.usersIdMap.remove((String)session.getAttributes().get("WS_NAME"));
         usersConnect.remove(session.getId());
-        removeOnlineUsers((String)session.getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME));
+        removeOnlineUsers((String) session.getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME));
         System.out.println("剩余在线用户" + OnlineUsers.size());
         System.out.println("剩余用户连接数" + usersConnect.size());
-        for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-        }
+//            for (Map.Entry<String, WebSocketSession> entry : usersConnect.entrySet()) {
+//                System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
+//            }
+//
     }
 
     /**
      * js调用websocket.send时候，会调用该方法
+     *
      * @param session
      * @param message
      * @throws Exception
@@ -168,15 +153,15 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         boolean isSuccess = false;
         for (String t : to) {
             if (t.equals(WebSocketConstants.WEBSOCKET_CHATPAGE)) {
-                System.out.println("发送给" + t + jsonObject.getString("fWechatId") + jsonObject.getString("wechatId"));
-                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId") + jsonObject.getString("wechatId"), message, false);
+                System.out.println("发送给" + t + "and" + jsonObject.getString("fWechatId") +  "and"  + jsonObject.getString("wechatId"));
+                isSuccess = isSuccess || this.sendMessageToUser(t +  "and"  + jsonObject.getString("fWechatId") + "and" + jsonObject.getString("wechatId"), message, false);
             } else {
-                System.out.println("发送给" + t + jsonObject.getString("fWechatId"));
-                isSuccess = isSuccess || this.sendMessageToUser(t + jsonObject.getString("fWechatId"), message, false);
+                System.out.println("发送给" + t +  "and"  + jsonObject.getString("fWechatId"));
+                isSuccess = isSuccess || this.sendMessageToUser(t +"and"+ jsonObject.getString("fWechatId"), message, false);
             }
         }
         if (!isSuccess) {//保存聊天消息
-            String userName = "tab1" + jsonObject.getString("fWechatId");
+            String userName = "tab1" +  "and"  + jsonObject.getString("fWechatId");
             if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {//之前有消息
                 String payload = redisTemplate.opsForValue().get(userName) + WebSocketConstants.PAYLOAD_SPLIT + message.getPayload();
                 redisTemplate.opsForValue().set(userName, payload);
@@ -189,6 +174,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 连接出现异常时触发
+     *
      * @param session
      * @param exception
      * @throws Exception
@@ -208,6 +194,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     /**
      * 给某个用户发送消息
      * boolean isSave 此条消息是否主动保存或者自定义保存
+     *
      * @param userName
      * @param message
      */
@@ -239,6 +226,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 给所有在线用户发送消息
+     *
      * @param message
      */
     public void sendMessageToUsers(TextMessage message) {

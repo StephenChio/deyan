@@ -31,6 +31,14 @@ public interface IBaseService<T> {
      * @throws Exception
      */
     int deleteByExample(Object example) throws Exception;
+
+    /**
+     * 批量根据example条件删除数据
+     * @param example
+     * @return
+     * @throws Exception
+     */
+    int batchDelete(List<T> list) throws Exception;
     
     /**
      * 根据id数组删除数据
@@ -65,7 +73,7 @@ public interface IBaseService<T> {
      * @throws Exception
      */
     List<T> select(T entity) throws Exception;
-    
+
     /**
      * 查询所有数据
      * @param entity
@@ -73,7 +81,7 @@ public interface IBaseService<T> {
      * @throws Exception
      */
     List<T> selectAll() throws Exception;
-    
+
     /**
      * 根据主键查询数据
      * @param key
@@ -81,7 +89,7 @@ public interface IBaseService<T> {
      * @throws Exception
      */
     T selectByPrimaryKey(Object key) throws Exception;
-    
+
     /**
      * 批量插入数据
      * @param list

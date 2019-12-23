@@ -31,11 +31,11 @@ public class MomentsBean {
         this.momentsId = momentsId;
     }
 
-    public String getpictureId() {
+    public String getPictureId() {
         return pictureId;
     }
 
-    public void setpictureId(String pictureId) {
+    public void setPictureId(String pictureId) {
         this.pictureId = pictureId;
     }
 

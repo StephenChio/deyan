@@ -38,7 +38,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 //                if (userName==null) {
 //                    userName="default-system";
 //                }
-                dealWithConnectioned(session, userName);
+                dealWithConnectioned(userName);
                 map.put(WebSocketConstants.ATTRIBUTES_NAME, userName);
             }
         }
@@ -56,7 +56,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     /**
      * 处理多设备登陆
      */
-    public static boolean dealWithConnectioned(HttpSession session, String userName) {
+    public static boolean dealWithConnectioned(String userName) {
         Boolean isConnectioned = false;
         if (usersIdMap.containsKey(userName)) {//该账号已经登陆
             Map<String, WebSocketSession> users = SpringWebSocketHandler.usersConnect;

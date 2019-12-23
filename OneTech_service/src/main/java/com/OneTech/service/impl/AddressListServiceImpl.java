@@ -1,6 +1,8 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.common.vo.FriendListVO;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
+import com.OneTech.model.model.MomentsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.OneTech.common.constants.AddressListAccpetStatus;
 import com.OneTech.common.util.pingyinUtils.CharacterUtil;
@@ -62,7 +64,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         /**
          * 发送添加好友信息
          */
-        String user = "tab2" + requestJson.getString("fWechatId");
+        String user = "tab2" +"and"+ requestJson.getString("fWechatId");
         TextMessage textMessage = new TextMessage("新的好友申请");
         springWebSocketHandler.sendMessageToUser(user, textMessage, true);
         return true;
@@ -103,7 +105,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
      * @throws Exception
      */
     @Override
-    public List<UserInfoBean> getFriendList(JSONObject requestJson) throws Exception {
+    public List<FriendListVO> getFriendList(JSONObject requestJson) throws Exception {
         return userInfoMapper.getFriendList(requestJson);
     }
 
@@ -116,10 +118,16 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
     @Override
     public JSONObject getFriendListByPY(JSONObject requestJson) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        List<UserInfoBean> userInfoBeans = userInfoMapper.getFriendList(requestJson);
-        for (UserInfoBean userInfoBean : userInfoBeans) {
+        List<FriendListVO> friendLists = userInfoMapper.getFriendList(requestJson);
+        for (FriendListVO friendList : friendLists) {
             JSONArray jsonArray = new JSONArray();
-            String firstLetter = CharacterUtil.convertHanzi2Pinyin(userInfoBean.getUserName().substring(0, 1), false);
+            String firstLetter;
+            if(!BooleanUtils.isEmpty(friendList.getRemarkName())){
+                firstLetter = CharacterUtil.convertHanzi2Pinyin(friendList.getRemarkName().substring(0, 1), false);
+            }
+            else {
+                firstLetter = CharacterUtil.convertHanzi2Pinyin(friendList.getUserName().substring(0, 1), false);
+            }
             if (!firstLetter.matches("^[A-Za-z]+$")) {//不是字母
                 firstLetter = "#";
             } else {//是字母
@@ -128,7 +136,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
             if (BooleanUtils.isNotEmpty(jsonObject.get(firstLetter))) {
                 jsonArray = jsonObject.getJSONArray(firstLetter);
             }
-            jsonArray.add(userInfoBean);
+            jsonArray.add(friendList);
             jsonObject.put(firstLetter, jsonArray);
         }
         return jsonObject;
@@ -177,7 +185,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
              */
             JSONObject jsonObject = requestJson;
             jsonObject.put("momentId", mV.getId());
-            List<UserInfoBean> LikeList = commentsService.selectLike(jsonObject);
+            List<FriendListVO> LikeList = commentsService.selectLike(jsonObject);
             if (BooleanUtils.isNotEmpty(LikeList)) {
                 mV.setLikeName(LikeList);
             }
@@ -185,6 +193,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
             /**
              * 获取评论内容
              */
+            //TODO
 
         }
         return momentsVOs;
@@ -199,6 +208,25 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
     @Override
     public List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception {
         List<MomentsVO> momentsVOs = userInfoMapper.getMomentsByWechatId(requestJson);
+        for (MomentsVO mV : momentsVOs) {
+            if (mV.getPictureId() != null) {
+                List<String> pictureImgPath = new ArrayList<>();
+                pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
+                mV.setPictureImgPath(pictureImgPath);
+            }
+        }
+        return momentsVOs;
+    }
+
+    /**
+     * 获取朋友圈相册
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<MomentsVO> getMomentsPictureByWechatId(JSONObject requestJson) throws Exception {
+        List<MomentsVO> momentsVOs = userInfoMapper.getMomentsPictureByWechatId(requestJson);
         for (MomentsVO mV : momentsVOs) {
             if (mV.getPictureId() != null) {
                 List<String> pictureImgPath = new ArrayList<>();

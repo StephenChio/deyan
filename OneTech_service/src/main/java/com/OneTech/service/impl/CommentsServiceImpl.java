@@ -1,5 +1,6 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.common.vo.FriendListVO;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.OneTech.common.service.impl.BaseServiceImpl;
@@ -36,7 +37,7 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
         commentsBean.setType(CommentConstants.LIKE);
         commentsBean.setCreateTime(new Date());
         this.save(commentsBean);
-        String user = "tab3" + requestJson.getString("fWechatId");
+        String user = "tab3" +"and"+ requestJson.getString("fWechatId");
         TextMessage textMessage = new TextMessage("点赞消息");
         springWebSocketHandler.sendMessageToUser(user, textMessage, true);
     }
@@ -48,7 +49,7 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
      * @throws Exception
      */
     @Override
-    public List<UserInfoBean> selectLike(JSONObject requestJson) throws Exception {
+    public List<FriendListVO> selectLike(JSONObject requestJson) throws Exception {
         return commentsMapper.selectLike(requestJson);
     }
 }

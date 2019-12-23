@@ -7,6 +7,7 @@ public class MomentsVO {
     private String wechatId;
     private String imgPath;
     private String userName;
+    private String remarkName;
     private String text;
     private String id;
     private String videoPath;
@@ -17,6 +18,14 @@ public class MomentsVO {
     private List<?> commentsContent;
     private List<String> pictureImgPath;
     private String createTime;
+
+    public String getRemarkName() {
+        return remarkName;
+    }
+
+    public void setRemarkName(String remarkName) {
+        this.remarkName = remarkName;
+    }
 
     public List<?> getLikeName() {
         return likeName;

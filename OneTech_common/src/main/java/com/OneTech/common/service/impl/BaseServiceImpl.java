@@ -64,10 +64,20 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	public int deleteByExample(Object example) throws Exception {
 		return mapper.deleteByExample(example);
 	}
-	
-    /**
+
+	@Override
+	@Transactional(rollbackFor= Exception.class)
+	public int batchDelete(List<T> list) throws Exception {
+    	int sign = 200;
+		for(T entity:list){
+			sign = mapper.delete(entity);
+		}
+		return sign;
+	}
+
+	/**
      * 根据Example条件更新实体`record`包含的不是null的属性值
-     * @param entity 
+     * @param entity
      * @param example
      * @return
      */
@@ -76,24 +86,24 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
     public int updateByExampleSelective(T entity, Object example) throws Exception {
         return mapper.updateByExampleSelective(entity, example);
     }
-    
+
     @Override
     @Transactional(readOnly=true)
     public List<T> select(T entity){
     	return mapper.select(entity);
     }
-    
+
     @Override
     @Transactional(readOnly=true)
     public List<T> selectAll() throws Exception {
     	return mapper.selectAll();
     }
-    
+
     @Transactional(readOnly=true)
     public T selectByPrimaryKey(Object key){
     	return mapper.selectByPrimaryKey(key);
     }
-    
+
     @Transactional(readOnly=true, propagation=Propagation.NOT_SUPPORTED)
     public LayUiPageVO<T> queryByPage(JSONObject json, Class<?> clazz) throws Exception {
     	pageHelpInit(json);
@@ -131,7 +141,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 		entity = this.selectByPrimaryKey(BeanUtils.getProperty(entity, "id"));
 		BeanUtils.copyProperties(destEntiry, entity);//copy转换后的对象到传入的空数据对象
 		return StatusBean.successMsg();
-		
+
 	}
 	@Override
 	@Transactional(rollbackFor= Exception.class)

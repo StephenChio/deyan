@@ -1,6 +1,7 @@
 package com.OneTech.service.service;
 
 import com.OneTech.common.service.IBaseService;
+import com.OneTech.common.vo.LoginVO;
 import com.OneTech.model.model.UserInfoBean;
 import com.alibaba.fastjson.JSONObject;
 
@@ -19,5 +20,5 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 
     boolean updatePassword(JSONObject requestJson) throws Exception;
 
-    UserInfoBean initUser(String phone) throws Exception;
+    LoginVO initUser(String phone) throws Exception;
 }

@@ -1,5 +1,9 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.common.constants.AddressListAccpetStatus;
+import com.OneTech.common.vo.LoginVO;
+import com.OneTech.model.model.AddressListBean;
+import com.OneTech.service.service.AddressListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +24,8 @@ import java.io.File;
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implements UserInfoService {
     @Autowired
     UserInfoMapper userInfoMapper;
+    @Autowired
+    AddressListService addressListService;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
     @Value("${localUrl}")
@@ -69,7 +75,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
              * //删除之前图片
              */
             String backgroundImg = userInfoBean.getBackgroundImg();
-            if (!BooleanUtils.isEmpty(backgroundImg) && backgroundImg.startsWith("img")) {
+            if (!BooleanUtils.isEmpty(backgroundImg) && backgroundImg.startsWith("img") && !backgroundImg.endsWith("background.png")) {
                 File f = new File(url + backgroundImg);
                 if (f.exists()) f.delete();
             }
@@ -120,7 +126,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                  * //删除之前图片
                  */
                 String imagePath = userInfoBean.getImgPath();
-                if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img")) {
+                if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img") && !imagePath.endsWith("head.png")) {
                     File f = new File(url + imagePath);
                     if (f.exists()) f.delete();
                 }
@@ -175,7 +181,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
-        if("init".equals(requestJson.getString("type"))){
+        if(!"true".equals(requestJson.getString("hasPassword"))){
             userInfoBean.setPassWord(requestJson.getString("newPwd"));
             userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
@@ -198,17 +204,38 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
-    public UserInfoBean initUser(String phone) throws Exception {
+    public LoginVO initUser(String phone) throws Exception {
+        LoginVO loginVO = new LoginVO();
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setId(UUIDUtils.getRandom32());
         userInfoBean.setUserName("新用户");
         userInfoBean.setPhone(phone);
-        userInfoBean.setWechatId(UUIDUtils.getRandom32());
+        String wechatId = UUIDUtils.getRandom32().substring(0,8);
+        userInfoBean.setWechatId(wechatId);
         userInfoBean.setMomentsId(UUIDUtils.getRandom32());
         userInfoBean.setImgPath("img/head.png");
         userInfoBean.setBackgroundImg("img/background.png");
         userInfoBean.setCreateTime(new Date());
         this.save(userInfoBean);
-        return userInfoBean;
+        /**
+         * 构造登陆返回对象
+         */
+        loginVO.setWechatId(userInfoBean.getWechatId());
+        loginVO.setBackgroundImg(userInfoBean.getBackgroundImg());
+        loginVO.setImgPath(userInfoBean.getImgPath());
+        loginVO.setPhone(userInfoBean.getPhone());
+        loginVO.setUserName(userInfoBean.getUserName());
+        loginVO.setHasPassword(false);
+        /**
+         * 默认添加机器人好友
+         */
+        AddressListBean addressListBean = new AddressListBean();
+        addressListBean.setId(UUIDUtils.getRandom32());
+        addressListBean.setWechatId("root001");
+        addressListBean.setFWechatId(wechatId);
+        addressListBean.setAccpetStatus(AddressListAccpetStatus.ACCPETED);
+        addressListBean.setCreateTime(new Date());
+        addressListService.save(addressListBean);
+        return loginVO;
     }
 }

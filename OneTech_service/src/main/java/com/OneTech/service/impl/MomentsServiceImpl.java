@@ -1,5 +1,6 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.common.vo.FriendListVO;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +54,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         if (BooleanUtils.isNotEmpty(requestJson.getString("pictureMoments"))) {
             String pictureMoments[] = requestJson.getString("pictureMoments").split(",");
             String pictureId = UUIDUtils.getRandom32();
-            momentsBean.setpictureId(pictureId);
+            momentsBean.setPictureId(pictureId);
             List<ResourceBean> resourceBeans = new ArrayList<>();
             /**
              * 创建文件夹
@@ -89,11 +90,34 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         /**
          * 群发朋友圈发布消息
          */
-        List<UserInfoBean> userInfoBeans = addressListService.getFriendList(requestJson);
-        for (UserInfoBean userInfo : userInfoBeans) {
-            String user = "tab3" + userInfo.getWechatId();
+        List<FriendListVO> friendList = addressListService.getFriendList(requestJson);
+        for (FriendListVO userInfo : friendList) {
+            String user = "tab3" +"and"+ userInfo.getWechatId();
             TextMessage textMessage = new TextMessage("朋友圈消息");
             springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+        }
+    }
+    /**
+     * 删除朋友圈相册
+     * @param requestJson
+     * @throws Exception
+     */
+    @Override
+    public void deleteMomentsPicture(JSONObject requestJson) throws Exception {
+        MomentsBean momentsBean = new MomentsBean();
+        momentsBean.setPictureId(requestJson.getString("pictureId"));
+        List<MomentsBean> momentsBeans = this.select(momentsBean);
+        ResourceBean resourceBean = new ResourceBean();
+        resourceBean.setPictureId(requestJson.getString("pictureId"));
+        List<ResourceBean> resourceBeans = resourceService.select(resourceBean);
+        this.batchDelete(momentsBeans);
+        resourceService.batchDelete(resourceBeans);
+        for(ResourceBean resource:resourceBeans){
+            String imagePath = resource.getImgPath();
+            if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img")) {
+                File f = new File(url + imagePath);
+                if (f.exists()) f.delete();
+            }
         }
     }
 }

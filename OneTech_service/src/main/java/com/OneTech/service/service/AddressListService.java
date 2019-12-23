@@ -1,6 +1,7 @@
 package com.OneTech.service.service;
 
 import com.OneTech.common.service.IBaseService;
+import com.OneTech.common.vo.FriendListVO;
 import com.OneTech.model.model.AddressListBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.vo.NewFriendVO;
@@ -16,7 +17,7 @@ public interface AddressListService extends IBaseService<AddressListBean> {
 
     void addConfirm(JSONObject requestJson) throws Exception;
 
-    List<UserInfoBean> getFriendList(JSONObject requestJson) throws Exception;
+    List<FriendListVO> getFriendList(JSONObject requestJson) throws Exception;
 
     JSONObject getFriendListByPY(JSONObject requestJson) throws Exception;
 
@@ -25,4 +26,6 @@ public interface AddressListService extends IBaseService<AddressListBean> {
     List<MomentsVO> getMomentsFriendList(JSONObject requestJson) throws Exception;
 
     List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception;
+
+    List<MomentsVO> getMomentsPictureByWechatId(JSONObject requestJson) throws Exception;
 }

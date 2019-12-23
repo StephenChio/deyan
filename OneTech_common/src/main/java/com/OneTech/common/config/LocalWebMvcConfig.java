@@ -16,7 +16,7 @@ public class LocalWebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/login/index");
+		registry.addViewController("/").setViewName("forward:/login");
 	}
 
 }
