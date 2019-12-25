@@ -23,6 +23,7 @@ import com.OneTech.common.util.UUIDUtils;
 import com.OneTech.common.vo.MomentsVO;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 发送验证信息
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -64,7 +66,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         /**
          * 发送添加好友信息
          */
-        String user = "tab2" +"and"+ requestJson.getString("fWechatId");
+        String user = "tab2" + "and" + requestJson.getString("fWechatId");
         TextMessage textMessage = new TextMessage("新的好友申请");
         springWebSocketHandler.sendMessageToUser(user, textMessage, true);
         return true;
@@ -72,6 +74,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 获得新好友列表
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -83,6 +86,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 确认添加好友
+     *
      * @param requestJson
      * @throws Exception
      */
@@ -100,6 +104,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 获得好友列表
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -111,6 +116,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 获得根据配音首字母排序的好友列表
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -122,10 +128,9 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         for (FriendListVO friendList : friendLists) {
             JSONArray jsonArray = new JSONArray();
             String firstLetter;
-            if(!BooleanUtils.isEmpty(friendList.getRemarkName())){
+            if (!BooleanUtils.isEmpty(friendList.getRemarkName())) {
                 firstLetter = CharacterUtil.convertHanzi2Pinyin(friendList.getRemarkName().substring(0, 1), false);
-            }
-            else {
+            } else {
                 firstLetter = CharacterUtil.convertHanzi2Pinyin(friendList.getUserName().substring(0, 1), false);
             }
             if (!firstLetter.matches("^[A-Za-z]+$")) {//不是字母
@@ -144,6 +149,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 删除好友
+     *
      * @param requestJson
      * @throws Exception
      */
@@ -167,6 +173,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 获得朋友圈朋友内容列表
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -199,8 +206,37 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         return momentsVOs;
     }
 
+    @Override
+    public List<MomentsVO> getMomentById(JSONObject requestJson) throws Exception {
+        List<MomentsVO> momentsVOs = userInfoMapper.getMomentById(requestJson);
+        for (MomentsVO mV : momentsVOs) {
+            if (mV.getPictureId() != null) {
+                List<String> pictureImgPath = new ArrayList<>();
+                pictureImgPath = resourceService.getPictureImgPath(mV.getPictureId());
+                mV.setPictureImgPath(pictureImgPath);
+            }
+            /**
+             *  获取点赞内容
+             */
+            JSONObject jsonObject = requestJson;
+            jsonObject.put("momentId", mV.getId());
+            List<FriendListVO> LikeList = commentsService.selectLike(jsonObject);
+            if (BooleanUtils.isNotEmpty(LikeList)) {
+                mV.setLikeName(LikeList);
+            }
+//                List<CommentsBean> CommentsList = commentsService.selectComments(jsonObject);
+            /**
+             * 获取评论内容
+             */
+            //TODO
+
+        }
+        return momentsVOs;
+    }
+
     /**
      * 根据微信号获取该用户朋友圈内容
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -220,6 +256,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
 
     /**
      * 获取朋友圈相册
+     *
      * @param requestJson
      * @return
      * @throws Exception

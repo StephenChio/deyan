@@ -31,15 +31,24 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
     @Override
     public void clickLike(JSONObject requestJson) throws Exception {
         CommentsBean commentsBean = new CommentsBean();
-        commentsBean.setId(UUIDUtils.getRandom32());
         commentsBean.setMomentId(requestJson.getString("momentId"));
         commentsBean.setWechatId(requestJson.getString("wechatId"));
-        commentsBean.setType(CommentConstants.LIKE);
-        commentsBean.setCreateTime(new Date());
-        this.save(commentsBean);
-        String user = "tab3" +"and"+ requestJson.getString("fWechatId");
-        TextMessage textMessage = new TextMessage("点赞消息");
-        springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+        commentsBean = selectOne(commentsBean);
+        if(commentsBean==null) {
+            commentsBean = new CommentsBean();
+            commentsBean.setId(UUIDUtils.getRandom32());
+            commentsBean.setMomentId(requestJson.getString("momentId"));
+            commentsBean.setWechatId(requestJson.getString("wechatId"));
+            commentsBean.setType(CommentConstants.LIKE);
+            commentsBean.setCreateTime(new Date());
+            this.save(commentsBean);
+            String user = "tab3" + "and" + requestJson.getString("fWechatId");
+            TextMessage textMessage = new TextMessage("点赞消息");
+            springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+        }
+        else{//如果已经点赞 则取消赞
+            this.delete(commentsBean);
+        }
     }
 
     /**

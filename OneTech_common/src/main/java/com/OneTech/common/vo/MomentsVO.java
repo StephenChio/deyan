@@ -1,7 +1,5 @@
 package com.OneTech.common.vo;
 
-import net.sf.json.JSONArray;
-
 import java.util.List;
 public class MomentsVO {
     private String wechatId;

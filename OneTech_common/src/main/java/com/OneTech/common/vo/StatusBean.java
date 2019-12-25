@@ -17,6 +17,7 @@ public class StatusBean<T> {
 
 	private String respCode;
 	private String respMsg;
+	private String token;
 	private T data;
 	
 	public String getRespCode() {

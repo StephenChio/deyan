@@ -64,6 +64,11 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	public int deleteByExample(Object example) throws Exception {
 		return mapper.deleteByExample(example);
 	}
+	@Override
+	@Transactional(rollbackFor= Exception.class)
+	public int delete(T entity) throws Exception {
+		return  mapper.delete(entity);
+	}
 
 	@Override
 	@Transactional(rollbackFor= Exception.class)

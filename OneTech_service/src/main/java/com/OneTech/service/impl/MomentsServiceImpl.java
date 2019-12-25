@@ -2,13 +2,11 @@ package com.OneTech.service.impl;
 
 import com.OneTech.common.vo.FriendListVO;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
+import com.OneTech.model.model.CommentsBean;
+import com.OneTech.service.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import com.OneTech.common.service.impl.BaseServiceImpl;
-import com.OneTech.service.service.AddressListService;
-import com.OneTech.service.service.ResourceService;
-import com.OneTech.service.service.UserInfoService;
-import com.OneTech.service.service.MomentsService;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.stereotype.Service;
 import com.OneTech.model.model.ResourceBean;
@@ -31,6 +29,8 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
     ResourceService resourceService;
     @Autowired
     AddressListService addressListService;
+    @Autowired
+    CommentsService commentsService;
     @Autowired
     SpringWebSocketHandler springWebSocketHandler;
     @Value("${localUrl}")
@@ -101,8 +101,10 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      * 删除朋友圈相册
      * @param requestJson
      * @throws Exception
+     * use deleteMomentsById
      */
     @Override
+    @Deprecated
     public void deleteMomentsPicture(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
         momentsBean.setPictureId(requestJson.getString("pictureId"));
@@ -119,5 +121,42 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
                 if (f.exists()) f.delete();
             }
         }
+    }
+    /**
+     * 删除朋友圈
+     * @param requestJson
+     * @throws Exception
+     */
+    @Override
+    public void deleteMomentsById(JSONObject requestJson) throws Exception {
+        MomentsBean momentsBean = new MomentsBean();
+        momentsBean.setId(requestJson.getString("id"));
+        List<MomentsBean> momentsBeans = this.select(momentsBean);
+        /**
+         * 删除图片信息
+         */
+        if(!BooleanUtils.isEmpty(requestJson.getString("pictureId"))) {
+            ResourceBean resourceBean = new ResourceBean();
+            resourceBean.setPictureId(requestJson.getString("pictureId"));
+            List<ResourceBean> resourceBeans = resourceService.select(resourceBean);
+            resourceService.batchDelete(resourceBeans);
+            for (ResourceBean resource : resourceBeans) {
+                String imagePath = resource.getImgPath();
+                if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img")) {
+                    File f = new File(url + imagePath);
+                    if (f.exists()) f.delete();
+                }
+            }
+        }
+        /**
+         * 删除点赞信息
+         */
+        CommentsBean commentsBean = new CommentsBean();
+        commentsBean.setMomentId(requestJson.getString("id"));
+        List<CommentsBean> commentsBeanList = commentsService.select(commentsBean);
+        if(commentsBeanList!=null){
+            commentsService.batchDelete(commentsBeanList);
+        }
+        this.batchDelete(momentsBeans);
     }
 }

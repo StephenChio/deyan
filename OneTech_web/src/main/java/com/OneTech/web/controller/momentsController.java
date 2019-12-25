@@ -58,7 +58,20 @@ public class momentsController extends CommonController {
         }
         return statusBean;
     }
-
+    @PostMapping("getMomentById")
+    public StatusBean<?> getMomentById() {
+        StatusBean<List<MomentsVO>> statusBean = new StatusBean<>();
+        try {
+            statusBean.setData(addressListService.getMomentById(getRequestJson()));
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("查询成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("查询异常!" + e);
+        }
+        return statusBean;
+    }
     @PostMapping("getMomentsByWechatId")
     public StatusBean<?> getMomentsByWechatId() {
         StatusBean<List<MomentsVO>> statusBean = new StatusBean<>();
@@ -93,6 +106,21 @@ public class momentsController extends CommonController {
         StatusBean<List<MomentsVO>> statusBean = new StatusBean<>();
         try {
             momentsService.deleteMomentsPicture(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("删除异常!" + e);
+        }
+        return statusBean;
+    }
+
+    @PostMapping("deleteMomentsById")
+    public StatusBean<?> deleteMomentsById(){
+        StatusBean<List<MomentsVO>> statusBean = new StatusBean<>();
+        try {
+            momentsService.deleteMomentsById(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("删除成功");
         } catch (Exception e) {

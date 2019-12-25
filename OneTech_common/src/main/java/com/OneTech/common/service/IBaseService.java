@@ -31,7 +31,13 @@ public interface IBaseService<T> {
      * @throws Exception
      */
     int deleteByExample(Object example) throws Exception;
-
+    /**
+     * 删除一个bean
+     * @param
+     * @return
+     * @throws Exception
+     */
+    int delete(T entity) throws Exception;
     /**
      * 批量根据example条件删除数据
      * @param example
