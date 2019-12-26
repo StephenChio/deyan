@@ -118,4 +118,5 @@ public class userInfoController extends CommonController {
         }
         return statusBean;
     }
+
 }

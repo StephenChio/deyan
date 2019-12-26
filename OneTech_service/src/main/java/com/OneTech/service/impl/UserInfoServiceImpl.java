@@ -238,4 +238,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         addressListService.save(addressListBean);
         return loginVO;
     }
+
+    @Override
+    public String getUserNameByWechatId(String wechatId) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(wechatId);
+        userInfoBean = this.selectOne(userInfoBean);
+        return userInfoBean.getUserName();
+    }
 }

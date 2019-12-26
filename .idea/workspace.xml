@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4068b0f-fa79-4642-a12a-7e59e18687f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/AdminMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/model/AdminBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/AdminServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/AdminService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/adminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/service/IBaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/service/IBaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/service/impl/BaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/service/impl/BaseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/vo/StatusBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/src/main/java/com/OneTech/common/vo/StatusBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/UserInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_model/src/main/java/com/OneTech/model/mapper/UserInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/AddressListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/AddressListServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/CommentsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/CommentsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/MomentsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/AddressListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/AddressListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/MomentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/MomentsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/momentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/momentsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping/ResourceMapping.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping/ResourceMapping.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping/UserInfoMapping.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/mapping/UserInfoMapping.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/RemarkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/RemarkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_service/src/main/java/com/OneTech/service/service/UserInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/java/com/OneTech/web/controller/userInfoController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -279,7 +266,9 @@
       <workItem from="1576998937697" duration="11897000" />
       <workItem from="1577092391601" duration="4671000" />
       <workItem from="1577166472505" duration="4041000" />
-      <workItem from="1577249936640" duration="8151000" />
+      <workItem from="1577249936640" duration="8686000" />
+      <workItem from="1577281214587" duration="2974000" />
+      <workItem from="1577335270786" duration="724000" />
     </task>
     <servers />
   </component>

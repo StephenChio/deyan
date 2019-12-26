@@ -21,4 +21,6 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
     boolean updatePassword(JSONObject requestJson) throws Exception;
 
     LoginVO initUser(String phone) throws Exception;
+
+    String getUserNameByWechatId(String wechatId) throws Exception;
 }
