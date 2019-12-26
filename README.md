@@ -8,3 +8,5 @@
 3.cd OneTech_web/target/
 
 4.java -jar OneTech_web.jar
+
+前端项目OneTechApp地址：https://github.com/StephenChio/OneTechApp
