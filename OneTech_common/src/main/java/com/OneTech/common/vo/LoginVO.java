@@ -1,8 +1,8 @@
 package com.OneTech.common.vo;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class LoginVO {
+public class LoginVO implements Serializable {
     private String userName;
     private String imgPath;
     private String backgroundImg;

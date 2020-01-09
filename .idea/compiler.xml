@@ -13,14 +13,6 @@
         <module name="OneTech_web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="OneTech" target="1.8" />
-      <module name="OneTech_common" target="1.8" />
-      <module name="OneTech_device" target="1.8" />
-      <module name="OneTech_model" target="1.8" />
-      <module name="OneTech_service" target="1.8" />
-      <module name="OneTech_web" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

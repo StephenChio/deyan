@@ -42,9 +42,11 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
             commentsBean.setType(CommentConstants.LIKE);
             commentsBean.setCreateTime(new Date());
             this.save(commentsBean);
-            String user = "tab3" + "and" + requestJson.getString("fWechatId");
-            TextMessage textMessage = new TextMessage("点赞消息");
-            springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+            if(!requestJson.getString("wechatId").equals(requestJson.getString("fWechatId"))) {
+                String user = "tab3" + "and" + requestJson.getString("fWechatId");
+                TextMessage textMessage = new TextMessage("点赞消息");
+                springWebSocketHandler.sendMessageToUser(user, textMessage, true);
+            }
         }
         else{//如果已经点赞 则取消赞
             this.delete(commentsBean);

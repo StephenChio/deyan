@@ -2,6 +2,7 @@ package com.OneTech.service.service;
 
 import com.OneTech.common.service.IBaseService;
 import com.OneTech.common.vo.LoginVO;
+import com.OneTech.common.vo.StatusBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.alibaba.fastjson.JSONObject;
 
@@ -23,4 +24,6 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
     LoginVO initUser(String phone) throws Exception;
 
     String getUserNameByWechatId(String wechatId) throws Exception;
+
+    StatusBean<?> login(JSONObject requestJson);
 }

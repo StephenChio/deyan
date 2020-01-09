@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ public class addressListController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("发送失败");
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -54,6 +56,7 @@ public class addressListController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询失败");
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -69,6 +72,7 @@ public class addressListController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("添加失败");
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -84,6 +88,7 @@ public class addressListController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询失败");
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -99,6 +104,7 @@ public class addressListController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("删除失败");
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 }

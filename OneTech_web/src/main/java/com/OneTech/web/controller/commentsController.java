@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class commentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("点赞异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 }

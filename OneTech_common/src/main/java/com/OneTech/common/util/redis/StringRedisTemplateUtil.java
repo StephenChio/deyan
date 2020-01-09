@@ -41,7 +41,7 @@ public class StringRedisTemplateUtil{
 	 * @param value
 	 * @return
 	 */
-	public static void set(String key,Integer seconds , String value){
+	public static void set(String key,String value,Integer seconds){
 		try {
 			if(seconds > 0) {
 				stringRedisTemplate.opsForValue().set(key, value, seconds, TimeUnit.SECONDS);

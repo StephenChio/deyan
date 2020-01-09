@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.controller.CommonController;
+import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.MomentsVO;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.device.websocket.handler.SpringWebSocketHandler;
@@ -41,6 +42,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("发表异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -56,6 +58,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
     @PostMapping("getMomentById")
@@ -70,6 +73,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
     @PostMapping("getMomentsByWechatId")
@@ -84,6 +88,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -99,6 +104,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
     @PostMapping("deleteMomentsPicture")
@@ -113,6 +119,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("删除异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -128,6 +135,7 @@ public class momentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("删除异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 }

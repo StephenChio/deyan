@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.controller.CommonController;
+import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.service.service.RemarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class RemarkController extends CommonController {
             statusBean.setRespMsg("设置失败"+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
     @PostMapping("updateTag")
@@ -41,6 +43,7 @@ public class RemarkController extends CommonController {
             statusBean.setRespMsg("设置失败"+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 

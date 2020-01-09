@@ -2,6 +2,7 @@ package com.OneTech.common.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.Synchronized;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class CommonController {
 	 * @param request
 	 * @return
 	 */
+//	@Synchronized
 	public JSONObject getRequestJson() {
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -51,6 +53,7 @@ public class CommonController {
 			}
 			logger.debug("接收请求request:{}",jsonObject);
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("Map数组转换为json异常：{}",e);
 		}
 		return jsonObject;

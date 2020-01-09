@@ -16,6 +16,7 @@ import com.OneTech.common.util.UploadUtils;
 import com.OneTech.model.model.MomentsBean;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
 
     /**
      * 发布朋友圈
+     *
      * @param requestJson
      * @throws Exception
      */
@@ -92,16 +94,17 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
          */
         List<FriendListVO> friendList = addressListService.getFriendList(requestJson);
         for (FriendListVO userInfo : friendList) {
-            String user = "tab3" +"and"+ userInfo.getWechatId();
+            String user = "tab3" + "and" + userInfo.getWechatId();
             TextMessage textMessage = new TextMessage("朋友圈消息");
             springWebSocketHandler.sendMessageToUser(user, textMessage, true);
         }
     }
+
     /**
      * 删除朋友圈相册
+     *
      * @param requestJson
-     * @throws Exception
-     * use deleteMomentsById
+     * @throws Exception use deleteMomentsById
      */
     @Override
     @Deprecated
@@ -114,7 +117,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         List<ResourceBean> resourceBeans = resourceService.select(resourceBean);
         this.batchDelete(momentsBeans);
         resourceService.batchDelete(resourceBeans);
-        for(ResourceBean resource:resourceBeans){
+        for (ResourceBean resource : resourceBeans) {
             String imagePath = resource.getImgPath();
             if (!BooleanUtils.isEmpty(imagePath) && imagePath.startsWith("img")) {
                 File f = new File(url + imagePath);
@@ -122,8 +125,10 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
             }
         }
     }
+
     /**
      * 删除朋友圈
+     *
      * @param requestJson
      * @throws Exception
      */
@@ -135,7 +140,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         /**
          * 删除图片信息
          */
-        if(!BooleanUtils.isEmpty(requestJson.getString("pictureId"))) {
+        if (!BooleanUtils.isEmpty(requestJson.getString("pictureId"))) {
             ResourceBean resourceBean = new ResourceBean();
             resourceBean.setPictureId(requestJson.getString("pictureId"));
             List<ResourceBean> resourceBeans = resourceService.select(resourceBean);
@@ -154,7 +159,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
         CommentsBean commentsBean = new CommentsBean();
         commentsBean.setMomentId(requestJson.getString("id"));
         List<CommentsBean> commentsBeanList = commentsService.select(commentsBean);
-        if(commentsBeanList!=null){
+        if (commentsBeanList != null) {
             commentsService.batchDelete(commentsBeanList);
         }
         this.batchDelete(momentsBeans);

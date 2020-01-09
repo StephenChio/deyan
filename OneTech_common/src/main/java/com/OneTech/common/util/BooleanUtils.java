@@ -24,6 +24,9 @@ public class BooleanUtils {
 		if(obj.equals("null")){
 			return true;
 		}
+		if(obj.equals("undefined")){
+			return true;
+		}
 		// ----------------根据各种对象类型判断是否值为空--------------
 		if (obj instanceof String){
 			return ((String) obj).trim().equals("");

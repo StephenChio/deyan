@@ -8,11 +8,13 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.util.unit.DataSize;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.servlet.MultipartConfigElement;
 
+@EnableAspectJAutoProxy
 @EnableAutoConfiguration
 @ComponentScan("com.OneTech")
 @MapperScan(basePackages = {"com.OneTech.model.mapper"},markerInterface = IBaseMapper.class)

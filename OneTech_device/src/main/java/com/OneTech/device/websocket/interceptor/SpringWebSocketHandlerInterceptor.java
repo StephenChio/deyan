@@ -28,7 +28,6 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
         // TODO Auto-generated method stub
         System.out.println("Before Handshake");
         if (request instanceof ServletServerHttpRequest) {
-
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             String userName = servletRequest.getServletRequest().getParameter(WebSocketConstants.ATTRIBUTES_NAME);
             HttpSession session = servletRequest.getServletRequest().getSession(true);

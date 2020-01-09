@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 
+import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class resourceController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("查询异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 

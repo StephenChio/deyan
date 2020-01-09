@@ -35,8 +35,9 @@ public class LogAspect {
 
     private static ThreadLocal<LogInfo> threadLocalId = new ThreadLocal<>();
 
-    @Pointcut("execution(* com.OneTech..**.service..*.*(..)) || execution(* com.OneTech.service..*.*(..)) ")
+    @Pointcut("execution(* com.OneTech..**.service..*.*(..)) || execution(* com.OneTech.service..*.*(..))")
     public void log() {
+
     }
 
     /**

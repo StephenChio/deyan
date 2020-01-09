@@ -56,9 +56,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         addressListBean.setWechatId(requestJson.getString("wechatId"));
         addressListBean.setFWechatId(requestJson.getString("fWechatId"));
         addressListBean.setAccpetStatus(AddressListAccpetStatus.WAIT);
-        if (this.selectOne(addressListBean) != null) {
-            return false;
-        }
+        if (this.selectOne(addressListBean) != null) return false;
         addressListBean.setId(UUIDUtils.getRandom32());
         addressListBean.setVerificationMsg(requestJson.getString("verificationMsg"));
         addressListBean.setCreateTime(new Date());

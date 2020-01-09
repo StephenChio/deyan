@@ -15,11 +15,6 @@ public class AdminServiceImpl extends BaseServiceImpl<AdminBean> implements Admi
         adminBean.setAdminName(requestJson.getString("username"));
         adminBean.setAdminPassword(requestJson.getString("password"));
         adminBean = this.selectOne(adminBean);
-        if(adminBean!=null){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return adminBean!=null?true:false;
     }
 }

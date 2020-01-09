@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.controller.CommonController;
+import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.service.service.UserInfoService;
@@ -25,14 +26,13 @@ public class userInfoController extends CommonController {
             List<UserInfoBean> userinfos = userInfoService.searchFriend(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("搜索成功");
-            if (userinfos != null) {
-                statusBean.setData(userinfos);
-            }
+            if (userinfos != null) statusBean.setData(userinfos);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("搜索异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -48,6 +48,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("设置异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -63,6 +64,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("设置异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -78,6 +80,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("设置异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -97,6 +100,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("设置异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 
@@ -116,6 +120,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg("设置异常!" + e);
         }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
 

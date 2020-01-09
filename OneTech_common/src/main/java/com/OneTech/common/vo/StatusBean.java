@@ -33,6 +33,7 @@ public class StatusBean<T> {
 		this.respMsg = respMsg;
 	}
 	
+	
 	public T getData() {
 		return data;
 	}
@@ -114,6 +115,12 @@ public class StatusBean<T> {
 	
 	public StatusBean() {
 		super();
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

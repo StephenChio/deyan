@@ -1,7 +1,10 @@
 package com.OneTech.service.impl;
 
 import com.OneTech.common.constants.AddressListAccpetStatus;
+import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.LoginVO;
+import com.OneTech.common.vo.StatusBean;
 import com.OneTech.model.model.AddressListBean;
 import com.OneTech.service.service.AddressListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.UploadUtils;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
 import java.util.List;
 import java.io.File;
@@ -38,6 +42,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 修改用户名
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -55,6 +60,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 更新朋友圈背景图片
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -92,7 +98,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             this.saveOrUpdate(userInfoBean);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return userInfoBean;
 
@@ -100,6 +106,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 更换头像
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -140,13 +147,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                 return userInfoBean;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return userInfoBean;
     }
 
     /**
      * 更换手机号码
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -172,6 +180,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 修改密码
+     *
      * @param requestJson
      * @return
      * @throws Exception
@@ -181,7 +190,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
-        if(!"true".equals(requestJson.getString("hasPassword"))){
+        if (!"true".equals(requestJson.getString("hasPassword"))) {
             userInfoBean.setPassWord(requestJson.getString("newPwd"));
             userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
@@ -199,6 +208,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
 
     /**
      * 初始化新用户
+     *
      * @param phone
      * @return
      * @throws Exception
@@ -210,7 +220,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setId(UUIDUtils.getRandom32());
         userInfoBean.setUserName("新用户");
         userInfoBean.setPhone(phone);
-        String wechatId = UUIDUtils.getRandom32().substring(0,8);
+        String wechatId = UUIDUtils.getRandom32().substring(0, 8);
         userInfoBean.setWechatId(wechatId);
         userInfoBean.setMomentsId(UUIDUtils.getRandom32());
         userInfoBean.setImgPath("img/head.png");
@@ -245,5 +255,89 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(wechatId);
         userInfoBean = this.selectOne(userInfoBean);
         return userInfoBean.getUserName();
+    }
+
+    @Override
+    public StatusBean<?> login(JSONObject requestJson) {
+        StatusBean<LoginVO> statusBean = new StatusBean();
+        UserInfoBean userInfo = new UserInfoBean();
+        LoginVO loginVO = new LoginVO();
+        try {
+            String phone = requestJson.getString("phone");
+            if (BooleanUtils.isEmpty(phone)) return statusBean;
+            String loginType = requestJson.getString("loginType");
+            if ("password".equals(loginType)) {
+                String password = requestJson.getString("password");
+                if (BooleanUtils.isEmpty(password)) return statusBean;
+                userInfo.setPhone(phone);
+                userInfo.setPassWord(password);
+                userInfo = this.selectOne(userInfo);
+                if (userInfo == null) {
+                    statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                    statusBean.setRespMsg("密码不正确");
+                    return statusBean;
+                } else {
+                    /**
+                     * 构造登陆返回对象
+                     */
+                    loginVO.setWechatId(userInfo.getWechatId());
+                    loginVO.setBackgroundImg(userInfo.getBackgroundImg());
+                    loginVO.setImgPath(userInfo.getImgPath());
+                    loginVO.setPhone(userInfo.getPhone());
+                    loginVO.setUserName(userInfo.getUserName());
+                    if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
+                        loginVO.setHasPassword(false);
+                    } else {
+                        loginVO.setHasPassword(true);
+                    }
+                    statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),10000));
+                    statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+                    statusBean.setRespMsg("登陆成功!");
+                    statusBean.setData(loginVO);
+
+                    return statusBean;
+                }
+            }
+            String verifiCode = requestJson.getString("verifiCode");
+            if (BooleanUtils.isEmpty(redisTemplate.opsForValue().get(phone))) {
+                statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                statusBean.setRespMsg("请重新发送验证码");
+                return statusBean;
+            }
+            if (redisTemplate.opsForValue().get(phone).toString().equals(verifiCode)) {
+                userInfo.setPhone(phone);
+                userInfo = this.selectOne(userInfo);
+                if (userInfo == null) {
+                    loginVO = this.initUser(phone);
+                } else {
+                    /**
+                     * 构造登陆返回对象
+                     */
+                    loginVO.setWechatId(userInfo.getWechatId());
+                    loginVO.setBackgroundImg(userInfo.getBackgroundImg());
+                    loginVO.setImgPath(userInfo.getImgPath());
+                    loginVO.setPhone(userInfo.getPhone());
+                    loginVO.setUserName(userInfo.getUserName());
+                    if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
+                        loginVO.setHasPassword(false);
+                    } else {
+                        loginVO.setHasPassword(true);
+                    }
+                }
+                statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),10000));
+                statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+                statusBean.setRespMsg("登陆成功!");
+                statusBean.setData(loginVO);
+
+            } else {
+                statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+                statusBean.setRespMsg("验证码不正确");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("登陆失败!" + e);
+        }
+        return statusBean;
     }
 }
