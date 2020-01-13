@@ -7,9 +7,10 @@ import com.OneTech.common.vo.MomentsVO;
 import com.OneTech.model.model.UserInfoBean;
 import com.alibaba.fastjson.JSONObject;
 import com.OneTech.common.vo.NewFriendVO;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface UserInfoMapper extends IBaseMapper<UserInfoBean> {
     List<UserInfoBean> searchFriend(JSONObject requestJson) throws Exception;
 

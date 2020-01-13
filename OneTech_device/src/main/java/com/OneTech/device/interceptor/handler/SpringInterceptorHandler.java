@@ -1,22 +1,18 @@
-package com.OneTech.device.fliter.handler;
+package com.OneTech.device.interceptor.handler;
 
 import com.OneTech.common.util.BooleanUtils;
-import com.OneTech.common.util.HttpServletUtils;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.util.redis.StringRedisTemplateUtil;
-import com.OneTech.common.vo.LoginVO;
-import com.OneTech.common.vo.token.UserTokenVO;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Component
-public class SpringFliterHandler extends HandlerInterceptorAdapter {
+public class SpringInterceptorHandler extends HandlerInterceptorAdapter {
+
     /**
      * 进入controller前
      *
@@ -38,7 +34,7 @@ public class SpringFliterHandler extends HandlerInterceptorAdapter {
         return testIp(ip) && ("/login".equals(url) || "/getVerifiCode".equals(url)) ? true : testToken(request);
     }
 
-    public SpringFliterHandler() {
+    public SpringInterceptorHandler() {
         super();
     }
 
@@ -52,10 +48,11 @@ public class SpringFliterHandler extends HandlerInterceptorAdapter {
             ip = ip.substring(1, ip.length());
         }
         if (StringRedisTemplateUtil.exists(ip)) {
-            if (Integer.parseInt(StringRedisTemplateUtil.get(ip)) >= 1000) {
+            int time = Integer.parseInt(StringRedisTemplateUtil.get(ip));
+            if (time >= 60) {
                 return false;
             } else {
-                StringRedisTemplateUtil.set(ip, String.valueOf(Integer.parseInt(StringRedisTemplateUtil.get(ip)) + 1), 0);
+                StringRedisTemplateUtil.set(ip, String.valueOf(time + 1), StringRedisTemplateUtil.ttl(ip).intValue());
             }
         } else {
             StringRedisTemplateUtil.set(ip, "1", 60);
@@ -75,7 +72,8 @@ public class SpringFliterHandler extends HandlerInterceptorAdapter {
             Object object = JwtTokenUtil.serializeToObject(token);
             if (BooleanUtils.isEmpty(object)) return false;
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
+            System.out.println("解码出错,或者超时");
             return false;
         }
         return true;
