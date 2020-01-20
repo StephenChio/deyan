@@ -8,7 +8,52 @@ public class LoginVO implements Serializable {
     private String backgroundImg;
     private String wechatId;
     private String phone;
+    private String title;
+    private String money;
+    private String userLevel;
+    private String points;
+    private String experience;
     private boolean hasPassword;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
+    public String getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
 
     public boolean isHasPassword() {
         return hasPassword;

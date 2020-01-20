@@ -2,6 +2,7 @@ package com.OneTech.service.impl;
 
 import com.OneTech.common.constants.AddressListAccpetStatus;
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.TitleConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.LoginVO;
 import com.OneTech.common.vo.StatusBean;
@@ -225,6 +226,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setMomentsId(UUIDUtils.getRandom32());
         userInfoBean.setImgPath("img/head.png");
         userInfoBean.setBackgroundImg("img/background.png");
+        userInfoBean.setPoints("0");
+        userInfoBean.setTitle(TitleConstants.LEVEL1);
+        userInfoBean.setUserLevel("1");
+        userInfoBean.setExperience("0");
+        userInfoBean.setMoney("0");
         userInfoBean.setCreateTime(new Date());
         this.save(userInfoBean);
         /**
@@ -235,6 +241,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         loginVO.setImgPath(userInfoBean.getImgPath());
         loginVO.setPhone(userInfoBean.getPhone());
         loginVO.setUserName(userInfoBean.getUserName());
+        loginVO.setPoints(userInfoBean.getPoints());
+        loginVO.setTitle(userInfoBean.getTitle());
+        loginVO.setUserLevel(userInfoBean.getUserLevel());
+        loginVO.setExperience(userInfoBean.getExperience());
+        loginVO.setMoney(userInfoBean.getMoney());
         loginVO.setHasPassword(false);
         /**
          * 默认添加机器人好友
@@ -285,6 +296,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                     loginVO.setImgPath(userInfo.getImgPath());
                     loginVO.setPhone(userInfo.getPhone());
                     loginVO.setUserName(userInfo.getUserName());
+
+                    loginVO.setPoints(userInfo.getPoints());
+                    loginVO.setTitle(userInfo.getTitle());
+                    loginVO.setUserLevel(userInfo.getUserLevel());
+                    loginVO.setExperience(userInfo.getExperience());
+                    loginVO.setMoney(userInfo.getMoney());
+
                     if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
                         loginVO.setHasPassword(false);
                     } else {
@@ -318,6 +336,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                     loginVO.setImgPath(userInfo.getImgPath());
                     loginVO.setPhone(userInfo.getPhone());
                     loginVO.setUserName(userInfo.getUserName());
+
+                    loginVO.setPoints(userInfo.getPoints());
+                    loginVO.setTitle(userInfo.getTitle());
+                    loginVO.setUserLevel(userInfo.getUserLevel());
+                    loginVO.setExperience(userInfo.getExperience());
+                    loginVO.setMoney(userInfo.getMoney());
+
                     if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
                         loginVO.setHasPassword(false);
                     } else {

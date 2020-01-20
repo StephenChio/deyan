@@ -89,8 +89,8 @@ public class LogAspect {
             }
         } else {
             result = JSONObject.toJSONString(joinPoint);
-            if (result.length() > 1000) return null;
         }
+        if (result.length() > 10000) return null;
         return result;
     }
 

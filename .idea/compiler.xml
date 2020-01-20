@@ -7,10 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="OneTech_common" />
-        <module name="OneTech_web" />
+        <module name="OneTech_device" />
         <module name="OneTech_model" />
         <module name="OneTech_service" />
-        <module name="OneTech_device" />
+        <module name="OneTech_web" />
       </profile>
     </annotationProcessing>
   </component>
