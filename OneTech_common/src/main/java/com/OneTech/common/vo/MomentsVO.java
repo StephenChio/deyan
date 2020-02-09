@@ -5,6 +5,7 @@ public class MomentsVO {
     private String wechatId;
     private String imgPath;
     private String userName;
+    private String sign;
     private String remarkName;
     private String text;
     private String id;
@@ -16,6 +17,14 @@ public class MomentsVO {
     private List<?> commentsContent;
     private List<String> pictureImgPath;
     private String createTime;
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public String getRemarkName() {
         return remarkName;

@@ -21,6 +21,7 @@ import com.OneTech.common.util.UploadUtils;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.io.File;
@@ -246,6 +247,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         loginVO.setUserLevel(userInfoBean.getUserLevel());
         loginVO.setExperience(userInfoBean.getExperience());
         loginVO.setMoney(userInfoBean.getMoney());
+        loginVO.setSex(userInfoBean.getSex());
+        loginVO.setPosition(userInfoBean.getPosition());
+        loginVO.setSign(userInfoBean.getSign());
         loginVO.setHasPassword(false);
         /**
          * 默认添加机器人好友
@@ -303,6 +307,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                     loginVO.setExperience(userInfo.getExperience());
                     loginVO.setMoney(userInfo.getMoney());
 
+                    loginVO.setSex(userInfo.getSex());
+                    loginVO.setPosition(userInfo.getPosition());
+                    loginVO.setSign(userInfo.getSign());
+
                     if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
                         loginVO.setHasPassword(false);
                     } else {
@@ -343,6 +351,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                     loginVO.setExperience(userInfo.getExperience());
                     loginVO.setMoney(userInfo.getMoney());
 
+                    loginVO.setSex(userInfo.getSex());
+                    loginVO.setPosition(userInfo.getPosition());
+                    loginVO.setSign(userInfo.getSign());
+
+
                     if (BooleanUtils.isEmpty(userInfo.getPassWord())) {
                         loginVO.setHasPassword(false);
                     } else {
@@ -364,5 +377,46 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             statusBean.setRespMsg("登陆失败!" + e);
         }
         return statusBean;
+    }
+
+    @Override
+    public void updateSex(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        userInfoBean.setSex(requestJson.getString("sex"));
+        userInfoBean.setUpdateTime(new Date());
+        this.saveOrUpdate(userInfoBean);
+    }
+
+    @Override
+    public void updateSign(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        userInfoBean.setSign(requestJson.getString("sign"));
+        userInfoBean.setUpdateTime(new Date());
+        this.saveOrUpdate(userInfoBean);
+    }
+
+    @Override
+    public void updatePosition(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        userInfoBean.setPosition(requestJson.getString("position"));
+        userInfoBean.setUpdateTime(new Date());
+        this.saveOrUpdate(userInfoBean);
+    }
+
+    @Override
+    public String getDate(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setWechatId(requestJson.getString("wechatId"));
+        userInfoBean = this.selectOne(userInfoBean);
+        Date createTime = userInfoBean.getCreateTime();
+        Date nowDate = new Date();
+        //转为毫秒
+       return String.valueOf((nowDate.getTime()-createTime.getTime())/1000/60/60/24);
     }
 }

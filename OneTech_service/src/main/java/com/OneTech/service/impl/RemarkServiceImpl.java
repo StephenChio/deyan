@@ -66,4 +66,18 @@ public class RemarkServiceImpl extends BaseServiceImpl<RemarkBean> implements Re
     public void updateTag(JSONObject requestJson) throws Exception {
 
     }
+
+    /**
+     * 获得备注信息
+     * @param requestJson
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public RemarkBean getRemakers(JSONObject requestJson) throws Exception {
+        RemarkBean remarkBean = new RemarkBean();
+        remarkBean.setWechatId(requestJson.getString("wechatId"));
+        remarkBean.setFWechatId(requestJson.getString("fWechatId"));
+        return this.selectOne(remarkBean);
+    }
 }

@@ -13,10 +13,37 @@ public class LoginVO implements Serializable {
     private String userLevel;
     private String points;
     private String experience;
+    private String sex;
+    private String position;
+    private String sign;
     private boolean hasPassword;
 
     public String getTitle() {
         return title;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 
     public void setTitle(String title) {

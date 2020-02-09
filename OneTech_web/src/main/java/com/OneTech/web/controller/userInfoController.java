@@ -124,4 +124,66 @@ public class userInfoController extends CommonController {
         return statusBean;
     }
 
+    @PostMapping("updateSex")
+    public StatusBean<?> updateSex() {
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            userInfoService.updateSex(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("设置成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!" + e);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
+    @PostMapping("updateSign")
+    public StatusBean<?> updateSign() {
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            userInfoService.updateSign(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("设置成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!" + e);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+    @PostMapping("updatePosition")
+    public StatusBean<?> updatePosition() {
+        StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        try {
+            userInfoService.updatePosition(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("设置成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("设置异常!" + e);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
+    @PostMapping("getDate")
+    public StatusBean<?> getDate() {
+        StatusBean<String> statusBean = new StatusBean<>();
+        try {
+            statusBean.setData(userInfoService.getDate(getRequestJson()));
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("查询成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("查询异常!" + e);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
 }

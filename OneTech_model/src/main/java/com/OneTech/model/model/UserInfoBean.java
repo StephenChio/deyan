@@ -14,6 +14,7 @@ public class UserInfoBean {
     private String imgPath;
     private String backgroundImg;
     private String wechatId;
+    private String sex;
     private String phone;
     private String QrCode;
     private String sign;
@@ -25,6 +26,14 @@ public class UserInfoBean {
     private String experience;
     private Date createTime;
     private Date updateTime;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getTitle() {
         return title;

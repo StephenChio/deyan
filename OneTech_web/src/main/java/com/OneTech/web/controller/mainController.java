@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +62,7 @@ public class mainController extends CommonController {
             UserInfoBean userInfoBean = new UserInfoBean();
             userInfoBean.setPhone(getRequestJson().getString("phone"));
             userInfoBean = userInfoService.selectOne(userInfoBean);
-            if (userInfoBean == null) {
+            if (BooleanUtils.isEmpty(userInfoBean)) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("该手机未被使用");
             } else {
@@ -71,7 +72,7 @@ public class mainController extends CommonController {
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询!" + e);
+            statusBean.setRespMsg("查询失败!" + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
