@@ -22,7 +22,7 @@ public class UserLanguageServiceImpl extends BaseServiceImpl<UserLanguageBean> i
             userLanguageBean.setFirstLanguage(requestJson.getString("firstLanguage"));
             userLanguageBean.setSecondLanguage(requestJson.getString("secondLanguage"));
             userLanguageBean.setThirdLanguage(requestJson.getString("thirdLanguage"));
-            userLanguageBean.setUpdateTime(new Date());
+//            userLanguageBean.setUpdateTime(new Date());
             this.saveOrUpdate(userLanguageBean);
         } else {
             userLanguageBean = new UserLanguageBean();

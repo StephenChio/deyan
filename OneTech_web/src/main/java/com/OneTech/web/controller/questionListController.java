@@ -79,4 +79,51 @@ public class questionListController extends CommonController {
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
     }
+    @PostMapping("getQuestionInformationById")
+    public StatusBean<?> getQuestionInformationById(){
+        StatusBean<QuestionListVO> statusBean = new StatusBean();
+        try{
+            statusBean.setData(questionListService.getQuestionInformationById(getRequestJson()));
+            statusBean.setRespMsg("查询成功");
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+    @PostMapping("getMyFollow")
+    public StatusBean<?> getMyFollow(){
+        StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        try{
+            statusBean.setData(questionListService.getMyFollow(getRequestJson()));
+            statusBean.setRespMsg("查询成功");
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
+    @PostMapping("getMyAnswer")
+    public StatusBean<?> getMyAnswer(){
+        StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        try{
+            statusBean.setData(questionListService.getMyAnswer(getRequestJson()));
+            statusBean.setRespMsg("查询成功");
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
 }

@@ -55,7 +55,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
         userInfoBean.setUserName(requestJson.getString("userName"));
-        userInfoBean.setUpdateTime(new Date());
+//        userInfoBean.setUpdateTime(new Date());
         this.saveOrUpdate(userInfoBean);
         return userInfoBean;
     }
@@ -96,7 +96,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
              * 更新数据库
              */
             userInfoBean.setBackgroundImg(savePath);
-            userInfoBean.setUpdateTime(new Date());
+//            userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
 
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                  * 更新数据库
                  */
                 userInfoBean.setImgPath(savePath);
-                userInfoBean.setUpdateTime(new Date());
+//                userInfoBean.setUpdateTime(new Date());
                 this.saveOrUpdate(userInfoBean);
             } else {
                 return userInfoBean;
@@ -172,7 +172,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             userInfoBean.setWechatId(requestJson.getString("wechatId"));
             userInfoBean = this.selectOne(userInfoBean);
             userInfoBean.setPhone(phone);
-            userInfoBean.setUpdateTime(new Date());
+//            userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
             return true;
         } else {
@@ -194,13 +194,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean = this.selectOne(userInfoBean);
         if (!"true".equals(requestJson.getString("hasPassword"))) {
             userInfoBean.setPassWord(requestJson.getString("newPwd"));
-            userInfoBean.setUpdateTime(new Date());
+//            userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
             return true;
         }
         if (requestJson.getString("oldPwd").equals(userInfoBean.getPassWord())) {
             userInfoBean.setPassWord(requestJson.getString("newPwd"));
-            userInfoBean.setUpdateTime(new Date());
+//            userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
             return true;
         } else {
@@ -316,7 +316,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                     } else {
                         loginVO.setHasPassword(true);
                     }
-                    statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),10000));
+                    statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),7));
                     statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                     statusBean.setRespMsg("登陆成功!");
                     statusBean.setData(loginVO);
@@ -362,7 +362,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
                         loginVO.setHasPassword(true);
                     }
                 }
-                statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),10000));
+                statusBean.setToken(JwtTokenUtil.generateToken(JwtTokenUtil.serializable(loginVO),7));
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg("登陆成功!");
                 statusBean.setData(loginVO);
@@ -385,7 +385,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
         userInfoBean.setSex(requestJson.getString("sex"));
-        userInfoBean.setUpdateTime(new Date());
+//        userInfoBean.setUpdateTime(new Date());
         this.saveOrUpdate(userInfoBean);
     }
 
@@ -395,7 +395,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
         userInfoBean.setSign(requestJson.getString("sign"));
-        userInfoBean.setUpdateTime(new Date());
+//        userInfoBean.setUpdateTime(new Date());
         this.saveOrUpdate(userInfoBean);
     }
 
@@ -405,7 +405,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
         userInfoBean = this.selectOne(userInfoBean);
         userInfoBean.setPosition(requestJson.getString("position"));
-        userInfoBean.setUpdateTime(new Date());
+//        userInfoBean.setUpdateTime(new Date());
         this.saveOrUpdate(userInfoBean);
     }
 

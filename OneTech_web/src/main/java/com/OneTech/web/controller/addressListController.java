@@ -94,9 +94,26 @@ public class addressListController extends CommonController {
 
     @PostMapping("deleteFriend")
     public StatusBean<?> deleteFriend() {
-        StatusBean<List<UserInfoBean>> statusBean = new StatusBean<>();
+        StatusBean<?> statusBean = new StatusBean<>();
         try {
             addressListService.deleteFriend(getRequestJson());
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+            statusBean.setRespMsg("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+            statusBean.setRespMsg("删除失败");
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
+
+    @PostMapping("isFriend")
+    public StatusBean<?> isFriend() {
+        StatusBean<Boolean> statusBean = new StatusBean<>();
+        try {
+            statusBean.setData(addressListService.isFriend(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg("删除成功");
         } catch (Exception e) {

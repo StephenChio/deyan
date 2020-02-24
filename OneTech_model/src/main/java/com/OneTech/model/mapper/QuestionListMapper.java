@@ -11,6 +11,14 @@ import java.util.List;
 @Component
 public interface QuestionListMapper extends IBaseMapper<QuestionListBean> {
     List<QuestionListVO> getMyQuestion(JSONObject requestJson);
+
+    List<QuestionListVO> getMyFollow(JSONObject requestJson);
+
+    List<QuestionListVO>getMyAnswer(JSONObject requestJson);
+
     List<QuestionListVO> getAllQuestionList();
+
     List<QuestionListVO> getAllQuestionListByLanguage(JSONObject requestJson);
+
+    QuestionListVO getQuestionInformationById(JSONObject requestJson);
 }

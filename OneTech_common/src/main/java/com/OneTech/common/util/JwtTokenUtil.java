@@ -33,14 +33,14 @@ public class JwtTokenUtil {
      */
     public static String generateToken(String subject, int expirationSeconds) throws Exception {
         try {
-            Date expireDate = DateUtils.addMinutes(new Date(), expirationSeconds / 1000 * 60);
+            Date expireDate = DateUtils.addMinutes(new Date(), expirationSeconds *60*24);
             String token = Jwts.builder()
                     .setClaims(null)
                     .setSubject(subject)
                     .setExpiration(expireDate)
                     .signWith(SignatureAlgorithm.HS512, TOKEN_KEY) // 不使用公钥私钥
                     .compact();
-            logger.info("JwtTokenUtil--subject，{}，expirationSeconds，{}，salt，{}，token，{}", subject, DateUtils.dateToStr(expireDate, "yyyy-MM-dd HH:mm:ss"), TOKEN_KEY, token);
+//            logger.info("JwtTokenUtil--subject，{}，expirationSeconds，{}，salt，{}，token，{}", subject, DateUtils.dateToStr(expireDate, "yyyy-MM-dd HH:mm:ss"), TOKEN_KEY, token);
             return token;
         }catch (Exception e){
             throw e;
@@ -62,7 +62,7 @@ public class JwtTokenUtil {
             logger.error("token解密异常，token:{},salt:{}", token, TOKEN_KEY);
             throw e;
         }
-        logger.info("JwtTokenUtil--token,{},salt,{},subject,{}", token, TOKEN_KEY, subject);
+//        logger.info("JwtTokenUtil--token,{},salt,{},subject,{}", token, TOKEN_KEY, subject);
         return subject;
     }
 
@@ -112,7 +112,7 @@ public class JwtTokenUtil {
 
     public static String updateToken(JSONObject requestJson){
         try {
-            return JwtTokenUtil.generateToken(JwtTokenUtil.serializable((LoginVO) JwtTokenUtil.serializeToObject(requestJson.getString("token"))),10000);
+            return JwtTokenUtil.generateToken(JwtTokenUtil.serializable((LoginVO) JwtTokenUtil.serializeToObject(requestJson.getString("token"))),7);
         }catch (Exception e){
             e.printStackTrace();
         }

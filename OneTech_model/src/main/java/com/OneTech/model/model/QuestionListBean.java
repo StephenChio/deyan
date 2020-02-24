@@ -12,8 +12,9 @@ public class QuestionListBean {
     private String title;
     private String explainText;
     private String languageType;
-    private String answerId;
     private String followNum;
+    private String viewNum;
+    private String answerNum;
     private String pictureId;
     private String videoPath;
     private Date createTime;
@@ -59,12 +60,28 @@ public class QuestionListBean {
         this.languageType = languageType;
     }
 
-    public String getAnswerId() {
-        return answerId;
+    public String getFollowNum() {
+        return followNum;
     }
 
-    public void setAnswerId(String answerId) {
-        this.answerId = answerId;
+    public void setFollowNum(String followNum) {
+        this.followNum = followNum;
+    }
+
+    public String getViewNum() {
+        return viewNum;
+    }
+
+    public void setViewNum(String viewNum) {
+        this.viewNum = viewNum;
+    }
+
+    public String getAnswerNum() {
+        return answerNum;
+    }
+
+    public void setAnswerNum(String answerNum) {
+        this.answerNum = answerNum;
     }
 
     public String getPictureId() {
@@ -97,13 +114,5 @@ public class QuestionListBean {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getFollowNum() {
-        return followNum;
-    }
-
-    public void setFollowNum(String followNum) {
-        this.followNum = followNum;
     }
 }

@@ -51,7 +51,7 @@ public class RemarkServiceImpl extends BaseServiceImpl<RemarkBean> implements Re
             }
             remarkBean.setPhone(requestJson.getString("phone"));
             remarkBean.setDescribeText(requestJson.getString("describeText"));
-            remarkBean.setUpdateTime(new Date());
+//            remarkBean.setUpdateTime(new Date());
 
             this.saveOrUpdate(remarkBean);
         }

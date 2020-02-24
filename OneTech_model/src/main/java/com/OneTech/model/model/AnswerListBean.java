@@ -13,8 +13,31 @@ public class AnswerListBean {
     private String answerText;
     private String pictureId;
     private String videoPath;
+    private String likeNum;
+    private String collectNum;
+    private String commentsNum;
     private Date createTime;
     private Date updateTime;
+
+    public String getLikeNum() {
+        return likeNum;
+    }
+
+    public String getCollectNum() {
+        return collectNum;
+    }
+
+    public void setCollectNum(String collectNum) {
+        this.collectNum = collectNum;
+    }
+
+    public String getCommentsNum() {
+        return commentsNum;
+    }
+
+    public void setCommentsNum(String commentsNum) {
+        this.commentsNum = commentsNum;
+    }
 
     public String getWechatId() {
         return wechatId;
@@ -62,6 +85,11 @@ public class AnswerListBean {
 
     public void setVideoPath(String videoPath) {
         this.videoPath = videoPath;
+    }
+
+
+    public void setLikeNum(String likeNum) {
+        this.likeNum = likeNum;
     }
 
     public Date getCreateTime() {

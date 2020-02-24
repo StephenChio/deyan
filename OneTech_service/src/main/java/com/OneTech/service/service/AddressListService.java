@@ -30,4 +30,6 @@ public interface AddressListService extends IBaseService<AddressListBean> {
     List<MomentsVO> getMomentsByWechatId(JSONObject requestJson) throws Exception;
 
     List<MomentsVO> getMomentsPictureByWechatId(JSONObject requestJson) throws Exception;
+
+    boolean isFriend(JSONObject requestJson) throws Exception;
 }
