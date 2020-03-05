@@ -17,6 +17,8 @@ public interface QuestionListService extends IBaseService<QuestionListBean> {
 
     List<QuestionListVO> getMyAnswer(JSONObject requestJson) throws Exception;
 
+    List<QuestionListVO> getMyCollect(JSONObject requestJson) throws Exception;
+
     List<QuestionListVO> getAllQuestionListByLanguageOption(JSONObject requestJson) throws Exception;
 
     List<QuestionListVO> getAllQuestionListByLanguage(UserLanguageBean userLanguageBean) throws Exception;
@@ -24,6 +26,8 @@ public interface QuestionListService extends IBaseService<QuestionListBean> {
     List<QuestionListVO> getAllQuestionList() throws Exception;
 
     List<QuestionListVO> getQuestionDetail(List<QuestionListVO> questionListVOS) throws Exception;
+
+    List<QuestionListVO> getQuestionDetail(List<QuestionListVO> questionListVOS,String answerId) throws Exception;
 
     QuestionListVO getQuestionDetail(QuestionListVO questionListVO) throws Exception;
 

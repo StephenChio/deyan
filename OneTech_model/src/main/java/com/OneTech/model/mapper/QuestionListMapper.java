@@ -14,7 +14,9 @@ public interface QuestionListMapper extends IBaseMapper<QuestionListBean> {
 
     List<QuestionListVO> getMyFollow(JSONObject requestJson);
 
-    List<QuestionListVO>getMyAnswer(JSONObject requestJson);
+    List<QuestionListVO> getMyAnswer(JSONObject requestJson);
+
+    List<QuestionListVO> getMyCollect(JSONObject requestJson);
 
     List<QuestionListVO> getAllQuestionList();
 

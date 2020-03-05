@@ -2,6 +2,7 @@ package com.OneTech.device.websocket.handler;
 
 import com.OneTech.common.constants.WebSocketConstants;
 import com.OneTech.device.websocket.interceptor.SpringWebSocketHandlerInterceptor;
+import org.springframework.web.socket.adapter.standard.StandardWebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**

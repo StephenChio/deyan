@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("answerLikeList")
-public class AnswerLikeListController extends CommonController {
+public class answerLikeListController extends CommonController {
     @Autowired
     AnswerLikeListService answerLikeListService;
 

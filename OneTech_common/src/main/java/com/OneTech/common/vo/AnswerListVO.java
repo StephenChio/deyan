@@ -9,7 +9,7 @@ public class AnswerListVO {
     private String imgPath;
     private String answerText;
     private String likeNum;
-    private String agreeNum;
+    private String collectNum;
     private String commentsNum;
     private String nextAnswerId;
     private String preAnswerId;
@@ -80,12 +80,12 @@ public class AnswerListVO {
         this.likeNum = likeNum;
     }
 
-    public String getAgreeNum() {
-        return agreeNum;
+    public String getCollectNum() {
+        return collectNum;
     }
 
-    public void setAgreeNum(String agreeNum) {
-        this.agreeNum = agreeNum;
+    public void setCollectNum(String collectNum) {
+        this.collectNum = collectNum;
     }
 
     public String getCommentsNum() {

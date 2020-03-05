@@ -70,6 +70,12 @@ public class QuestionListServiceImpl extends BaseServiceImpl<QuestionListBean> i
     }
 
     @Override
+    public List<QuestionListVO> getMyCollect(JSONObject requestJson) throws Exception {
+        List<QuestionListVO> questionListVOS = questionListMapper.getMyCollect(requestJson);
+        return getQuestionDetail(questionListVOS,"collect");
+    }
+
+    @Override
     public List<QuestionListVO> getAllQuestionListByLanguageOption(JSONObject requestJson) throws Exception {
         UserLanguageBean userLanguageBean = new UserLanguageBean();
         userLanguageBean.setWechatId(requestJson.getString("wechatId"));
@@ -104,6 +110,24 @@ public class QuestionListServiceImpl extends BaseServiceImpl<QuestionListBean> i
     @Override
     public List<QuestionListVO> getAllQuestionList() throws Exception {
         return getQuestionDetail(questionListMapper.getAllQuestionList());
+    }
+
+    @Override
+    public List<QuestionListVO> getQuestionDetail(List<QuestionListVO> questionListVOS, String answerId) throws Exception {
+        for (QuestionListVO questionListVO : questionListVOS) {
+            UserInfoBean userInfoBean = new UserInfoBean();
+            userInfoBean.setWechatId(questionListVO.getWechatId());
+            userInfoBean = userInfoService.selectOne(userInfoBean);
+
+            questionListVO.setUserName(userInfoBean.getUserName());
+
+            questionListVO.setImgPath(userInfoBean.getImgPath());
+
+            Date createTime = questionListVO.getCreateTime();
+            Date nowTime = new Date();
+            questionListVO.setDate(TimeUtils.getLongDateAgo(nowTime.getTime() - createTime.getTime()));
+        }
+        return questionListVOS;
     }
 
     @Override

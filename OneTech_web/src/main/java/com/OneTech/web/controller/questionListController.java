@@ -126,4 +126,20 @@ public class questionListController extends CommonController {
         return statusBean;
     }
 
+    @PostMapping("getMyCollect")
+    public StatusBean<?> getMyCollect() {
+        StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        try {
+            statusBean.setData(questionListService.getMyCollect(getRequestJson()));
+            statusBean.setRespMsg("查询成功");
+            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusBean.setRespMsg("查询失败" + e);
+            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
+        }
+        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        return statusBean;
+    }
+
 }
