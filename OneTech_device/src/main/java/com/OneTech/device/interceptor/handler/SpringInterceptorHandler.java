@@ -29,7 +29,7 @@ public class SpringInterceptorHandler extends HandlerInterceptorAdapter {
          */
         String url = request.getRequestURI();
         String ip = request.getRemoteAddr();
-        if (url.startsWith("/img")) return true;
+//        if (url.startsWith("/swagger-ui.html")) return true;
 //        System.out.println(url);
         return tokenService.testIp(ip) && ("/idSalt/getSalt".equals(url) || "/login".equals(url) || "/getVerifiCode".equals(url)) ? true : tokenService.testToken(request);
     }

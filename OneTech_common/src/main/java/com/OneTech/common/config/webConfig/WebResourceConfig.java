@@ -1,4 +1,4 @@
-package com.OneTech.common.config;
+package com.OneTech.common.config.webConfig;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

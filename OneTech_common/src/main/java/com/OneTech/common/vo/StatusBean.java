@@ -69,7 +69,7 @@ public class StatusBean<T> {
 	public static StatusBean success() {
 		return new StatusBean(SystemConstants.RESPONSE_SUCCESS, TipsConstants.OPERATE_SUCCESS);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static StatusBean success(Object obj) {
 		return new StatusBean(SystemConstants.RESPONSE_SUCCESS,TipsConstants.OPERATE_SUCCESS,obj);
@@ -112,7 +112,7 @@ public class StatusBean<T> {
 	public static StatusBean failMsg(Object obj) {
 		return new StatusBean(SystemConstants.RESPONSE_FAIL,CommonMessageEnum.MESSAGE_OPERATION_FAIL.toString(),obj);
 	}
-	
+
 	public StatusBean() {
 		super();
 	}

@@ -17,6 +17,7 @@ public class SpringInterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(springInterceptorHandler());
+        registry.addInterceptor(springInterceptorHandler())
+                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
     }
 }

@@ -1,14 +1,11 @@
 package com.OneTech.common.service.impl;
 
-import com.OneTech.common.field.DataOperateEnum;
 import com.OneTech.common.mapper.IBaseMapper;
 import com.OneTech.common.service.IBaseService;
 import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.UUIDUtils;
-import com.OneTech.common.vo.LayUiPageVO;
 import com.OneTech.common.vo.StatusBean;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.ExecutorType;
@@ -18,15 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * @description 通用service实现类
@@ -110,13 +104,13 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
     	return mapper.selectByPrimaryKey(key);
     }
 
-    @Transactional(readOnly=true, propagation=Propagation.NOT_SUPPORTED)
-    public LayUiPageVO<T> queryByPage(JSONObject json, Class<?> clazz) throws Exception {
-    	pageHelpInit(json);
-    	Example example = constructorExample(json,clazz);
-    	List<T> list = mapper.selectByExample(example);
-    	return new LayUiPageVO<T>(list);
-    }
+//    @Transactional(readOnly=true, propagation=Propagation.NOT_SUPPORTED)
+//    public LayUiPageVO<T> queryByPage(JSONObject json, Class<?> clazz) throws Exception {
+//    	pageHelpInit(json);
+//    	Example example = constructorExample(json,clazz);
+//    	List<T> list = mapper.selectByExample(example);
+//    	return new LayUiPageVO<T>(list);
+//    }
 
 	@Override
 	@Transactional(readOnly=true, propagation=Propagation.NOT_SUPPORTED)
@@ -223,23 +217,23 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 		} while (flag);
 	}
 	
-	/**
-	 * 分页初始化
-	 * @param json
-	 */
-	public void pageHelpInit(JSONObject json) throws Exception {
-		Integer pageNum = json.getInteger(DataOperateEnum.pageNum.toString());
-    	Integer pageSize = json.getInteger(DataOperateEnum.pageSize.toString());
-    	
-    	if(null == pageNum){
-    		pageNum = 1;
-    	}
-    	
-    	if(null == pageSize){
-    		pageSize = 10;
-    	}
-    	PageHelper.startPage(pageNum, pageSize);
-	}
+//	/**
+//	 * 分页初始化
+//	 * @param json
+//	 */
+//	public void pageHelpInit(JSONObject json) throws Exception {
+//		Integer pageNum = json.getInteger(DataOperateEnum.pageNum.toString());
+//    	Integer pageSize = json.getInteger(DataOperateEnum.pageSize.toString());
+//
+//    	if(null == pageNum){
+//    		pageNum = 1;
+//    	}
+//
+//    	if(null == pageSize){
+//    		pageSize = 10;
+//    	}
+//    	PageHelper.startPage(pageNum, pageSize);
+//	}
 	
 	
 	/**
@@ -248,29 +242,29 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	 * @return
 	 * @throws Exception
 	 */
-	public Example constructorExample(JSONObject json, Class<?> clazz)  throws Exception {
-		String orderBy = json.getString(DataOperateEnum.orderBy.toString());
-    	Example example = new Example(clazz);
-    	if(!StringUtils.isEmpty(orderBy)){
-    		example.setOrderByClause(orderBy);
-    	}
-    	Criteria criteria = example.createCriteria();
-    	for(Entry<String, Object> entity : json.entrySet()){
-    		Object value = entity.getValue();
-    		String key = entity.getKey();
-    		//排除分页,排序字段
-    		if(!DataOperateEnum.pageNum.toString().equals(key) && !DataOperateEnum.pageSize.toString().equals(key) && !BooleanUtils.isEmpty(value) && !DataOperateEnum.orderBy.toString().equals(key)){
-    			if(key.contains(DataOperateEnum.like_.toString())){
-    				criteria.andLike(key.replace(DataOperateEnum.like_.toString(), ""), "%" + value + "%" );
-    			}else if(key.contains(DataOperateEnum.sqlNotIn_.toString())) {
-    				criteria.andNotIn(key.replace(DataOperateEnum.sqlNotIn_.toString(), ""), (Iterable<?>)value );
-    			}else if(key.contains(DataOperateEnum.sqlIn_.toString())) {
-    				criteria.andIn(key.replace(DataOperateEnum.sqlIn_.toString(), ""), (Iterable<?>)value);
-    			}else{
-    				criteria.andEqualTo(key, value);
-    			}
-    		}
-    	}
-    	return example;
-	}
+//	public Example constructorExample(JSONObject json, Class<?> clazz)  throws Exception {
+//		String orderBy = json.getString(DataOperateEnum.orderBy.toString());
+//    	Example example = new Example(clazz);
+//    	if(!StringUtils.isEmpty(orderBy)){
+//    		example.setOrderByClause(orderBy);
+//    	}
+//    	Criteria criteria = example.createCriteria();
+//    	for(Entry<String, Object> entity : json.entrySet()){
+//    		Object value = entity.getValue();
+//    		String key = entity.getKey();
+//    		//排除分页,排序字段
+//    		if(!DataOperateEnum.pageNum.toString().equals(key) && !DataOperateEnum.pageSize.toString().equals(key) && !BooleanUtils.isEmpty(value) && !DataOperateEnum.orderBy.toString().equals(key)){
+//    			if(key.contains(DataOperateEnum.like_.toString())){
+//    				criteria.andLike(key.replace(DataOperateEnum.like_.toString(), ""), "%" + value + "%" );
+//    			}else if(key.contains(DataOperateEnum.sqlNotIn_.toString())) {
+//    				criteria.andNotIn(key.replace(DataOperateEnum.sqlNotIn_.toString(), ""), (Iterable<?>)value );
+//    			}else if(key.contains(DataOperateEnum.sqlIn_.toString())) {
+//    				criteria.andIn(key.replace(DataOperateEnum.sqlIn_.toString(), ""), (Iterable<?>)value);
+//    			}else{
+//    				criteria.andEqualTo(key, value);
+//    			}
+//    		}
+//    	}
+//    	return example;
+//	}
 }

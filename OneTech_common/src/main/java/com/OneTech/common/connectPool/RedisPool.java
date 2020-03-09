@@ -15,8 +15,8 @@ public class RedisPool {
     @Value("${spring.redis.host}")
     private String host;
 
-//	@Value("${spring.redis.password}")
-//    private String password;
+	@Value("${spring.redis.password}")
+    private String password;
 
     @Value("${spring.redis.port}")
     private int port;
@@ -47,7 +47,7 @@ public class RedisPool {
         jedisPoolConfig.setMinIdle(minIdle);
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxTotal(maxTotal);
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout,null);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout,password);
         logger.info("JedisPool注入成功！");
         logger.info("redis地址：" + host + ":" + port);
         return  jedisPool;

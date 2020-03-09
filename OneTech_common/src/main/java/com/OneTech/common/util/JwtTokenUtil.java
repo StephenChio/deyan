@@ -1,14 +1,12 @@
 package com.OneTech.common.util;
 
 import com.OneTech.common.vo.LoginVO;
-import com.OneTech.common.vo.token.UserTokenVO;
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 
 import java.io.*;
 import java.text.ParseException;

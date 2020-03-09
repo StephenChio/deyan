@@ -70,7 +70,7 @@ public interface IBaseService<T> {
      * @return
      * @throws Exception
      */
-    LayUiPageVO<T> queryByPage(JSONObject json, Class<?> clazz) throws Exception;
+//    LayUiPageVO<T> queryByPage(JSONObject json, Class<?> clazz) throws Exception;
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用等号
