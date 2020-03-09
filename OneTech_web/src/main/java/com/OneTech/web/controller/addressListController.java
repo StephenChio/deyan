@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.constants.controllerConstants.AddressListConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,6 @@ import com.OneTech.common.controller.CommonController;
 import com.OneTech.service.service.AddressListService;
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.service.service.UserInfoService;
-import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.vo.NewFriendVO;
 import com.OneTech.common.vo.StatusBean;
 import com.alibaba.fastjson.JSONObject;
@@ -30,15 +30,15 @@ public class addressListController extends CommonController {
         try {
             if (!addressListService.sendVerification(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-                statusBean.setRespMsg("请勿重复发送验证消息");
+                statusBean.setRespMsg(AddressListConstants.SEND_AGAIN_MSG);
                 return statusBean;
             }
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("发送成功");
+            statusBean.setRespMsg(AddressListConstants.SEND_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("发送失败");
+            statusBean.setRespMsg(AddressListConstants.SEND_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -49,12 +49,12 @@ public class addressListController extends CommonController {
         StatusBean<List<NewFriendVO>> statusBean = new StatusBean<>();
         try {
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(AddressListConstants.QUERY_SUCCESS);
             statusBean.setData(addressListService.getNewFriend(getRequestJson()));
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询失败");
+            statusBean.setRespMsg(AddressListConstants.QUERY_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -66,11 +66,11 @@ public class addressListController extends CommonController {
         try {
             addressListService.addConfirm(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("添加成功");
+            statusBean.setRespMsg(AddressListConstants.ADD_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("添加失败");
+            statusBean.setRespMsg(AddressListConstants.ADD_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -81,12 +81,12 @@ public class addressListController extends CommonController {
         StatusBean<JSONObject> statusBean = new StatusBean<>();
         try {
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(AddressListConstants.QUERY_SUCCESS);
             statusBean.setData(addressListService.getFriendListByPY(getRequestJson()));
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询失败");
+            statusBean.setRespMsg(AddressListConstants.QUERY_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -98,11 +98,11 @@ public class addressListController extends CommonController {
         try {
             addressListService.deleteFriend(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("删除成功");
+            statusBean.setRespMsg(AddressListConstants.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("删除失败");
+            statusBean.setRespMsg(AddressListConstants.DELETE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -115,11 +115,11 @@ public class addressListController extends CommonController {
         try {
             statusBean.setData(addressListService.isFriend(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("删除成功");
+            statusBean.setRespMsg(AddressListConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("删除失败");
+            statusBean.setRespMsg(AddressListConstants.QUERY_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

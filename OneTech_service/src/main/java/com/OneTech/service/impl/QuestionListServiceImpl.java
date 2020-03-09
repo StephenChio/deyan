@@ -1,5 +1,6 @@
 package com.OneTech.service.impl;
 
+import com.OneTech.common.constants.controllerConstants.QuestionListConstants;
 import com.OneTech.common.service.impl.BaseServiceImpl;
 import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.TimeUtils;
@@ -17,6 +18,8 @@ import com.OneTech.service.service.UserInfoService;
 import com.OneTech.service.service.UserLanguageService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,9 +47,9 @@ public class QuestionListServiceImpl extends BaseServiceImpl<QuestionListBean> i
         questionListBean.setTitle(requestJson.getString("title"));
         questionListBean.setExplainText(requestJson.getString("explainText"));
         questionListBean.setLanguageType(requestJson.getString("languageType"));
-        questionListBean.setFollowNum("0");
-        questionListBean.setAnswerNum("0");
-        questionListBean.setViewNum("0");
+        questionListBean.setFollowNum(QuestionListConstants.INIT_FOLLOW_NUM);
+        questionListBean.setAnswerNum(QuestionListConstants.INIT_ANSWER_NUM);
+        questionListBean.setViewNum(QuestionListConstants.INIT_VIEW_NUM);
         questionListBean.setCreateTime(new Date());
         this.save(questionListBean);
     }

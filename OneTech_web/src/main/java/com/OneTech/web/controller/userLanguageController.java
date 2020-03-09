@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.UserLanguageConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
@@ -24,11 +25,11 @@ public class userLanguageController extends CommonController {
         try {
             userLanguageService.updateLanguageSetting(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserLanguageConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserLanguageConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -39,11 +40,11 @@ public class userLanguageController extends CommonController {
         try {
             statusBean.setData(userLanguageService.getLanguageSetting(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(UserLanguageConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(UserLanguageConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

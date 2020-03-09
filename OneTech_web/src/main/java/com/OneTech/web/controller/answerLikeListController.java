@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.AnswerLikeListConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.AnswerListVO;
@@ -23,11 +24,11 @@ public class answerLikeListController extends CommonController {
         StatusBean<AnswerListVO> statusBean = new StatusBean();
         try {
             answerLikeListService.clickLike(getRequestJson());
-            statusBean.setRespMsg("点赞成功");
+            statusBean.setRespMsg(AnswerLikeListConstants.LIKE_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            statusBean.setRespMsg("点赞失败" + e);
+            statusBean.setRespMsg(AnswerLikeListConstants.LIKE_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -39,11 +40,11 @@ public class answerLikeListController extends CommonController {
         StatusBean<AnswerListVO> statusBean = new StatusBean();
         try {
             answerLikeListService.clickDisLike(getRequestJson());
-            statusBean.setRespMsg("取消成功");
+            statusBean.setRespMsg(AnswerLikeListConstants.CANCEL_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            statusBean.setRespMsg("取消失败" + e);
+            statusBean.setRespMsg(AnswerLikeListConstants.CANCEL_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -55,11 +56,11 @@ public class answerLikeListController extends CommonController {
         StatusBean<Boolean> statusBean = new StatusBean();
         try {
             statusBean.setData(answerLikeListService.judgeIsLike(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(AnswerLikeListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败" + e);
+            statusBean.setRespMsg(AnswerLikeListConstants.QUERY_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));

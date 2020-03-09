@@ -8,6 +8,8 @@ import com.OneTech.service.service.AnswerLikeListService;
 import com.OneTech.service.service.AnswerListService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,6 +19,7 @@ public class AnswerLikeListServiceImpl extends BaseServiceImpl<AnswerLikeListBea
     @Autowired
     AnswerListService answerListService;
     @Override
+
     public void clickLike(JSONObject requestJson) throws Exception {
         AnswerLikeListBean answerLikeListBean = new AnswerLikeListBean();
         answerLikeListBean.setAnswerId(requestJson.getString("answerId"));
@@ -38,7 +41,6 @@ public class AnswerLikeListServiceImpl extends BaseServiceImpl<AnswerLikeListBea
         }
         answerListService.updateLikeNum(answerLikeListBean.getAnswerId(),1);
     }
-
     @Override
     public void clickDisLike(JSONObject requestJson) throws Exception {
         AnswerLikeListBean answerLikeListBean = new AnswerLikeListBean();

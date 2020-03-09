@@ -8,6 +8,7 @@ import com.OneTech.service.service.RemarkService;
 import com.OneTech.service.service.UserInfoService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -51,8 +52,7 @@ public class RemarkServiceImpl extends BaseServiceImpl<RemarkBean> implements Re
             }
             remarkBean.setPhone(requestJson.getString("phone"));
             remarkBean.setDescribeText(requestJson.getString("describeText"));
-//            remarkBean.setUpdateTime(new Date());
-
+            remarkBean.setUpdateTime(new Date());
             this.saveOrUpdate(remarkBean);
         }
     }

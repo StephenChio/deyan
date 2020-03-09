@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 
+import com.OneTech.common.constants.controllerConstants.ResourceConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,11 @@ public class resourceController extends CommonController {
         try {
             statusBean.setData(resourceService.get4MomentsImgByWechatId(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(ResourceConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(ResourceConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

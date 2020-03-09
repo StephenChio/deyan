@@ -10,6 +10,8 @@ import com.OneTech.service.service.AnswerListService;
 import com.OneTech.service.service.CollectAnswerListService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CollectAnswerListServiceImpl extends BaseServiceImpl<CollectAnswerListBean> implements CollectAnswerListService {
     @Autowired
     AnswerListService answerListService;
+
     @Override
     public void collectAnswer(JSONObject requestJson) throws Exception {
         CollectAnswerListBean collectAnswerListBean = new CollectAnswerListBean();
@@ -47,6 +50,7 @@ public class CollectAnswerListServiceImpl extends BaseServiceImpl<CollectAnswerL
 
     }
 
+    @Override
     public void disCollectAnswer(JSONObject requestJson) throws Exception {
         CollectAnswerListBean collectAnswerListBean = new CollectAnswerListBean();
         collectAnswerListBean.setWechatId(requestJson.getString("wechatId"));

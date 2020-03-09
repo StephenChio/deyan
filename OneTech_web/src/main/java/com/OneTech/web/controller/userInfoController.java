@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.UserInfoConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
@@ -25,12 +26,12 @@ public class userInfoController extends CommonController {
         try {
             List<UserInfoBean> userinfos = userInfoService.searchFriend(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("搜索成功");
+            statusBean.setRespMsg(UserInfoConstants.SEARCH_SUCCESS);
             if (userinfos != null) statusBean.setData(userinfos);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("搜索异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SEARCH_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -42,11 +43,11 @@ public class userInfoController extends CommonController {
         try {
             statusBean.setData(userInfoService.updateName(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -58,11 +59,11 @@ public class userInfoController extends CommonController {
         try {
             statusBean.setData(userInfoService.updatePicture(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -74,11 +75,11 @@ public class userInfoController extends CommonController {
         try {
             statusBean.setData(userInfoService.updateBackgroundImg(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -90,15 +91,15 @@ public class userInfoController extends CommonController {
         try {
             if (userInfoService.changePhoneNum(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-                statusBean.setRespMsg("设置成功");
+                statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
             } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-                statusBean.setRespMsg("验证码错误或过期,请重新发送验证码");
+                statusBean.setRespMsg(UserInfoConstants.CODE_ERROR_MSG);
             }
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -110,15 +111,15 @@ public class userInfoController extends CommonController {
         try {
             if (!userInfoService.updatePassword(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-                statusBean.setRespMsg("旧密码错误!");
+                statusBean.setRespMsg(UserInfoConstants.OLD_PASS_ERROR_MSG);
             } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-                statusBean.setRespMsg("设置成功");
+                statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
             }
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -130,11 +131,11 @@ public class userInfoController extends CommonController {
         try {
             userInfoService.updateSex(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -146,11 +147,11 @@ public class userInfoController extends CommonController {
         try {
             userInfoService.updateSign(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -161,11 +162,11 @@ public class userInfoController extends CommonController {
         try {
             userInfoService.updatePosition(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("设置异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -177,11 +178,11 @@ public class userInfoController extends CommonController {
         try {
             statusBean.setData(userInfoService.getDate(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(UserInfoConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(UserInfoConstants.QUERY_FAIL+ e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

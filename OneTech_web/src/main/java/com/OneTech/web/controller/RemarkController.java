@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.RemarkConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
@@ -22,11 +23,11 @@ public class RemarkController extends CommonController {
         StatusBean<?> statusBean = new StatusBean<>();
         try{
             remarkService.updateRemakers(getRequestJson());
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(RemarkConstants.SETTING_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("设置失败"+e);
+            statusBean.setRespMsg(RemarkConstants.SETTING_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -37,11 +38,11 @@ public class RemarkController extends CommonController {
         StatusBean<?> statusBean = new StatusBean<>();
         try{
             remarkService.updateTag(getRequestJson());
-            statusBean.setRespMsg("设置成功");
+            statusBean.setRespMsg(RemarkConstants.SETTING_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("设置失败"+e);
+            statusBean.setRespMsg(RemarkConstants.SETTING_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -52,11 +53,11 @@ public class RemarkController extends CommonController {
         StatusBean<RemarkBean> statusBean = new StatusBean<>();
         try{
             statusBean.setData(remarkService.getRemakers(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(RemarkConstants.SETTING_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(RemarkConstants.SETTING_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));

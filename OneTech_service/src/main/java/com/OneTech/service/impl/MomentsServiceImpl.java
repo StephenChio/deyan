@@ -7,6 +7,8 @@ import com.OneTech.service.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import com.OneTech.common.service.impl.BaseServiceImpl;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.stereotype.Service;
 import com.OneTech.model.model.ResourceBean;
@@ -43,6 +45,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      * @param requestJson
      * @throws Exception
      */
+
     @Override
     public void publish(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
@@ -106,6 +109,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      * @param requestJson
      * @throws Exception use deleteMomentsById
      */
+
     @Override
     @Deprecated
     public void deleteMomentsPicture(JSONObject requestJson) throws Exception {
@@ -132,6 +136,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      * @param requestJson
      * @throws Exception
      */
+
     @Override
     public void deleteMomentsById(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();

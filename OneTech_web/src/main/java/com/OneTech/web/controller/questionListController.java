@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.QuestionListConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.QuestionListVO;
@@ -23,11 +24,11 @@ public class questionListController extends CommonController {
         StatusBean<?> statusBean = new StatusBean();
         try{
             questionListService.questionPublish(getRequestJson());
-            statusBean.setRespMsg("发布成功");
+            statusBean.setRespMsg(QuestionListConstants.PUBLISH_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("发布失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.PUBLISH_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -39,11 +40,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getMyQuestion(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -54,11 +55,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getAllQuestionListByLanguageOption(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -69,11 +70,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getAllQuestionList());
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -84,11 +85,11 @@ public class questionListController extends CommonController {
         StatusBean<QuestionListVO> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getQuestionInformationById(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -99,11 +100,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getMyFollow(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -115,11 +116,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try{
             statusBean.setData(questionListService.getMyAnswer(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -131,11 +132,11 @@ public class questionListController extends CommonController {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
         try {
             statusBean.setData(questionListService.getMyCollect(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败" + e);
+            statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));

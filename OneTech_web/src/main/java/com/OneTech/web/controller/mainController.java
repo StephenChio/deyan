@@ -1,7 +1,9 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.constants.controllerConstants.MainConstants;
 import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.JwtTokenUtil;
+import com.OneTech.service.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,8 @@ public class mainController extends CommonController {
     RedisTemplate<String, String> redisTemplate;
     @Autowired
     MassageUitls massageUitls;
+    @Autowired
+    TestService testService;
 
     /**
      * 获取验证码
@@ -30,13 +34,9 @@ public class mainController extends CommonController {
     @PostMapping("getVerifiCode")
     public StatusBean<?> getVerifiCode() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
-        if (massageUitls.sendMassageToSingle(getRequestJson())) {
-            statusBean.setRespMsg("发送成功");
-            statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-        } else {
-            statusBean.setRespMsg("发送失败");
-            statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-        }
+        massageUitls.sendMassageToSingle(getRequestJson());
+        statusBean.setRespMsg(MainConstants.SEND_SUCCESS);
+        statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         return statusBean;
     }
 
@@ -64,17 +64,34 @@ public class mainController extends CommonController {
             userInfoBean = userInfoService.selectOne(userInfoBean);
             if (BooleanUtils.isEmpty(userInfoBean)) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-                statusBean.setRespMsg("该手机未被使用");
+                statusBean.setRespMsg(MainConstants.UNUSED_MSG);
             } else {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-                statusBean.setRespMsg("该手机已被使用");
+                statusBean.setRespMsg(MainConstants.USED_MSG);
             }
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询失败!" + e);
+            statusBean.setRespMsg(MainConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
+    }
+
+
+    @PostMapping(value = "test")
+    public String test() {
+        testService.print();
+        String result = null;
+        try {
+            result = (String)testService.out().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        testService.print();
+        testService.print();
+        System.out.println(JwtTokenUtil.updateToken(getRequestJson()));
+        System.out.println("结束");
+        return result;
     }
 }

@@ -6,12 +6,15 @@ import com.OneTech.common.util.UUIDUtils;
 import com.OneTech.model.model.UserLanguageBean;
 import com.OneTech.service.service.UserLanguageService;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service("UserLanguageServiceImpl")
 public class UserLanguageServiceImpl extends BaseServiceImpl<UserLanguageBean> implements UserLanguageService {
+
     @Override
     public void updateLanguageSetting(JSONObject requestJson) throws Exception {
         UserLanguageBean userLanguageBean = new UserLanguageBean();
@@ -22,7 +25,7 @@ public class UserLanguageServiceImpl extends BaseServiceImpl<UserLanguageBean> i
             userLanguageBean.setFirstLanguage(requestJson.getString("firstLanguage"));
             userLanguageBean.setSecondLanguage(requestJson.getString("secondLanguage"));
             userLanguageBean.setThirdLanguage(requestJson.getString("thirdLanguage"));
-//            userLanguageBean.setUpdateTime(new Date());
+            userLanguageBean.setUpdateTime(new Date());
             this.saveOrUpdate(userLanguageBean);
         } else {
             userLanguageBean = new UserLanguageBean();

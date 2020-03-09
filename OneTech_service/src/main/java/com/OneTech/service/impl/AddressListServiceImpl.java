@@ -11,6 +11,8 @@ import com.OneTech.service.service.AddressListService;
 import com.OneTech.service.service.CommentsService;
 import com.OneTech.service.service.ResourceService;
 import com.OneTech.service.service.UserInfoService;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.socket.TextMessage;
 import com.OneTech.model.mapper.AddressListMapper;
 import com.OneTech.model.mapper.UserInfoMapper;
@@ -96,7 +98,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         addressListBean.setAccpetStatus(AddressListAccpetStatus.WAIT);
         addressListBean = this.selectOne(addressListBean);
         addressListBean.setAccpetStatus(AddressListAccpetStatus.ACCPETED);
-//        addressListBean.setUpdateTime(new Date());
+        addressListBean.setUpdateTime(new Date());
         this.saveOrUpdate(addressListBean);
     }
 
@@ -164,7 +166,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
             addressListBean.setFWechatId(requestJson.getString("fWechatId"));
             addressList = this.selectOne(addressListBean);
         }
-//        addressList.setUpdateTime(new Date());
+        addressList.setUpdateTime(new Date());
         addressList.setAccpetStatus(AddressListAccpetStatus.DELETED);
         this.saveOrUpdate(addressList);
     }
@@ -277,14 +279,14 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
         AddressListBean addressListBean = new AddressListBean();
         addressListBean.setWechatId(requestJson.getString("fWechatId"));
         addressListBean.setFWechatId(requestJson.getString("wechatId"));
-        addressListBean.setAccpetStatus("已接受");
+        addressListBean.setAccpetStatus(AddressListAccpetStatus.ACCPETED);
         if(BooleanUtils.isNotEmpty(this.selectOne(addressListBean))){
             return true;
         }
         addressListBean = new AddressListBean();
         addressListBean.setFWechatId(requestJson.getString("fWechatId"));
         addressListBean.setWechatId(requestJson.getString("wechatId"));
-        addressListBean.setAccpetStatus("已接受");
+        addressListBean.setAccpetStatus(AddressListAccpetStatus.ACCPETED);
         if(BooleanUtils.isNotEmpty(this.selectOne(addressListBean))){
             return true;
         }

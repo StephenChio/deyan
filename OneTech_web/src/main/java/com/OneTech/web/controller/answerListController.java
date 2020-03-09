@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.AnswerListConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.AnswerListVO;
@@ -21,11 +22,11 @@ public class answerListController extends CommonController {
         StatusBean<Boolean> statusBean = new StatusBean();
         try{
             answerListService.answerPublish(getRequestJson());
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(AnswerListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(AnswerListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
@@ -36,11 +37,11 @@ public class answerListController extends CommonController {
         StatusBean<AnswerListVO> statusBean = new StatusBean();
         try{
             statusBean.setData(answerListService.getAnswerById(getRequestJson()));
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(AnswerListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            statusBean.setRespMsg("查询失败"+e);
+            statusBean.setRespMsg(AnswerListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));

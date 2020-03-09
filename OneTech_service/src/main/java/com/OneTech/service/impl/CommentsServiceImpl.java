@@ -7,6 +7,8 @@ import com.OneTech.common.service.impl.BaseServiceImpl;
 import com.OneTech.common.constants.CommentConstants;
 import com.OneTech.service.service.CommentsService;
 import com.OneTech.model.mapper.CommentsMapper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import com.OneTech.model.model.CommentsBean;
 import com.OneTech.model.model.UserInfoBean;
@@ -28,6 +30,7 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
      * @param requestJson
      * @throws Exception
      */
+
     @Override
     public void clickLike(JSONObject requestJson) throws Exception {
         CommentsBean commentsBean = new CommentsBean();

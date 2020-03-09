@@ -7,6 +7,8 @@ import com.OneTech.common.util.massageUtils.massage.CHttpPost;
 import com.OneTech.common.util.massageUtils.massage.ConfigManager;
 import com.OneTech.common.util.massageUtils.massage.Message;
 import org.springframework.data.redis.core.TimeoutUtils;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +16,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service("MassageUitls")
+@EnableAsync
 public class MassageUitls {
     private  SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
     @Value("${userid}")
@@ -33,7 +36,9 @@ public class MassageUitls {
     String ipAddress3 = null;
     @Autowired
     RedisTemplate<String,String> redisTemplate;
-    public Boolean sendMassageToSingle(JSONObject requestJson){
+
+    @Async
+    public void sendMassageToSingle(JSONObject requestJson){
         ConfigManager.setIpInfo(masterIpAddress, ipAddress1, ipAddress2, ipAddress3);
         //密码是否加密   true：密码加密;false：密码不加密
         ConfigManager.IS_ENCRYPT_PWD = true;
@@ -82,18 +87,16 @@ public class MassageUitls {
             // 发送短信
             result = cHttpPost.singleSend(message, msgId);
             // result为0:成功;非0:失败
-            if (result == 0) {
-                System.out.println("单条发送提交成功！");
-                System.out.println(msgId.toString());
-                return true;
-            } else {
-                System.out.println("单条发送提交失败,错误码：" + result);
-                return false;
-            }
+//            if (result == 0) {
+//                System.out.println("单条发送提交成功！");
+//                System.out.println(msgId.toString());
+//            } else {
+//                System.out.println("单条发送提交失败,错误码：" + result);
+//            }
+//            System.out.println(Thread.currentThread().getName());
         } catch (Exception e) {
             //异常处理
             e.printStackTrace();
-            return false;
         }
     }
 }

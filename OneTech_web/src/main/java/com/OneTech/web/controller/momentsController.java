@@ -1,6 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.MomentsConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.MomentsVO;
@@ -36,11 +37,11 @@ public class momentsController extends CommonController {
         try {
             momentsService.publish(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("发表成功");
+            statusBean.setRespMsg(MomentsConstants.PUBLISH_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("发表异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.PUBLISH_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -52,11 +53,11 @@ public class momentsController extends CommonController {
         try {
             statusBean.setData(addressListService.getMomentsFriendList(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(MomentsConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -67,11 +68,11 @@ public class momentsController extends CommonController {
         try {
             statusBean.setData(addressListService.getMomentById(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(MomentsConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -82,11 +83,11 @@ public class momentsController extends CommonController {
         try {
             statusBean.setData(addressListService.getMomentsByWechatId(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(MomentsConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -98,11 +99,11 @@ public class momentsController extends CommonController {
         try {
             statusBean.setData(addressListService.getMomentsPictureByWechatId(getRequestJson()));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("查询成功");
+            statusBean.setRespMsg(MomentsConstants.QUERY_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("查询异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.QUERY_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -113,11 +114,11 @@ public class momentsController extends CommonController {
         try {
             momentsService.deleteMomentsPicture(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("删除成功");
+            statusBean.setRespMsg(MomentsConstants.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("删除异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.DELETE_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
@@ -129,11 +130,11 @@ public class momentsController extends CommonController {
         try {
             momentsService.deleteMomentsById(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("删除成功");
+            statusBean.setRespMsg(MomentsConstants.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("删除异常!" + e);
+            statusBean.setRespMsg(MomentsConstants.DELETE_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

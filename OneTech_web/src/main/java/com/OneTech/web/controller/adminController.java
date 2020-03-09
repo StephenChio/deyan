@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 
 import com.OneTech.common.constants.SystemConstants;
+import com.OneTech.common.constants.controllerConstants.AdminConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
@@ -22,16 +23,16 @@ public class adminController extends CommonController {
         try {
             if (adminService.login(getRequestJson())) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-                statusBean.setRespMsg("登陆成功");
+                statusBean.setRespMsg(AdminConstants.LOGIN_SUCCESS);
             }
             else{
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-                statusBean.setRespMsg("登陆失败");
+                statusBean.setRespMsg(AdminConstants.LOGIN_FAIL);
             }
         }catch (Exception e){
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("登陆失败");
+            statusBean.setRespMsg(AdminConstants.LOGIN_FAIL);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;

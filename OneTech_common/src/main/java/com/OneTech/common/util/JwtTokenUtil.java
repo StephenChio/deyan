@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 
 import java.io.*;
 import java.text.ParseException;
@@ -109,7 +110,6 @@ public class JwtTokenUtil {
             throw e;
         }
     }
-
     public static String updateToken(JSONObject requestJson){
         try {
             return JwtTokenUtil.generateToken(JwtTokenUtil.serializable((LoginVO) JwtTokenUtil.serializeToObject(requestJson.getString("token"))),7);

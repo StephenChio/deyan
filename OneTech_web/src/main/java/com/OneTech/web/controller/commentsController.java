@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.constants.controllerConstants.CommentsConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,11 @@ public class commentsController extends CommonController {
         try {
             commentsService.clickLike(getRequestJson());
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
-            statusBean.setRespMsg("点赞成功");
+            statusBean.setRespMsg(CommentsConstants.LIKE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
-            statusBean.setRespMsg("点赞异常!" + e);
+            statusBean.setRespMsg(CommentsConstants.LIKE_FAIL + e);
         }
         statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
         return statusBean;
