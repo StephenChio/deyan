@@ -83,11 +83,8 @@ public class QuestionListServiceImpl extends BaseServiceImpl<QuestionListBean> i
         UserLanguageBean userLanguageBean = new UserLanguageBean();
         userLanguageBean.setWechatId(requestJson.getString("wechatId"));
         userLanguageBean = userLanguageService.selectOne(userLanguageBean);
-        if (BooleanUtils.isEmpty(userLanguageBean)) {
-            return this.getAllQuestionList();
-        } else {
-            return this.getAllQuestionListByLanguage(userLanguageBean);
-        }
+        return (BooleanUtils.isEmpty(userLanguageBean))?this.getAllQuestionList():this.getAllQuestionListByLanguage(userLanguageBean);
+
     }
 
     @Override

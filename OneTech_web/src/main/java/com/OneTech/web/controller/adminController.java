@@ -7,6 +7,7 @@ import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.service.service.AdminService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,9 @@ public class adminController extends CommonController {
     @PostMapping("login")
     public StatusBean<?> login(){
         StatusBean<?> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            if (adminService.login(getRequestJson())) {
+            if (adminService.login(jsonObject)) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg(AdminConstants.LOGIN_SUCCESS);
             }
@@ -34,7 +36,7 @@ public class adminController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(AdminConstants.LOGIN_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 }

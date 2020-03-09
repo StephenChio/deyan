@@ -6,6 +6,7 @@ import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.service.service.CollectAnswerListService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,9 @@ public class collectAnswerListController extends CommonController {
     @PostMapping("collectAnswer")
     public StatusBean<?> collectAnswer() {
         StatusBean<Boolean> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try {
-            collectAnswerListService.collectAnswer(getRequestJson());
+            collectAnswerListService.collectAnswer(jsonObject);
             statusBean.setRespMsg(CollectAnswerListConstants.COLLECT_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
@@ -29,15 +31,16 @@ public class collectAnswerListController extends CommonController {
             statusBean.setRespMsg(CollectAnswerListConstants.COLLECT_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("disCollectAnswer")
     public StatusBean<?> disCollectAnswer() {
         StatusBean<Boolean> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try {
-            collectAnswerListService.disCollectAnswer(getRequestJson());
+            collectAnswerListService.disCollectAnswer(jsonObject);
             statusBean.setRespMsg(CollectAnswerListConstants.CANCEL_COLLECT_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
@@ -45,15 +48,16 @@ public class collectAnswerListController extends CommonController {
             statusBean.setRespMsg(CollectAnswerListConstants.CANCEL_COLLECT_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("judgeIsCollect")
     public StatusBean<?> judgeIsCollect() {
         StatusBean<Boolean> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(collectAnswerListService.judgeIsCollect(getRequestJson()));
+            statusBean.setData(collectAnswerListService.judgeIsCollect(jsonObject));
             statusBean.setRespMsg(CollectAnswerListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
@@ -61,7 +65,7 @@ public class collectAnswerListController extends CommonController {
             statusBean.setRespMsg(CollectAnswerListConstants.QUERY_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 }

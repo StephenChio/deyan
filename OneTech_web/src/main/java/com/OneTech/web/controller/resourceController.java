@@ -3,6 +3,7 @@ package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.controllerConstants.ResourceConstants;
 import com.OneTech.common.util.JwtTokenUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ public class resourceController extends CommonController {
     @PostMapping("get4MomentsImgByWechatId")
     public StatusBean<?> get4MomentsImgByWechatId() {
         StatusBean<List<String>> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(resourceService.get4MomentsImgByWechatId(getRequestJson()));
+            statusBean.setData(resourceService.get4MomentsImgByWechatId(jsonObject));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(ResourceConstants.QUERY_SUCCESS);
         } catch (Exception e) {
@@ -32,7 +34,7 @@ public class resourceController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(ResourceConstants.QUERY_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 

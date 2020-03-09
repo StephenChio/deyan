@@ -41,4 +41,6 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 
     String getDate(JSONObject requestJson) throws Exception;
 
+    Boolean checkPhoneUsed(JSONObject requestJson)throws Exception;
+
 }

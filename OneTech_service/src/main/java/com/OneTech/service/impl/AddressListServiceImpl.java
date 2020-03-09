@@ -13,6 +13,7 @@ import com.OneTech.service.service.ResourceService;
 import com.OneTech.service.service.UserInfoService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.TextMessage;
 import com.OneTech.model.mapper.AddressListMapper;
 import com.OneTech.model.mapper.UserInfoMapper;
@@ -53,6 +54,7 @@ public class AddressListServiceImpl extends BaseServiceImpl<AddressListBean> imp
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean sendVerification(JSONObject requestJson) throws Exception {
         AddressListBean addressListBean = new AddressListBean();
         addressListBean.setWechatId(requestJson.getString("wechatId"));

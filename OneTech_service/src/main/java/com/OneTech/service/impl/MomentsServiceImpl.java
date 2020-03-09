@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.OneTech.common.service.impl.BaseServiceImpl;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.stereotype.Service;
 import com.OneTech.model.model.ResourceBean;
@@ -47,6 +48,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      */
 
     @Override
+    @Transactional( rollbackFor = Exception.class)
     public void publish(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
         UserInfoBean userInfoBean = new UserInfoBean();
@@ -112,6 +114,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
 
     @Override
     @Deprecated
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMomentsPicture(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
         momentsBean.setPictureId(requestJson.getString("pictureId"));
@@ -138,6 +141,7 @@ public class MomentsServiceImpl extends BaseServiceImpl<MomentsBean> implements 
      */
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMomentsById(JSONObject requestJson) throws Exception {
         MomentsBean momentsBean = new MomentsBean();
         momentsBean.setId(requestJson.getString("id"));

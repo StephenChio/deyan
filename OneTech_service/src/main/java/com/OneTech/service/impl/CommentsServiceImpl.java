@@ -14,6 +14,7 @@ import com.OneTech.model.model.CommentsBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.TextMessage;
 
 import java.util.Date;
@@ -32,6 +33,7 @@ public class CommentsServiceImpl extends BaseServiceImpl<CommentsBean> implement
      */
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void clickLike(JSONObject requestJson) throws Exception {
         CommentsBean commentsBean = new CommentsBean();
         commentsBean.setMomentId(requestJson.getString("momentId"));

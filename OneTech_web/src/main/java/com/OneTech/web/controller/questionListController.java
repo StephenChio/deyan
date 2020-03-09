@@ -7,6 +7,7 @@ import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.QuestionListVO;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.service.service.QuestionListService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,9 @@ public class questionListController extends CommonController {
     @PostMapping("questionPublish")
     public StatusBean<?> questionPublish(){
         StatusBean<?> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            questionListService.questionPublish(getRequestJson());
+            questionListService.questionPublish(jsonObject);
             statusBean.setRespMsg(QuestionListConstants.PUBLISH_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -31,15 +33,16 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.PUBLISH_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("getMyQuestion")
     public StatusBean<?> getMyQuestion(){
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(questionListService.getMyQuestion(getRequestJson()));
+            statusBean.setData(questionListService.getMyQuestion(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -47,14 +50,15 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
     @PostMapping("getAllQuestionListByLanguageOption")
     public StatusBean<?> getAllQuestionListByLanguageOption(){
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(questionListService.getAllQuestionListByLanguageOption(getRequestJson()));
+            statusBean.setData(questionListService.getAllQuestionListByLanguageOption(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -62,12 +66,13 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
     @PostMapping("getAllQuestionList")
     public StatusBean<?> getAllQuestionList(){
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
             statusBean.setData(questionListService.getAllQuestionList());
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
@@ -77,14 +82,15 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
     @PostMapping("getQuestionInformationById")
     public StatusBean<?> getQuestionInformationById(){
         StatusBean<QuestionListVO> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(questionListService.getQuestionInformationById(getRequestJson()));
+            statusBean.setData(questionListService.getQuestionInformationById(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -92,14 +98,15 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
     @PostMapping("getMyFollow")
     public StatusBean<?> getMyFollow(){
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(questionListService.getMyFollow(getRequestJson()));
+            statusBean.setData(questionListService.getMyFollow(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -107,15 +114,16 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("getMyAnswer")
     public StatusBean<?> getMyAnswer(){
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(questionListService.getMyAnswer(getRequestJson()));
+            statusBean.setData(questionListService.getMyAnswer(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){
@@ -123,15 +131,16 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL+e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("getMyCollect")
     public StatusBean<?> getMyCollect() {
         StatusBean<List<QuestionListVO>> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(questionListService.getMyCollect(getRequestJson()));
+            statusBean.setData(questionListService.getMyCollect(jsonObject));
             statusBean.setRespMsg(QuestionListConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         } catch (Exception e) {
@@ -139,7 +148,7 @@ public class questionListController extends CommonController {
             statusBean.setRespMsg(QuestionListConstants.QUERY_FAIL + e);
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 

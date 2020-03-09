@@ -3,6 +3,7 @@ package com.OneTech.service.impl;
 import com.OneTech.common.constants.AddressListAccpetStatus;
 import com.OneTech.common.constants.SystemConstants;
 import com.OneTech.common.constants.TitleConstants;
+import com.OneTech.common.constants.controllerConstants.MainConstants;
 import com.OneTech.common.constants.controllerConstants.UserInfoConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.LoginVO;
@@ -23,6 +24,7 @@ import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.UploadUtils;
 import com.OneTech.common.util.UUIDUtils;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,6 +73,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfoBean updateBackgroundImg(JSONObject requestJson) throws Exception {
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
@@ -117,6 +120,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfoBean updatePicture(JSONObject requestJson) throws Exception {
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.setWechatId(requestJson.getString("wechatId"));
@@ -219,6 +223,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public LoginVO initUser(String phone) throws Exception {
         LoginVO loginVO = new LoginVO();
         UserInfoBean userInfoBean = new UserInfoBean();
@@ -480,5 +485,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
         Date nowDate = new Date();
         //转为天
        return String.valueOf((nowDate.getTime()-createTime.getTime())/1000/60/60/24);
+    }
+
+    @Override
+    public Boolean checkPhoneUsed(JSONObject requestJson) throws Exception {
+        UserInfoBean userInfoBean = new UserInfoBean();
+        userInfoBean.setPhone(requestJson.getString("phone"));
+        userInfoBean = this.selectOne(userInfoBean);
+        return (BooleanUtils.isEmpty(userInfoBean))?true:false;
     }
 }

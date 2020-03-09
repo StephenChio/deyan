@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -26,14 +27,12 @@ public class FollowListServiceImpl extends BaseServiceImpl<FollowListBean> imple
         followListBean.setWechatId(requestJson.getString("wechatId"));
         followListBean.setQuestionId(requestJson.getString("id"));
         followListBean.setFollowStatus(FollowConstants.FOLLOWED);
-        if (BooleanUtils.isNotEmpty(this.selectOne(followListBean))) {
-            return true;
-        } else {
-            return false;
-        }
+        return (BooleanUtils.isNotEmpty(this.selectOne(followListBean))) ? true: false;
+
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void disFollowQuestion(JSONObject requestJson) throws Exception {
         FollowListBean followListBean = new FollowListBean();
 
@@ -49,6 +48,7 @@ public class FollowListServiceImpl extends BaseServiceImpl<FollowListBean> imple
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void followQuestion(JSONObject requestJson) throws Exception {
         FollowListBean followListBean = new FollowListBean();
 

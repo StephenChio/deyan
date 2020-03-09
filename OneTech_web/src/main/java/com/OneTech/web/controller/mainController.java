@@ -4,6 +4,7 @@ import com.OneTech.common.constants.controllerConstants.MainConstants;
 import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.service.service.TestService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,14 +59,12 @@ public class mainController extends CommonController {
     @PostMapping("checkPhoneUsed")
     public StatusBean<?> checkPhoneUsed() {
         StatusBean<?> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            UserInfoBean userInfoBean = new UserInfoBean();
-            userInfoBean.setPhone(getRequestJson().getString("phone"));
-            userInfoBean = userInfoService.selectOne(userInfoBean);
-            if (BooleanUtils.isEmpty(userInfoBean)) {
+            if (userInfoService.checkPhoneUsed(jsonObject)){
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg(MainConstants.UNUSED_MSG);
-            } else {
+            }else{
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg(MainConstants.USED_MSG);
             }
@@ -74,7 +73,7 @@ public class mainController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(MainConstants.QUERY_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 

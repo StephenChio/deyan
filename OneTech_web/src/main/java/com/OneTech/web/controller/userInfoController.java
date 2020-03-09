@@ -7,6 +7,7 @@ import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.model.model.UserInfoBean;
 import com.OneTech.service.service.UserInfoService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ public class userInfoController extends CommonController {
     @PostMapping("searchFriend")
     public StatusBean<?> searchFriend() {
         StatusBean<List<UserInfoBean>> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            List<UserInfoBean> userinfos = userInfoService.searchFriend(getRequestJson());
+            List<UserInfoBean> userinfos = userInfoService.searchFriend(jsonObject);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SEARCH_SUCCESS);
             if (userinfos != null) statusBean.setData(userinfos);
@@ -33,15 +35,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SEARCH_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updateName")
     public StatusBean<?> updateName() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(userInfoService.updateName(getRequestJson()));
+            statusBean.setData(userInfoService.updateName(jsonObject));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -49,15 +52,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updatePicture")
     public StatusBean<?> updatePicture() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(userInfoService.updatePicture(getRequestJson()));
+            statusBean.setData(userInfoService.updatePicture(jsonObject));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -65,15 +69,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updateBackgroundImg")
     public StatusBean<?> updateBackgroundImg() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(userInfoService.updateBackgroundImg(getRequestJson()));
+            statusBean.setData(userInfoService.updateBackgroundImg(jsonObject));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -81,15 +86,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("changePhoneNum")
     public StatusBean<?> changePhoneNum() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            if (userInfoService.changePhoneNum(getRequestJson())) {
+            if (userInfoService.changePhoneNum(jsonObject)) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
                 statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
             } else {
@@ -101,15 +107,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updatePassword")
     public StatusBean<?> updatePassword() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            if (!userInfoService.updatePassword(getRequestJson())) {
+            if (!userInfoService.updatePassword(jsonObject)) {
                 statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
                 statusBean.setRespMsg(UserInfoConstants.OLD_PASS_ERROR_MSG);
             } else {
@@ -121,15 +128,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updateSex")
     public StatusBean<?> updateSex() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            userInfoService.updateSex(getRequestJson());
+            userInfoService.updateSex(jsonObject);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -137,15 +145,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("updateSign")
     public StatusBean<?> updateSign() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            userInfoService.updateSign(getRequestJson());
+            userInfoService.updateSign(jsonObject);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -153,14 +162,15 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
     @PostMapping("updatePosition")
     public StatusBean<?> updatePosition() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            userInfoService.updatePosition(getRequestJson());
+            userInfoService.updatePosition(jsonObject);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.SETTING_SUCCESS);
         } catch (Exception e) {
@@ -168,15 +178,16 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.SETTING_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 
     @PostMapping("getDate")
     public StatusBean<?> getDate() {
         StatusBean<String> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            statusBean.setData(userInfoService.getDate(getRequestJson()));
+            statusBean.setData(userInfoService.getDate(jsonObject));
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(UserInfoConstants.QUERY_SUCCESS);
         } catch (Exception e) {
@@ -184,7 +195,7 @@ public class userInfoController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.QUERY_FAIL+ e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 }

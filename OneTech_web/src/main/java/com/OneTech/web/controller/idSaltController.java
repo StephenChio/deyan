@@ -5,6 +5,7 @@ import com.OneTech.common.constants.controllerConstants.IdSaltConstants;
 import com.OneTech.common.controller.CommonController;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.service.service.IdSaltService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,9 @@ public class idSaltController extends CommonController {
     @PostMapping("getSalt")
     public StatusBean<?> getSalt(){
         StatusBean<String> statusBean = new StatusBean();
+        JSONObject jsonObject = getRequestJson();
         try{
-            statusBean.setData(idSaltService.getSalt(getRequestJson()));
+            statusBean.setData(idSaltService.getSalt(jsonObject));
             statusBean.setRespMsg(IdSaltConstants.QUERY_SUCCESS);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         }catch (Exception e){

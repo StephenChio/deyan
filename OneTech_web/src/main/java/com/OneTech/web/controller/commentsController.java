@@ -2,6 +2,7 @@ package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.controllerConstants.CommentsConstants;
 import com.OneTech.common.util.JwtTokenUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,9 @@ public class commentsController extends CommonController {
     @PostMapping("clickLike")
     public StatusBean<?> clickLike() {
         StatusBean<?> statusBean = new StatusBean<>();
+        JSONObject jsonObject = getRequestJson();
         try {
-            commentsService.clickLike(getRequestJson());
+            commentsService.clickLike(jsonObject);
             statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
             statusBean.setRespMsg(CommentsConstants.LIKE_SUCCESS);
         } catch (Exception e) {
@@ -29,7 +31,7 @@ public class commentsController extends CommonController {
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(CommentsConstants.LIKE_FAIL + e);
         }
-        statusBean.setToken(JwtTokenUtil.updateToken(getRequestJson()));
+        statusBean.setToken(JwtTokenUtil.updateToken(jsonObject));
         return statusBean;
     }
 }
