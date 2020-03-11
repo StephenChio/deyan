@@ -1,9 +1,7 @@
 package com.OneTech.web.controller;
 
 import com.OneTech.common.constants.controllerConstants.MainConstants;
-import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.JwtTokenUtil;
-import com.OneTech.service.service.TestService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +24,6 @@ public class mainController extends CommonController {
     RedisTemplate<String, String> redisTemplate;
     @Autowired
     MassageUitls massageUitls;
-    @Autowired
-    TestService testService;
 
     /**
      * 获取验证码
@@ -77,14 +73,4 @@ public class mainController extends CommonController {
         return statusBean;
     }
 
-
-    @PostMapping(value = "test")
-    public void test() throws Exception{
-        try {
-            testService.testTransactional();
-        }catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        }
-    }
 }
