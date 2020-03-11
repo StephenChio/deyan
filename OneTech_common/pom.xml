@@ -79,13 +79,6 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.springboot}</version>
         </dependency>
-        <!-- 原生mybatis end -->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
 
         <!--         <dependency> -->
         <!--             <groupId>com.alibaba</groupId> -->
@@ -268,11 +261,11 @@
             <artifactId>httpclient</artifactId>
             <version>4.3.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.16</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <version>1.2.16</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
