@@ -91,21 +91,6 @@
             <version>2.4</version>
         </dependency>
 
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-redis</artifactId>-->
-        <!--            <version>1.4.7.RELEASE</version>-->
-        <!--        </dependency>-->
-
-        <!--        &lt;!&ndash; spring session begin &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.session</groupId>-->
-        <!--            <artifactId>spring-session-data-redis</artifactId>-->
-        <!--        </dependency>-->
-        <!--        &lt;!&ndash; spring session end &ndash;&gt;-->
-
-        <!-- zookeeper start -->
         <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
@@ -257,11 +242,9 @@
             <version>1.1.1</version>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge</groupId>
-            <artifactId>pinyin4j</artifactId>
-            <version>2.5.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/pinyin4j-2.5.0.jar</systemPath>
-        </dependency>
+        <groupId>com.belerweb</groupId>
+        <artifactId>pinyin4j</artifactId>
+        <version>2.5.1</version>
+    </dependency>
     </dependencies>
 </project>
