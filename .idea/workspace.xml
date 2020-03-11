@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f5ff3cb5-b31a-4c98-bb22-9a5642880d0e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_web/src/main/resources/config/application-prod.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +255,7 @@
       <workItem from="1583767255271" duration="7569000" />
       <workItem from="1583836180600" duration="370000" />
       <workItem from="1583913738519" duration="863000" />
-      <workItem from="1583925897927" duration="1523000" />
+      <workItem from="1583925897927" duration="2511000" />
     </task>
     <servers />
   </component>
