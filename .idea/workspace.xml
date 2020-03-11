@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5ff3cb5-b31a-4c98-bb22-9a5642880d0e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OneTech_common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OneTech_common/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +254,7 @@
       <workItem from="1583767255271" duration="7569000" />
       <workItem from="1583836180600" duration="370000" />
       <workItem from="1583913738519" duration="863000" />
-      <workItem from="1583925897927" duration="9291000" />
+      <workItem from="1583925897927" duration="9952000" />
     </task>
     <servers />
   </component>
@@ -531,12 +531,12 @@
       <screen x="0" y="23" width="1280" height="735" />
     </state>
     <state x="0" y="23" width="1299" height="735" maximized="true" key="dock-window-1/0.23.1280.735@0.23.1280.735" timestamp="1582551268364" />
-    <state x="269" y="106" width="816" height="646" key="find.popup" timestamp="1583948315816">
+    <state x="269" y="106" width="816" height="646" key="find.popup" timestamp="1583950724649">
       <screen x="0" y="23" width="1280" height="734" />
     </state>
     <state x="65" y="97" width="816" height="703" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1583430509827" />
     <state x="65" y="111" width="816" height="645" key="find.popup/0.23.1280.733@0.23.1280.733" timestamp="1583942297434" />
-    <state x="269" y="106" width="816" height="646" key="find.popup/0.23.1280.734@0.23.1280.734" timestamp="1583948315816" />
+    <state x="269" y="106" width="816" height="646" key="find.popup/0.23.1280.734@0.23.1280.734" timestamp="1583950724649" />
     <state x="343" y="69" width="816" height="645" key="find.popup/0.23.1280.735@0.23.1280.735" timestamp="1583685312219" />
     <state x="343" y="70" width="816" height="643" key="find.popup/0.23.1280.736/-1440.-19.1440.877@0.23.1280.736" timestamp="1578545300055" />
     <state x="343" y="69" width="816" height="645" key="find.popup/0.23.1280.736@0.23.1280.736" timestamp="1578902555103" />

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OneTech.model.mapper.AnswerListMapper">
+    <select id="getAnswerListVOByQuestionId" resultType="com.OneTech.common.vo.AnswerListVO">
+    SELECT
+	al.ID,
+	al.WECHAT_ID,
+	ui.USER_NAME,
+	ui.IMG_PATH,
+	al.ANSWER_TEXT,
+	al.LIKE_NUM,
+	al.COLLECT_NUM,
+	al.COMMENTS_NUM,
+	al.CREATE_TIME
+FROM
+	answer_list al
+	LEFT JOIN user_info ui ON al.WECHAT_ID = ui.WECHAT_ID
+    WHERE
+	al.QUESTION_ID = #{ID}
+    ORDER BY
+	al.CREATE_TIME DESC
+    </select>
+    <select id="getAnswerById" resultType="com.OneTech.common.vo.AnswerListVO">
+    SELECT
+	al.ID,al.WECHAT_ID,ui.USER_NAME,ui.IMG_PATH,al.ANSWER_TEXT,al.LIKE_NUM,al.COLLECT_NUM,al.COMMENTS_NUM,al.CREATE_TIME
+    FROM
+	answer_list al left join user_info ui on al.WECHAT_ID = ui.WECHAT_ID
+    WHERE
+	al.ID = #{id}
+    ORDER BY
+	al.CREATE_TIME DESC
+    </select>
+    <select id="getNextAnswerId" resultType="String">
+		SELECT
+		al.ID
+		FROM
+		answer_list al left join user_info ui on al.WECHAT_ID = ui.WECHAT_ID
+		WHERE
+		al.QUESTION_ID =#{questionId} and al.CREATE_TIME &lt; (
+		SELECT CREATE_TIME
+		FROM
+		answer_list
+		WHERE ID = #{id}
+		)
+		ORDER BY
+		al.CREATE_TIME DESC LIMIT 1
+    </select>
+	<select id="getPreAnswerId" resultType="String">
+	SELECT
+	al.ID
+	FROM
+	answer_list al left join user_info ui on al.WECHAT_ID = ui.WECHAT_ID
+	WHERE
+	al.QUESTION_ID =#{questionId} and al.CREATE_TIME &gt; (
+	SELECT CREATE_TIME
+	FROM
+	answer_list
+	WHERE ID = #{id}
+	)
+	ORDER BY
+	al.CREATE_TIME ASC LIMIT 1
+	</select>
+</mapper>

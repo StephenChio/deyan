@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OneTech.model.mapper.QuestionListMapper">
+    <select id="getMyQuestion" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME
+        from question_list ql
+        where ql.WECHAT_ID = #{wechatId}
+        order by ql.CREATE_TIME DESC
+    </select>
+    <select id="getAllQuestionList" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME
+        from question_list ql
+        order by ql.CREATE_TIME DESC
+    </select>
+    <select id="getMyAnswer" resultType="com.OneTech.common.vo.QuestionListVO">
+SELECT
+	ql.ID,
+	ql.WECHAT_ID,
+	ql.TITLE,
+	ql.EXPLAIN_TEXT,
+	ql.LANGUAGE_TYPE,
+	ql.ANSWER_NUM,
+	ql.FOLLOW_NUM,
+	ql.VIEW_NUM,
+	ql.CREATE_TIME
+FROM
+	question_list ql LEFT JOIN answer_list al on ql.ID = al.QUESTION_ID
+WHERE al.WECHAT_ID  = #{wechatId}
+ORDER BY
+	ql.CREATE_TIME DESC
+    </select>
+    <select id="getAllQuestionListByLanguage" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME
+        from question_list ql
+        where ql.LANGUAGE_TYPE is null
+        <foreach collection="language" index="index" item="item">
+            or ql.LANGUAGE_TYPE = #{item}
+        </foreach>
+        order by ql.CREATE_TIME DESC
+    </select>
+    <select id="getQuestionInformationById" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME
+        from question_list ql
+        where ID = #{id}
+        order by ql.CREATE_TIME DESC
+    </select>
+    <select id="getMyFollow" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME
+        from question_list ql
+        left join follow_list fl on ql.ID = fl.QUESTION_ID
+        where fl.WECHAT_ID = #{wechatId} and fl.FOLLOW_STATUS = "followed"
+        order by ql.CREATE_TIME DESC
+    </select>
+    <select id="getMyCollect" resultType="com.OneTech.common.vo.QuestionListVO">
+        select ql.ID,ql.WECHAT_ID,ql.TITLE,ql.EXPLAIN_TEXT,ql.LANGUAGE_TYPE,ql.ANSWER_NUM,ql.FOLLOW_NUM,ql.VIEW_NUM,ql.CREATE_TIME,cal.ANSWER_ID as ANSWER
+        from question_list ql
+        left join collect_answer_list cal on ql.ID = cal.QUESTION_ID
+        where cal.WECHAT_ID = #{wechatId} and cal.COLLECT_STATUS = "collected"
+        order by ql.CREATE_TIME DESC
+    </select>
+</mapper>

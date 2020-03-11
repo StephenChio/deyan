@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OneTech.model.mapper.CommentsMapper">
+    <select id="selectLike" resultType="com.OneTech.common.vo.FriendListVO">
+       SELECT
+	uf.WECHAT_ID,
+	uf.IMG_PATH,
+	uf.USER_NAME,
+	r.REMARK_NAME
+FROM
+	user_info uf
+	LEFT JOIN comments c ON c.WECHAT_ID = uf.WECHAT_ID
+	LEFT JOIN remark r ON (
+		uf.WECHAT_ID = r.F_WECHAT_ID
+		AND r.WECHAT_ID = #{wechatId} )
+
+	WHERE
+		c.MOMENT_ID = #{momentId} and c.TYPE = "like" and uf.WECHAT_ID in (
+	SELECT
+		u.WECHAT_ID
+	FROM
+		user_info u
+	WHERE
+		u.WECHAT_ID IN (
+		SELECT
+			F_WECHAT_ID
+		FROM
+			address_list
+		WHERE
+			WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+
+			OR u.WECHAT_ID IN ( SELECT WECHAT_ID FROM address_list WHERE F_WECHAT_ID = #{wechatId} AND ACCPET_STATUS = '已接受' )
+			OR u.WECHAT_ID = #{wechatId}
+	)
+    </select>
+</mapper>
