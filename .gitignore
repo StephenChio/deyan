@@ -12,6 +12,7 @@ target/
 .springBeans
 .sts4-cache
 .DS_Store
+resources/img/
 ### IntelliJ IDEA ###
 OneTech_web/.idea
 *.iws
