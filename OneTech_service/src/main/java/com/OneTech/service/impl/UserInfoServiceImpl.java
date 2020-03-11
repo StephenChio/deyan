@@ -223,7 +223,6 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public LoginVO initUser(String phone) throws Exception {
         LoginVO loginVO = new LoginVO();
         UserInfoBean userInfoBean = new UserInfoBean();
@@ -294,7 +293,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @param requestJson
      * @return
      */
-    public StatusBean<?> passwordLogin(JSONObject requestJson) {
+    public StatusBean<?> passwordLogin(JSONObject requestJson) throws Exception{
         StatusBean<LoginVO> statusBean = new StatusBean();
         UserInfoBean userInfo = new UserInfoBean();
         LoginVO loginVO = new LoginVO();
@@ -344,6 +343,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.LOGIN_FAIL + e);
+            throw e;
         }
         return statusBean;
     }
@@ -353,7 +353,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @param requestJson
      * @return
      */
-    public StatusBean<?> verifiCodeLogin(JSONObject requestJson) {
+    public StatusBean<?> verifiCodeLogin(JSONObject requestJson) throws Exception{
         StatusBean<LoginVO> statusBean = new StatusBean();
         UserInfoBean userInfo = new UserInfoBean();
         LoginVO loginVO = new LoginVO();
@@ -410,6 +410,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             e.printStackTrace();
             statusBean.setRespCode(SystemConstants.RESPONSE_FAIL);
             statusBean.setRespMsg(UserInfoConstants.LOGIN_FAIL + e);
+            throw e;
         }
         return statusBean;
     }
@@ -420,7 +421,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @return
      */
     @Override
-    public StatusBean<?> login(JSONObject requestJson) {
+    @Transactional(rollbackFor = Exception.class)
+    public StatusBean<?> login(JSONObject requestJson) throws Exception{
         return ("password".equals(requestJson.getString("loginType")))?passwordLogin(requestJson):verifiCodeLogin(requestJson);
     }
 

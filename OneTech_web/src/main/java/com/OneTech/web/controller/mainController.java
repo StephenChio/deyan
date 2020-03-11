@@ -47,7 +47,7 @@ public class mainController extends CommonController {
      * @return
      */
     @PostMapping(value = "login")
-    public StatusBean<?> login() {
+    public StatusBean<?> login() throws Exception{
         return userInfoService.login(getRequestJson());
     }
 
@@ -79,18 +79,12 @@ public class mainController extends CommonController {
 
 
     @PostMapping(value = "test")
-    public String test() {
-        testService.print();
-        String result = null;
+    public void test() throws Exception{
         try {
-            result = (String)testService.out().get();
+            testService.testTransactional();
         }catch (Exception e){
             e.printStackTrace();
+            throw e;
         }
-        testService.print();
-        testService.print();
-        System.out.println(JwtTokenUtil.updateToken(getRequestJson()));
-        System.out.println("结束");
-        return result;
     }
 }

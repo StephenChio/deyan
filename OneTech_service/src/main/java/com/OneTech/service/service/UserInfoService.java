@@ -27,11 +27,11 @@ public interface UserInfoService extends IBaseService<UserInfoBean> {
 
     String getUserNameByWechatId(String wechatId) throws Exception;
 
-    StatusBean<?> login(JSONObject requestJson);
+    StatusBean<?> login(JSONObject requestJson)throws Exception;
 
-    StatusBean<?> passwordLogin(JSONObject requestJson);
+    StatusBean<?> passwordLogin(JSONObject requestJson)throws Exception;
 
-    StatusBean<?> verifiCodeLogin(JSONObject requestJson);
+    StatusBean<?> verifiCodeLogin(JSONObject requestJson)throws Exception;
 
     void updateSex(JSONObject requestJson) throws Exception;
 
