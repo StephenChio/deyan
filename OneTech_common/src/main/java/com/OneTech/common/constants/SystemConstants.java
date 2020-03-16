@@ -17,20 +17,20 @@ package com.OneTech.common.constants;
 public class SystemConstants {
 
 	/**
-	 * 响应成功，00
+	 * 响应成功，200
 	 */
-	public final static String RESPONSE_SUCCESS = "00";
+	public final static String RESPONSE_SUCCESS = "200";
 	
 	/**
-	 * 处理中，01
+	 * 处理中，201
 	 * */
-	public final static String RESPONSE_PROCESS = "01";
+	public final static String RESPONSE_PROCESS = "201";
 	
 	
 	/**
-	 * 响应失败，02
+	 * 响应失败，301
 	 * */
-	public final static String RESPONSE_FAIL = "02";
+	public final static String RESPONSE_FAIL = "301";
 	
 	
 	/**
