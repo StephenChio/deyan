@@ -1,5 +1,6 @@
 package com.OneTech.web.controller;
 
+import com.OneTech.common.config.kafkaConfig.KafkaProducer;
 import com.OneTech.common.constants.controllerConstants.MainConstants;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -25,13 +26,16 @@ public class mainController extends CommonController {
     @Autowired
     MassageUitls massageUitls;
 
+    @Autowired
+    KafkaProducer kafkaProducer;
+
     /**
      * 获取验证码
      */
     @PostMapping("getVerifiCode")
     public StatusBean<?> getVerifiCode() {
         StatusBean<UserInfoBean> statusBean = new StatusBean<>();
-        massageUitls.sendMassageToSingle(getRequestJson());
+        kafkaProducer.send(getRequestJson(),"message");
         statusBean.setRespMsg(MainConstants.SEND_SUCCESS);
         statusBean.setRespCode(SystemConstants.RESPONSE_SUCCESS);
         return statusBean;

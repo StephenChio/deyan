@@ -16,7 +16,6 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service("MassageUitls")
-@EnableAsync
 public class MassageUitls {
     private  SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
     @Value("${userid}")
@@ -37,7 +36,6 @@ public class MassageUitls {
     @Autowired
     RedisTemplate<String,String> redisTemplate;
 
-    @Async
     public void sendMassageToSingle(JSONObject requestJson){
         ConfigManager.setIpInfo(masterIpAddress, ipAddress1, ipAddress2, ipAddress3);
         //密码是否加密   true：密码加密;false：密码不加密

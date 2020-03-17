@@ -9,7 +9,9 @@ import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.vo.LoginVO;
 import com.OneTech.common.vo.StatusBean;
 import com.OneTech.model.model.AddressListBean;
+import com.OneTech.model.model.IdSaltBean;
 import com.OneTech.service.service.AddressListService;
+import com.OneTech.service.service.IdSaltService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -41,6 +43,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
     RedisTemplate<String, String> redisTemplate;
     @Value("${localUrl}")
     public String url;
+
+    @Autowired
+    IdSaltService idSaltService;
 
     @Override
     public List<UserInfoBean> searchFriend(JSONObject requestJson) throws Exception {
@@ -169,6 +174,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean changePhoneNum(JSONObject requestJson) throws Exception {
         String phone = requestJson.getString("phone");
         if (BooleanUtils.isEmpty(redisTemplate.opsForValue().get(phone))) {
@@ -178,9 +184,15 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoBean> implement
             UserInfoBean userInfoBean = new UserInfoBean();
             userInfoBean.setWechatId(requestJson.getString("wechatId"));
             userInfoBean = this.selectOne(userInfoBean);
+            String oldPhone = userInfoBean.getPhone();
             userInfoBean.setPhone(phone);
             userInfoBean.setUpdateTime(new Date());
             this.saveOrUpdate(userInfoBean);
+            IdSaltBean idSaltBean = new IdSaltBean();
+            idSaltBean.setPhone(oldPhone);
+            idSaltBean = idSaltService.selectOne(idSaltBean);
+            idSaltBean.setPhone(phone);
+            idSaltService.saveOrUpdate(idSaltBean);
             return true;
         } else {
             return false;
