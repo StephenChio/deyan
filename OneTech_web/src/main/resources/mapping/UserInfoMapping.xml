@@ -171,7 +171,7 @@ FROM
     user_info u
 	LEFT JOIN moments m ON u.MOMENTS_ID = m.MOMENTS_ID
 WHERE
-	u.WECHAT_ID = #{wechatId} order by m.CREATE_TIME DESC
+	u.WECHAT_ID = #{fWechatId} order by m.CREATE_TIME DESC
     </select>
     <select id="getMomentsPictureByWechatId" resultType="com.OneTech.common.vo.MomentsVO">
 SELECT
@@ -189,6 +189,6 @@ FROM
 	user_info u
 	LEFT JOIN moments m ON u.MOMENTS_ID = m.MOMENTS_ID
 WHERE
-	u.WECHAT_ID = #{wechatId} and m.PICTURE_ID is not null order by m.CREATE_TIME DESC
+	u.WECHAT_ID = #{fWechatId} and m.PICTURE_ID is not null order by m.CREATE_TIME DESC
     </select>
 </mapper>

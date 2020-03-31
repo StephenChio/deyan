@@ -64,6 +64,13 @@ public class StatusBean<T> {
 		this.respMsg = respMsg;
 		this.data = data;
 	}
+//	public StatusBean(String respCode, String respMsg, T data,String token) {
+//		super();
+//		this.respCode = respCode;
+//		this.respMsg = respMsg;
+//		this.data = data;
+//		this.token = token;
+//	}
 	
 	@SuppressWarnings({ "rawtypes" })
 	public static StatusBean success() {

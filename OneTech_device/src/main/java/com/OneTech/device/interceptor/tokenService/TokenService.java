@@ -3,6 +3,7 @@ package com.OneTech.device.interceptor.tokenService;
 import com.OneTech.common.util.BooleanUtils;
 import com.OneTech.common.util.JwtTokenUtil;
 import com.OneTech.common.util.redis.StringRedisTemplateUtil;
+import com.OneTech.common.vo.LoginVO;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
@@ -39,10 +40,12 @@ public class TokenService {
      */
     public boolean testToken(HttpServletRequest request) {
         String token = getRequestJson(request).getString("token");
+        String wechatId = getRequestJson(request).getString("wechatId");
         if (BooleanUtils.isEmpty(token)) return false;
         try {
-            Object object = JwtTokenUtil.serializeToObject(token);
+            LoginVO object = (LoginVO)JwtTokenUtil.serializeToObject(token);
             if (BooleanUtils.isEmpty(object)) return false;
+            if (!wechatId.equals(object.getWechatId())) return false;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("解码出错,或者超时");
