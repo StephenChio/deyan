@@ -102,22 +102,27 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
          * 该账号是否有未收到消息
          */
         String userName = session.getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME).toString();
-        if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {
-            try {
-                String payload[] = redisTemplate.opsForValue().get(userName).split(WebSocketConstants.PAYLOAD_SPLIT);
-                for (String load : payload) {
-                    TextMessage message = new TextMessage(load);
-                    if (load.startsWith("{\"to\":")) {//处理聊天消息
-                        this.handleTextMessage(session, message);
-                    } else {//处理其他消息
-                        this.sendMessageToUser(userName, message, true);
+        try {
+            if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {
+                try {
+                    String payload[] = redisTemplate.opsForValue().get(userName).split(WebSocketConstants.PAYLOAD_SPLIT);
+                    for (String load : payload) {
+                        TextMessage message = new TextMessage(load);
+                        if (load.startsWith("{\"to\":")) {//处理聊天消息
+                            this.handleTextMessage(session, message);
+                        } else {//处理其他消息
+                            this.sendMessageToUser(userName, message, true);
+                        }
+                        System.out.println("发送离线消息成功" + load);
                     }
-                    System.out.println("发送离线消息成功" + load);
+                    redisTemplate.delete(userName);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                redisTemplate.delete(userName);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        }catch (Exception e){
+            System.out.println("redis已经下线");
+            this.sendMessageToUser((String)session.getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME),new TextMessage("消息功能异常"),false);
         }
     }
 
@@ -164,13 +169,18 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         }
         if (!isSuccess) {//保存聊天消息
             String userName = "tab1" +  "and"  + jsonObject.getString("fWechatId");
-            if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {//之前有消息
-                String payload = redisTemplate.opsForValue().get(userName) + WebSocketConstants.PAYLOAD_SPLIT + message.getPayload();
-                redisTemplate.opsForValue().set(userName, payload);
-            } else {//之前没有消息
-                redisTemplate.opsForValue().set(userName, message.getPayload());
+            try {
+                if (BooleanUtils.isNotEmpty(redisTemplate.opsForValue().get(userName))) {//之前有消息
+                    String payload = redisTemplate.opsForValue().get(userName) + WebSocketConstants.PAYLOAD_SPLIT + message.getPayload();
+                    redisTemplate.opsForValue().set(userName, payload);
+                } else {//之前没有消息
+                    redisTemplate.opsForValue().set(userName, message.getPayload());
+                }
+                System.out.println("对方不在线，消息已经保存");
+            }catch (Exception e){
+                System.out.println("redis已经下线");
+                this.sendMessageToUser((String)session.getAttributes().get(WebSocketConstants.ATTRIBUTES_NAME),new TextMessage("消息功能异常"),false);
             }
-            System.out.println("对方不在线，消息已经保存");
         }
     }
 
